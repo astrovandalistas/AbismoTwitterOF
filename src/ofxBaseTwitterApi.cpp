@@ -31,7 +31,7 @@ string ofxBaseTwitterApi::getTweets() {
 		ofxBaseTwitterApi::parseTweets(getStaticTweetsJson(), staticTweets);
 	}
 	for(int i=0; i<staticTweets.size(); ++i){
-		foo += staticTweets[i]+"\n";
+		foo += string(staticTweets[i])+"\n";
 	}
 
 	return foo;
@@ -92,8 +92,7 @@ void ofxBaseTwitterApi::threadedFunction(){
 	}
 }
 
-// return the biggest tweet id
-void ofxBaseTwitterApi::parseTweets(const string& _json, vector<string>& theTweets){
+void ofxBaseTwitterApi::parseTweets(const string& _json, vector<ofxTweet>& theTweets){
 	vector<string> jsonTweets;
 	splitJson(_json, jsonTweets);
 
@@ -164,7 +163,7 @@ void ofxBaseTwitterApi::parseTweets(const string& _json, vector<string>& theTwee
 
 			////// results
 			ofLogNotice("tweeeeet!") << id << "@" << user << "(" << date << "):" << text;
-			theTweets.push_back("@"+user+"("+date+"):"+text);
+			theTweets.push_back(ofxTweet(text,user,date,myID));
 		}
 		// couldn't get root of json record
 		else{
@@ -176,27 +175,33 @@ void ofxBaseTwitterApi::parseTweets(const string& _json, vector<string>& theTwee
 void ofxBaseTwitterApi::splitJson(const string& _json, vector<string>& jsonTweets){
 	// split jsons...
 	int lastStart = -1;
-	int openCnt = 0;
-	bool seenBracket = false;
-	
+	int openCurlyCnt = 0;
+	int openBracketCnt = 0;
+
 	for(int i=0; i<_json.size(); ++i){
 		if(_json[i] == '['){
-			seenBracket = true;
+			openBracketCnt++;
 		}
-		if((_json[i] == '{')&&seenBracket){
+		if(_json[i] == ']'){
+			if(openBracketCnt == 1){
+				return;
+			}
+			openBracketCnt--;
+		}
+		if((_json[i] == '{')&&(openBracketCnt>0)){
 			// starting {
-			if(openCnt == 0){
+			if(openCurlyCnt == 0){
 				lastStart = i;
 			}
-			openCnt++;
+			openCurlyCnt++;
 		}
-		if((_json[i] == '}')&&seenBracket){
+		if((_json[i] == '}')&&(openBracketCnt>0)){
 			// found last }
-			if(openCnt == 1){
+			if(openCurlyCnt == 1){
 				jsonTweets.push_back(_json.substr(lastStart,i-lastStart+1));
 				//cout << jsonTweets[jsonTweets.size()-1]<<endl<<endl;
 			}
-			openCnt--;
+			openCurlyCnt--;
 		}
 	}
 }

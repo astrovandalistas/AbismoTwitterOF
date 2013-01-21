@@ -27,6 +27,20 @@
 #include "ofxOAuth.h"
 #include "jansson.h"
 
+struct ofxTweet {
+	string text, user, date;
+	long long int id;
+	ofxTweet(string t, string u, string d, long long int i){
+		text = t;
+		user = u;
+		date = d;
+		id = i;
+	}
+	operator string(){
+		return "@"+user+"("+date+"):"+text;
+	}
+};
+
 class ofxBaseTwitterApi : public ofxOAuth, public ofThread {
 public:
     ofxBaseTwitterApi() {}
@@ -34,18 +48,18 @@ public:
 		ofThread::stopThread();
 		ofThread::waitForThread();
 	}
-
     void setup(const string& _consumerKey, const string& _consumerSecret);
 	string getTweets();
 protected:
 	string userName, searchTerm;
 	long long int lastTweetID;
-	vector<string> staticTweets, liveTweets;
+	vector<ofxTweet> staticTweets, liveTweets;
 	void threadedFunction();
 private:
 	const string getStaticTweetsJson();
 	const string getLiveTweetsJson();
 	void setUserName();
-	void parseTweets(const string& _json, vector<string>& theTweets);
+	void parseTweets(const string& _json, vector<ofxTweet>& theTweets);
 	void splitJson(const string& _json, vector<string>& jsonTweets);
 };
+
