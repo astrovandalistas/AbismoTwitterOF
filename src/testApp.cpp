@@ -8,7 +8,7 @@ void testApp::setup(){
 	ofSetVerticalSync(true);
 	ofBackgroundHex(0xffff00);
 	//ofSetLogLevel(OF_LOG_VERBOSE);
-	myFont.loadFont("verdana.ttf",14);
+	myFont.loadFont("verdana.ttf",12);
 	myTwitter.setup(CONSUMER_KEY,CONSUMER_SECRET);
 	tweetResult = "";
 }
@@ -16,6 +16,7 @@ void testApp::setup(){
 //--------------------------------------------------------------
 void testApp::update(){
 	ofSetHexColor(0xff00ff);
+	tweetResult = myTwitter.getLiveTweets();
 }
 
 //--------------------------------------------------------------

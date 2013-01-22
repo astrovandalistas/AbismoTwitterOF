@@ -50,6 +50,7 @@ public:
 	}
     void setup(const string& _consumerKey, const string& _consumerSecret);
 	string getTweets();
+	string getLiveTweets();
 protected:
 	string userName, searchTerm;
 	long long int lastTweetID;

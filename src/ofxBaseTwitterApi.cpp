@@ -33,7 +33,14 @@ string ofxBaseTwitterApi::getTweets() {
 	for(int i=0; i<staticTweets.size(); ++i){
 		foo += string(staticTweets[i])+"\n";
 	}
+	return foo;
+}
 
+string ofxBaseTwitterApi::getLiveTweets() {
+	string foo = "";
+	for(int i=0; i<liveTweets.size(); ++i){
+		foo += string(liveTweets[i])+"\n";
+	}
 	return foo;
 }
 
