@@ -27,10 +27,10 @@
 #include "ofxOAuth.h"
 #include "jansson.h"
 
-struct ofxTweet {
+struct Tweet {
 	string text, user, date;
 	long long int id;
-	ofxTweet(string t, string u, string d, long long int i){
+	Tweet(string t, string u, string d, long long int i){
 		text = t;
 		user = u;
 		date = d;
@@ -54,13 +54,13 @@ public:
 protected:
 	string userName, searchTerm;
 	long long int lastTweetID;
-	vector<ofxTweet> staticTweets, liveTweets;
+	vector<Tweet> staticTweets, liveTweets;
 	void threadedFunction();
 private:
 	const string getStaticTweetsJson();
 	const string getLiveTweetsJson();
 	void setUserName();
-	void parseTweets(const string& _json, vector<ofxTweet>& theTweets);
+	void parseTweets(const string& _json, vector<Tweet>& theTweets);
 	void splitJson(const string& _json, vector<string>& jsonTweets);
 };
 

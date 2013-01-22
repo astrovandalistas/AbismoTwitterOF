@@ -99,7 +99,7 @@ void ofxBaseTwitterApi::threadedFunction(){
 	}
 }
 
-void ofxBaseTwitterApi::parseTweets(const string& _json, vector<ofxTweet>& theTweets){
+void ofxBaseTwitterApi::parseTweets(const string& _json, vector<Tweet>& theTweets){
 	vector<string> jsonTweets;
 	splitJson(_json, jsonTweets);
 
@@ -170,7 +170,7 @@ void ofxBaseTwitterApi::parseTweets(const string& _json, vector<ofxTweet>& theTw
 
 			////// results
 			ofLogNotice("tweeeeet!") << id << "@" << user << "(" << date << "):" << text;
-			theTweets.push_back(ofxTweet(text,user,date,myID));
+			theTweets.push_back(Tweet(text,user,date,myID));
 		}
 		// couldn't get root of json record
 		else{
