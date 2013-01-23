@@ -13,6 +13,8 @@ void testApp::setup(){
 	//ofSetLogLevel(OF_LOG_VERBOSE);
 	myFont.loadFont("verdana.ttf",12);
 	myTwitter.setup(CONSUMER_KEY,CONSUMER_SECRET);
+	ofEventArgs voidEventArg;
+	myTwitter.update(voidEventArg);
 
 	vector<Tweet> theTweets = myTwitter.getTweets();
 
@@ -23,10 +25,10 @@ void testApp::setup(){
 	gui.addLabelToggle("Enabled", false);
 	gui.addSpacer(gui.getRect()->width,4);
 	gui.addWidgetDown(new ofxUILabel("Tweets", OFX_UI_FONT_MEDIUM));
-
 	
-	for(int i=0;i<50;i++){
-		gui.addLabelButton("LABEL BUTTON"+ofToString(i), false);
+	for(int i=0;i<theTweets.size();i++){
+		string tweetText = fitStringToWidth(theTweets.at(i).text, gui.getRect()->width, *gui.getFontMedium());
+		gui.addLabelButton(tweetText, false, 0);
 	}
 	gui.autoSizeToFitWidgets();
 }
@@ -84,4 +86,26 @@ void testApp::gotMessage(ofMessage msg){
 //--------------------------------------------------------------
 void testApp::dragEvent(ofDragInfo dragInfo){ 
 
+}
+
+string testApp::fitStringToWidth(const string s, const int w, ofTrueTypeFont ttf){
+	string retStr="";
+	int firstChar=0;
+	while(firstChar < s.size()){
+		// add word to line
+		int nextSpace = s.find(" ",firstChar);
+		if(nextSpace == string::npos){
+			nextSpace = s.size();
+		}
+		string word = s.substr(firstChar,nextSpace-firstChar);
+		if(ttf.stringWidth(retStr+" "+word) > w){
+			retStr += "\n";
+		}
+		else if(firstChar != 0){
+			retStr += " ";
+		}
+		retStr += word;
+		firstChar = nextSpace+1;
+	}
+	return retStr;
 }

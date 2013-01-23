@@ -27,5 +27,6 @@ class testApp : public ofBaseApp{
 		ofxBaseTwitterApi myTwitter;
 	
 		ofxUIScrollableCanvas gui;
-
+	
+		string fitStringToWidth(const string s, const int w, ofTrueTypeFont ttf);
 };
