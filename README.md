@@ -4,5 +4,5 @@ It basically builds a database of tweets based on different parameters and chara
 
 It currenlty needs the following libs that have to be downloaded separately:
 - ofxOAuth (https://github.com/bakercp/ofxOAuth)
+- ofxUI (https://github.com/rezaali/ofxUI)
 - Jansson (https://github.com/akheron/jansson)
-
