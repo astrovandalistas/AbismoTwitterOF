@@ -49,8 +49,10 @@ public:
 		ofThread::waitForThread();
 	}
     void setup(const string& _consumerKey, const string& _consumerSecret);
-	string getTweets();
-	string getLiveTweets();
+	vector<Tweet>& getTweets();
+	Tweet getLastLiveTweet();
+	string getStringOfTweets();
+	string getStringOfLiveTweets();
 protected:
 	string userName, searchTerm;
 	long long int lastTweetID;

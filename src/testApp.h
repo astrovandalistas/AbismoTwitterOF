@@ -24,8 +24,7 @@ class testApp : public ofBaseApp{
 		void gotMessage(ofMessage msg);
 		
 		ofTrueTypeFont myFont;
-	    ofxBaseTwitterApi myTwitter;
-		string tweetResult;
+		ofxBaseTwitterApi myTwitter;
 	
 		ofxUIScrollableCanvas gui;
 

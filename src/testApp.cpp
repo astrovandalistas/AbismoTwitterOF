@@ -13,9 +13,8 @@ void testApp::setup(){
 	//ofSetLogLevel(OF_LOG_VERBOSE);
 	myFont.loadFont("verdana.ttf",12);
 	myTwitter.setup(CONSUMER_KEY,CONSUMER_SECRET);
-	tweetResult = "";
-	
-	myTwitter.getTweets();
+
+	vector<Tweet> theTweets = myTwitter.getTweets();
 
 	gui.setFont("verdana.ttf");
     gui.setScrollableDirections(false, true);
@@ -25,6 +24,7 @@ void testApp::setup(){
 	gui.addSpacer(gui.getRect()->width,4);
 	gui.addWidgetDown(new ofxUILabel("Tweets", OFX_UI_FONT_MEDIUM));
 
+	
 	for(int i=0;i<50;i++){
 		gui.addLabelButton("LABEL BUTTON"+ofToString(i), false);
 	}
@@ -34,12 +34,11 @@ void testApp::setup(){
 //--------------------------------------------------------------
 void testApp::update(){
 	ofSetHexColor(0xff00ff);
-	//tweetResult = myTwitter.getLiveTweets();
 }
 
 //--------------------------------------------------------------
 void testApp::draw(){
-	myFont.drawString(tweetResult,20,20);
+
 }
 
 //--------------------------------------------------------------

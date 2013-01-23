@@ -17,31 +17,46 @@ void ofxBaseTwitterApi::setup(const string& _consumerKey, const string& _consume
 	lastTweetID = 75502655925002239;
 	searchTerm = "#Abismo #abismo";
 	
+	// add an empty tweet to liveTweet vector
+	liveTweets.push_back(Tweet("","","",0));
+	
 	ofThread::startThread();
 }
 
-string ofxBaseTwitterApi::getTweets() {
-	string foo = "";
+vector<Tweet>& ofxBaseTwitterApi::getTweets() {
 	if(userName.compare("") == 0){
 		setUserName();
 	}
-
+	
 	// first time this is called. Fill it with stuff that's already online.
 	if(staticTweets.empty()){
 		ofxBaseTwitterApi::parseTweets(getStaticTweetsJson(), staticTweets);
 	}
-	for(int i=0; i<staticTweets.size(); ++i){
-		foo += string(staticTweets[i])+"\n";
-	}
-	return foo;
+	return staticTweets;
 }
 
-string ofxBaseTwitterApi::getLiveTweets() {
-	string foo = "";
-	for(int i=0; i<liveTweets.size(); ++i){
-		foo += string(liveTweets[i])+"\n";
+Tweet ofxBaseTwitterApi::getLastLiveTweet() {
+	return liveTweets.at(liveTweets.size()-1);
+}
+
+string ofxBaseTwitterApi::getStringOfTweets() {
+	if(userName.compare("") == 0){
+		getTweets();
 	}
-	return foo;
+
+	string returnStr = "";
+	for(int i=0; i<staticTweets.size(); ++i){
+		returnStr += string(staticTweets[i])+"\n";
+	}
+	return returnStr;
+}
+
+string ofxBaseTwitterApi::getStringOfLiveTweets() {
+	string returnStr = "";
+	for(int i=0; i<liveTweets.size(); ++i){
+		returnStr += string(liveTweets[i])+"\n";
+	}
+	return returnStr;
 }
 
 /*
