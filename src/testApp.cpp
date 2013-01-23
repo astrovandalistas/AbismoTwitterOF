@@ -12,11 +12,11 @@ void testApp::setup(){
 	ofBackgroundHex(0xffff00);
 	//ofSetLogLevel(OF_LOG_VERBOSE);
 	myFont.loadFont("verdana.ttf",12);
-	myTwitter.setup(CONSUMER_KEY,CONSUMER_SECRET);
+	//myTwitter.setup(CONSUMER_KEY,CONSUMER_SECRET);
 	ofEventArgs voidEventArg;
-	myTwitter.update(voidEventArg);
+	//myTwitter.update(voidEventArg);
 
-	vector<Tweet> theTweets = myTwitter.getTweets();
+	//vector<Tweet> theTweets = myTwitter.getTweets();
 
 	gui.setFont("verdana.ttf");
     gui.setScrollableDirections(false, true);
@@ -26,11 +26,26 @@ void testApp::setup(){
 	gui.addSpacer(gui.getRect()->width,4);
 	gui.addWidgetDown(new ofxUILabel("Tweets", OFX_UI_FONT_MEDIUM));
 	
-	for(int i=0;i<theTweets.size();i++){
-		string tweetText = fitStringToWidth(theTweets.at(i).text, gui.getRect()->width, *gui.getFontMedium());
-		gui.addLabelButton(tweetText, false, 0);
-	}
+	//for(int i=0;i<theTweets.size();i++){
+	//	string tweetText = fitStringToWidth(theTweets.at(i).text, gui.getRect()->width, *gui.getFontMedium());
+	//	gui.addLabelButton(tweetText, false, 0);
+	//}
 	gui.autoSizeToFitWidgets();
+	
+	//////////// graph
+	Node *n0 = new Node("video0");
+	Node *n1 = new Node("video1");
+	Edge *e = new Edge("tag0", 2);
+	n0->addEdge(*e);
+	e = new Edge("tag1", 2);
+	n0->addEdge(*e);
+	n1->addEdge(*e);
+	e = new Edge("cat0", 1);
+	n0->addEdge(*e);
+	n1->addEdge(*e);
+	
+	myGraph.calculateDists(n0);
+	myGraph.printGraph();
 }
 
 //--------------------------------------------------------------

@@ -25,9 +25,11 @@ class testApp : public ofBaseApp{
 		void gotMessage(ofMessage msg);
 		
 		ofTrueTypeFont myFont;
-		ofxBaseTwitterApi myTwitter;
+		//ofxBaseTwitterApi myTwitter;
 	
 		ofxUIScrollableCanvas gui;
 	
 		string fitStringToWidth(const string s, const int w, ofTrueTypeFont ttf);
+	
+		Graph myGraph;
 };
