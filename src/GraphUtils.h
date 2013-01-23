@@ -27,6 +27,7 @@ class Node {
 		void process() const;
 		void addEdge(Edge& e);
 		void addEdge(Edge* e);
+		static ofEvent<Node> addNodeToGraph;
 	protected:
 		int distance;
 		map<string, Edge*> theEdges;
@@ -43,6 +44,7 @@ public:
 	void addNode(Node& n);
 	void addNode(Node* n);
 	static ofEvent<Node> addNodeToQ;
+	static ofEvent<Edge> addEdgeToGraph;
 protected:
 	int minCost;
 	int cost;
@@ -54,14 +56,14 @@ class Graph {
 public:
 	Graph();
 	~Graph();
-	void addNode(Node& n);
-	void addNode(Node* n);
+	void addNodeToGraph(Node& n);
+	void addEdgeToGraph(Edge& e);
 	void addNodeToQ(Node& n);
-	void calculateDists(Node* fromNode) const;
+	void calculateDists(Node* fromNode);
 protected:
 	map<string, Node*> theNodes;
+	map<string, Edge*> theEdges;
 	queue<Node*> theQ;
-	// listen for addNodeToQ
 };
 
 

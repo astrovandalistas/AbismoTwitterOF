@@ -8,8 +8,11 @@
 
 #include "GraphUtils.h"
 
+ofEvent<Node> Node::addNodeToGraph = ofEvent<Node>();
+
 Node::Node(const string name_){
 	name = name_;
+	ofNotifyEvent(Node::addNodeToGraph, *this);
 }
 
 Node::~Node(){}
@@ -53,10 +56,12 @@ void Node::addEdge(Edge& e){
 //////////////////////////////////
 //////////////////////////////////
 ofEvent<Node> Edge::addNodeToQ = ofEvent<Node>();
+ofEvent<Edge> Edge::addEdgeToGraph = ofEvent<Edge>();
 
 Edge::Edge(const string name_, const int cost_){
 	name = name_;
 	cost = cost_;
+	ofNotifyEvent(Edge::addEdgeToGraph, *this);
 }
 Edge::~Edge(){}
 
@@ -94,16 +99,19 @@ void Edge::addNode(Node* n){
 //////////////////////////////////////
 //////////////////////////////////////
 
+// adds every created node and edge to graph using listeners. ????
 Graph::Graph(){
 	ofAddListener(Edge::addNodeToQ, this, &Graph::addNodeToQ);
+	ofAddListener(Node::addNodeToGraph, this, &Graph::addNodeToGraph);
+	ofAddListener(Edge::addEdgeToGraph, this, &Graph::addEdgeToGraph);
 }
 Graph::~Graph(){}
 
-void Graph::addNode(Node& n){
-	addNode(&n);
+void Graph::addNodeToGraph(Node& n){
+	theNodes[n.getName()] = &n;
 }
-void Graph::addNode(Node* n){
-	// add to node lists...
+void Graph::addEdgeToGraph(Edge& e){
+	theEdges[e.getName()] = &e;
 }
 
 void Graph::addNodeToQ(Node& n){
@@ -111,10 +119,16 @@ void Graph::addNodeToQ(Node& n){
 	theQ.push(&n);
 }
 
-void Graph::calculateDists(Node* fromNode) const{
+void Graph::calculateDists(Node* fromNode){
 	// push root.
 	// calculate dists.
+	theQ.push(fromNode);
 
+	while(!theQ.empty()){
+		Node n = *(theQ.front());
+		n.setInQ(false);
+		theQ.pop();
+		n.process();
+	}
 }
-
 
