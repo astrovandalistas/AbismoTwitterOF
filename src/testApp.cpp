@@ -88,24 +88,20 @@ void testApp::dragEvent(ofDragInfo dragInfo){
 
 }
 
+// doesn't exclude empty words
 string testApp::fitStringToWidth(const string s, const int w, ofTrueTypeFont ttf){
 	string retStr="";
-	int firstChar=0;
-	while(firstChar < s.size()){
-		// add word to line
-		int nextSpace = s.find(" ",firstChar);
-		if(nextSpace == string::npos){
-			nextSpace = s.size();
-		}
-		string word = s.substr(firstChar,nextSpace-firstChar);
+	istringstream ss( s );
+	while (!ss.eof()){
+		string word;
+		getline(ss,word,' ');
 		if(ttf.stringWidth(retStr+" "+word) > w){
 			retStr += "\n";
 		}
-		else if(firstChar != 0){
+		else if(retStr.size() != 0){
 			retStr += " ";
 		}
 		retStr += word;
-		firstChar = nextSpace+1;
 	}
 	return retStr;
 }
