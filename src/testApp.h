@@ -3,6 +3,7 @@
 #include "ofMain.h"
 #include "ofxBaseTwitterApi.h"
 #include "ofxUI.h"
+#include "GraphUtils.h"
 
 class testApp : public ofBaseApp{
 

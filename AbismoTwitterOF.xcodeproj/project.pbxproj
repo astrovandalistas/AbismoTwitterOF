@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AF7F662C16B044A60004327D /* GraphUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AF7F662A16B044A60004327D /* GraphUtils.cpp */; };
 		AFFD4A4A16ABABF2003D02A8 /* libcurl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AFFD49BD16ABABF2003D02A8 /* libcurl.a */; };
 		AFFD4A4B16ABABF2003D02A8 /* liboauth.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AFFD49C316ABABF2003D02A8 /* liboauth.a */; };
 		AFFD4A4C16ABABF2003D02A8 /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AFFD4A1416ABABF2003D02A8 /* libcrypto.a */; };
@@ -121,6 +122,8 @@
 		AF7F657D16AF8C380004327D /* ofxUIWaveform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxUIWaveform.h; sourceTree = "<group>"; };
 		AF7F657E16AF8C380004327D /* ofxUIWidget.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxUIWidget.h; sourceTree = "<group>"; };
 		AF7F657F16AF8C380004327D /* ofxUIWidgetWithLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxUIWidgetWithLabel.h; sourceTree = "<group>"; };
+		AF7F662A16B044A60004327D /* GraphUtils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GraphUtils.cpp; sourceTree = "<group>"; };
+		AF7F662B16B044A60004327D /* GraphUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GraphUtils.h; sourceTree = "<group>"; };
 		AFA480451696089E00986842 /* AbismoTwitterOFDebug.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AbismoTwitterOFDebug.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AFFD494A16ABABCD003D02A8 /* ofxBaseTwitterApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxBaseTwitterApi.h; sourceTree = "<group>"; };
 		AFFD49B216ABABF2003D02A8 /* curl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = curl.h; sourceTree = "<group>"; };
@@ -743,6 +746,8 @@
 				E4B69E1D0A3A1BDC003C02F2 /* main.cpp */,
 				E4B69E1E0A3A1BDC003C02F2 /* testApp.cpp */,
 				E4B69E1F0A3A1BDC003C02F2 /* testApp.h */,
+				AF7F662A16B044A60004327D /* GraphUtils.cpp */,
+				AF7F662B16B044A60004327D /* GraphUtils.h */,
 			);
 			path = src;
 			sourceTree = SOURCE_ROOT;
@@ -858,6 +863,7 @@
 				AFFD4AD616ABACFD003D02A8 /* value.c in Sources */,
 				AFFD4AD716ABACFD003D02A8 /* modp_b64.c in Sources */,
 				AFFD4AE616AC8D95003D02A8 /* ofxBaseTwitterApi.cpp in Sources */,
+				AF7F662C16B044A60004327D /* GraphUtils.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
