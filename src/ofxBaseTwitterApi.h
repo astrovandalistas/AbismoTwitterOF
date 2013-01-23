@@ -37,7 +37,7 @@ struct Tweet {
 		id = i;
 	}
 	operator string(){
-		return "@"+user+"("+date+"):"+text;
+		return "@"+user+"("+date+"):\n"+text;
 	}
 };
 
