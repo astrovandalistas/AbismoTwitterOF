@@ -44,7 +44,7 @@ void Node::process() const{
 
 // add edge to map. use name as key.
 void Node::addEdge(Edge* e){
-	if(theEdges.find(e->getName()) != theEdges.end()){
+	if(theEdges.find(e->getName()) == theEdges.end()){
 		theEdges[e->getName()] = e;
 		// link back to node...
 		e->addNode(this);
@@ -96,7 +96,7 @@ void Edge::addNode(Node& n){
 	addNode(&n);
 }
 void Edge::addNode(Node* n){
-	if(theNodes.find(n->getName()) != theNodes.end()){
+	if(theNodes.find(n->getName()) == theNodes.end()){
 		theNodes[n->getName()] = n;
 	}
 }
