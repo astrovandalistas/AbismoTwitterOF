@@ -7,11 +7,13 @@
 //
 
 #include "GraphUtils.h"
+#include "ofLog.h"
 
 ofEvent<Node> Node::addNodeToGraph = ofEvent<Node>();
 
 Node::Node(const string name_){
 	name = name_;
+	distance = (int)1e12;
 	ofNotifyEvent(Node::addNodeToGraph, *this);
 }
 
@@ -61,6 +63,7 @@ ofEvent<Edge> Edge::addEdgeToGraph = ofEvent<Edge>();
 Edge::Edge(const string name_, const int cost_){
 	name = name_;
 	cost = cost_;
+	minCost = (int)1e12;
 	ofNotifyEvent(Edge::addEdgeToGraph, *this);
 }
 Edge::~Edge(){}
@@ -84,6 +87,9 @@ void Edge::setCost(const int td){
 
 string Edge::getName() const{
 	return name;
+}
+int Edge::getCost() const{
+	return minCost;
 }
 
 void Edge::addNode(Node& n){
@@ -122,6 +128,7 @@ void Graph::addNodeToQ(Node& n){
 void Graph::calculateDists(Node* fromNode){
 	// push root.
 	// calculate dists.
+	fromNode->setDistance(0);
 	theQ.push(fromNode);
 
 	while(!theQ.empty()){
@@ -132,3 +139,13 @@ void Graph::calculateDists(Node* fromNode){
 	}
 }
 
+void Graph::printGraph(){
+	ofLogWarning("Nodes:")<< "";
+	for (map<string,Node*>::iterator it=theNodes.begin(); it!=theNodes.end(); ++it){
+		ofLogWarning() << it->first << ": " << (it->second)->getDistance();
+	}
+	ofLogWarning("Edges:") << "";
+	for (map<string,Edge*>::iterator it=theEdges.begin(); it!=theEdges.end(); ++it){
+		ofLogWarning() << it->first << ": " << (it->second)->getCost();
+	}
+}

@@ -41,6 +41,7 @@ public:
 	~Edge();
 	void setCost(const int td);
 	string getName() const;
+	int getCost() const;
 	void addNode(Node& n);
 	void addNode(Node* n);
 	static ofEvent<Node> addNodeToQ;
@@ -60,6 +61,8 @@ public:
 	void addEdgeToGraph(Edge& e);
 	void addNodeToQ(Node& n);
 	void calculateDists(Node* fromNode);
+	// debug
+	void printGraph();
 protected:
 	map<string, Node*> theNodes;
 	map<string, Edge*> theEdges;
