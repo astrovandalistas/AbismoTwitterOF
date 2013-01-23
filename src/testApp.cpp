@@ -4,6 +4,9 @@
 #define CONSUMER_SECRET "bx9rw5bsAb4K5WPmiT2UIc2j8Kmo5JVrlLHw9qpToh4"
 
 //--------------------------------------------------------------
+testApp::testApp() : gui(0,0,ofGetWidth()/4,ofGetHeight()), ofBaseApp(){ }
+
+//--------------------------------------------------------------
 void testApp::setup(){
 	ofSetVerticalSync(true);
 	ofBackgroundHex(0xffff00);
@@ -11,12 +14,27 @@ void testApp::setup(){
 	myFont.loadFont("verdana.ttf",12);
 	myTwitter.setup(CONSUMER_KEY,CONSUMER_SECRET);
 	tweetResult = "";
+	
+	myTwitter.getTweets();
+
+	gui.setFont("verdana.ttf");
+    gui.setScrollableDirections(false, true);
+
+	gui.addWidgetDown(new ofxUILabel("Live Tweets", OFX_UI_FONT_MEDIUM));
+	gui.addLabelToggle("Enabled", false);
+	gui.addSpacer(gui.getRect()->width,4);
+	gui.addWidgetDown(new ofxUILabel("Tweets", OFX_UI_FONT_MEDIUM));
+
+	for(int i=0;i<50;i++){
+		gui.addLabelButton("LABEL BUTTON"+ofToString(i), false);
+	}
+	gui.autoSizeToFitWidgets();
 }
 
 //--------------------------------------------------------------
 void testApp::update(){
 	ofSetHexColor(0xff00ff);
-	tweetResult = myTwitter.getLiveTweets();
+	//tweetResult = myTwitter.getLiveTweets();
 }
 
 //--------------------------------------------------------------
@@ -31,9 +49,7 @@ void testApp::keyPressed(int key){
 
 //--------------------------------------------------------------
 void testApp::keyReleased(int key){
-	if (key == ' '){
-		tweetResult = myTwitter.getTweets();
-	}
+
 }
 
 //--------------------------------------------------------------

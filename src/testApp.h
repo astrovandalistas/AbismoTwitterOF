@@ -2,10 +2,13 @@
 
 #include "ofMain.h"
 #include "ofxBaseTwitterApi.h"
+#include "ofxUI.h"
 
 class testApp : public ofBaseApp{
 
 	public:
+		testApp();
+	
 		void setup();
 		void update();
 		void draw();
@@ -23,4 +26,7 @@ class testApp : public ofBaseApp{
 		ofTrueTypeFont myFont;
 	    ofxBaseTwitterApi myTwitter;
 		string tweetResult;
+	
+		ofxUIScrollableCanvas gui;
+
 };
