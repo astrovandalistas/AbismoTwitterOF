@@ -74,7 +74,7 @@ void Edge::setCost(const int td){
 		minCost = td+cost;
 		
 		// send new cost to all nodes
-		for (map<string,Node*>::iterator it=theNodes.begin(); it!=theNodes.end(); ++it){
+		for (map<string,Node*>::const_iterator it=theNodes.begin(); it!=theNodes.end(); ++it){
 			if(minCost+cost < (it->second)->getDistance()){
 				(it->second)->setDistance(minCost+cost);
 				// Add node to graph Q
@@ -139,13 +139,13 @@ void Graph::calculateDists(Node* fromNode){
 	}
 }
 
-void Graph::printGraph(){
+void Graph::printGraph() const{
 	ofLogWarning("Nodes:")<< "";
-	for (map<string,Node*>::iterator it=theNodes.begin(); it!=theNodes.end(); ++it){
+	for (map<string,Node*>::const_iterator it=theNodes.begin(); it!=theNodes.end(); ++it){
 		ofLogWarning() << it->first << ": " << (it->second)->getDistance();
 	}
 	ofLogWarning("Edges:") << "";
-	for (map<string,Edge*>::iterator it=theEdges.begin(); it!=theEdges.end(); ++it){
+	for (map<string,Edge*>::const_iterator it=theEdges.begin(); it!=theEdges.end(); ++it){
 		ofLogWarning() << it->first << ": " << (it->second)->getCost();
 	}
 }

@@ -62,7 +62,7 @@ public:
 	void addNodeToQ(Node& n);
 	void calculateDists(Node* fromNode);
 	// debug
-	void printGraph();
+	void printGraph() const;
 protected:
 	map<string, Node*> theNodes;
 	map<string, Edge*> theEdges;
