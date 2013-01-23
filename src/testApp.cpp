@@ -35,14 +35,22 @@ void testApp::setup(){
 	//////////// graph
 	Node *n0 = new Node("video0");
 	Node *n1 = new Node("video1");
+	Node *n2 = new Node("video2");
 	Edge *e = new Edge("tag0", 2);
 	n0->addEdge(*e);
 	e = new Edge("tag1", 2);
 	n0->addEdge(*e);
 	n1->addEdge(*e);
+	e = new Edge("tag2", 2);
+	n0->addEdge(*e);
+	n2->addEdge(*e);
 	e = new Edge("cat0", 1);
 	n0->addEdge(*e);
 	n1->addEdge(*e);
+	e = new Edge("cat1", 1);
+	n2->addEdge(*e);
+	e = new Edge("cat2", 1);
+	n2->addEdge(*e);
 	
 	myGraph.calculateDists(n0);
 	myGraph.printGraph();
