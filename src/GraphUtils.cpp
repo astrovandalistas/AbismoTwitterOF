@@ -13,7 +13,7 @@ ofEvent<Node> Node::addNodeToGraph = ofEvent<Node>();
 
 Node::Node(const string name_){
 	name = name_;
-	distance = (int)1e9;
+	distance = 1e9;
 	ofNotifyEvent(Node::addNodeToGraph, *this);
 }
 
@@ -63,7 +63,7 @@ ofEvent<Edge> Edge::addEdgeToGraph = ofEvent<Edge>();
 Edge::Edge(const string name_, const int cost_){
 	name = name_;
 	cost = cost_;
-	minCost = (int)1e9;
+	minCost = 1e9;
 	ofNotifyEvent(Edge::addEdgeToGraph, *this);
 }
 Edge::~Edge(){}
@@ -126,8 +126,12 @@ void Graph::addNodeToQ(Node& n){
 }
 
 void Graph::calculateDists(Node* fromNode){
-	// push root.
-	// calculate dists.
+	// clear costs from nodes
+	for (map<string,Node*>::const_iterator it=theNodes.begin(); it!=theNodes.end(); ++it){
+		(it->second)->setDistance(1e9);
+	}
+
+	// push root calculate dists.
 	fromNode->setDistance(0);
 	theQ.push(fromNode);
 

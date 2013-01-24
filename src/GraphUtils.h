@@ -29,7 +29,7 @@ class Node {
 		void addEdge(Edge* e);
 		static ofEvent<Node> addNodeToGraph;
 	protected:
-		int distance;
+		float distance;
 		map<string, Edge*> theEdges;
 		string name;
 		bool bInQ;
@@ -47,8 +47,7 @@ public:
 	static ofEvent<Node> addNodeToQ;
 	static ofEvent<Edge> addEdgeToGraph;
 protected:
-	int minCost;
-	int cost;
+	float minCost, cost;
 	map<string,Node*> theNodes;
 	string name;
 };
