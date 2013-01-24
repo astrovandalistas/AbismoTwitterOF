@@ -35,8 +35,8 @@ void testApp::setup(){
 	//////////// graph
 	//Graph myGraph;
 	vector<Node*> someNodes;
-	int numNodes = 500;
-	int numEdges = 8000;
+	int numNodes = 100;
+	int numEdges = 800;
 	for(int i=0; i<numNodes; ++i){
 		Node *n = new Node("v"+ofToString(i));
 		someNodes.push_back(n);
