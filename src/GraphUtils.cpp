@@ -13,7 +13,7 @@ ofEvent<Node> Node::addNodeToGraph = ofEvent<Node>();
 
 Node::Node(const string name_){
 	name = name_;
-	distance = (int)1e12;
+	distance = (int)1e9;
 	ofNotifyEvent(Node::addNodeToGraph, *this);
 }
 
@@ -63,7 +63,7 @@ ofEvent<Edge> Edge::addEdgeToGraph = ofEvent<Edge>();
 Edge::Edge(const string name_, const int cost_){
 	name = name_;
 	cost = cost_;
-	minCost = (int)1e12;
+	minCost = (int)1e9;
 	ofNotifyEvent(Edge::addEdgeToGraph, *this);
 }
 Edge::~Edge(){}
