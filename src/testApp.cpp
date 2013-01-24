@@ -69,12 +69,17 @@ void testApp::setup(){
 	long long unsigned int et = AbsoluteToDuration(UpTime())-t0;
 	//myGraph.printGraph();
 	cout << "calculated from: " << n0->getName()+ " in: " << et << " millis"<<endl;
+	myGraph.orderGraph();
 }
 
 //--------------------------------------------------------------
 void testApp::update(){
 	ofSetHexColor(0xff00ff);
-	//myGraph.calculateDists();
+	myGraph.calculateDists();
+	long long unsigned int t0 = AbsoluteToDuration(UpTime());
+	myGraph.orderGraph();
+	long long unsigned int et = AbsoluteToDuration(UpTime())-t0;
+	cout << "ordered graph in: " << et << " millis"<<endl;
 }
 
 //--------------------------------------------------------------
