@@ -62,6 +62,7 @@ public:
 	void calculateDists(Node& fromNode);
 	// debug
 	void printGraph() const;
+	void calculateDists();
 protected:
 	map<string, Node*> theNodes;
 	map<string, Edge*> theEdges;

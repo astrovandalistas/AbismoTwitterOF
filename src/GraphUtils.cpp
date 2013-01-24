@@ -151,6 +151,20 @@ void Graph::calculateDists(Node& fromNode){
 	}
 }
 
+// for debug
+void Graph::calculateDists(){
+	int mi = (int)ofRandom(theNodes.size());
+	int i = 0;
+	Node *n0 = NULL;
+	for (map<string,Node*>::const_iterator it=theNodes.begin(); it!=theNodes.end()&&i<mi; ++it,++i){
+		n0 = it->second;
+	}
+	if(n0){
+		calculateDists(*n0);
+	}
+}
+
+// for debug
 void Graph::printGraph() const{
 	ofLogWarning("Nodes:")<< "";
 	for (map<string,Node*>::const_iterator it=theNodes.begin(); it!=theNodes.end(); ++it){
