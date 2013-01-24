@@ -59,7 +59,7 @@ public:
 	void addNodeToGraph(Node& n);
 	void addEdgeToGraph(Edge& e);
 	void addNodeToQ(Node& n);
-	void calculateDists(Node* fromNode);
+	void calculateDists(Node& fromNode);
 	// debug
 	void printGraph() const;
 protected:

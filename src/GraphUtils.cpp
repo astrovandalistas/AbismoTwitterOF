@@ -125,15 +125,15 @@ void Graph::addNodeToQ(Node& n){
 	theQ.push(&n);
 }
 
-void Graph::calculateDists(Node* fromNode){
+void Graph::calculateDists(Node& fromNode){
 	// clear costs from nodes
 	for (map<string,Node*>::const_iterator it=theNodes.begin(); it!=theNodes.end(); ++it){
 		(it->second)->setDistance(1e9);
 	}
 
 	// push root calculate dists.
-	fromNode->setDistance(0);
-	theQ.push(fromNode);
+	fromNode.setDistance(0);
+	theQ.push(&fromNode);
 
 	while(!theQ.empty()){
 		Node n = *(theQ.front());
