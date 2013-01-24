@@ -85,6 +85,10 @@ void Edge::setCost(const int td){
 	}
 }
 
+void Edge::resetMinCost(){
+	minCost = 1e9;
+}
+
 string Edge::getName() const{
 	return name;
 }
@@ -137,6 +141,10 @@ void Graph::calculateDists(Node& fromNode){
 	// clear costs from nodes
 	for (map<string,Node*>::const_iterator it=theNodes.begin(); it!=theNodes.end(); ++it){
 		(it->second)->setDistance(1e9);
+	}
+	// clear minDist from edges
+	for (map<string,Edge*>::const_iterator it=theEdges.begin(); it!=theEdges.end(); ++it){
+		(it->second)->resetMinCost();
 	}
 
 	// push root calculate dists.

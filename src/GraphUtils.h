@@ -40,6 +40,7 @@ public:
 	Edge(const string name_, const int cost_);
 	~Edge();
 	void setCost(const int td);
+	void resetMinCost();
 	string getName() const;
 	int getCost() const;
 	void addNode(Node& n);
