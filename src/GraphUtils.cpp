@@ -72,7 +72,7 @@ void Edge::setCost(const float td){
 	// if there's a shorter way to get here, update minCost
 	if(td+avgCost < minCost){
 		minCost = td+avgCost;
-
+		
 		// send new cost to all nodes
 		for (map<string,Node*>::const_iterator it=theNodes.begin(); it!=theNodes.end(); ++it){
 			if(minCost+avgCost < (it->second)->getDistance()){
@@ -147,11 +147,11 @@ void Graph::calculateDists(Node& fromNode){
 	for (map<string,Edge*>::const_iterator it=theEdges.begin(); it!=theEdges.end(); ++it){
 		(it->second)->resetMinCost();
 	}
-
+	
 	// push root calculate dists.
 	fromNode.setDistance(0);
 	theQ.push(&fromNode);
-
+	
 	while(!theQ.empty()){
 		Node n = *(theQ.front());
 		n.setInQ(false);
@@ -169,7 +169,10 @@ void Graph::calculateDists(){
 		n0 = it->second;
 	}
 	if(n0){
+		long long unsigned int t0 = AbsoluteToDuration(UpTime());
 		calculateDists(*n0);
+		long long unsigned int et = AbsoluteToDuration(UpTime())-t0;
+		cout << "calculated from: " << n0->getName()+ " in: " << et << " millis"<<endl;
 	}
 }
 
