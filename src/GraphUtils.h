@@ -19,8 +19,8 @@ class Node {
 	public:
 		Node(const string name_);
 		~Node();
-		void setDistance(int d);
-		const int getDistance() const;
+		void setDistance(float f);
+		const float getDistance() const;
 		const string getName() const;
 		const bool isInQ() const;
 		void setInQ(const bool q);
@@ -39,16 +39,16 @@ class Edge {
 public:
 	Edge(const string name_, const int cost_);
 	~Edge();
-	void setCost(const int td);
+	void setCost(const float td);
 	void resetMinCost();
 	string getName() const;
-	int getCost() const;
+	float getCost() const;
 	void addNode(Node& n);
 	void addNode(Node* n);
 	static ofEvent<Node> addNodeToQ;
 	static ofEvent<Edge> addEdgeToGraph;
 protected:
-	float minCost, cost;
+	float minCost, cost, avgCost;
 	map<string,Node*> theNodes;
 	string name;
 };

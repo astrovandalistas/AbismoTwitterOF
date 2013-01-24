@@ -19,10 +19,10 @@ Node::Node(const string name_){
 
 Node::~Node(){}
 
-void Node::setDistance(int d){
-	distance = d;
+void Node::setDistance(float f){
+	distance = f;
 }
-const int Node::getDistance() const{
+const float Node::getDistance() const{
 	return distance;
 }
 const string Node::getName() const{
@@ -68,15 +68,15 @@ Edge::Edge(const string name_, const int cost_){
 }
 Edge::~Edge(){}
 
-void Edge::setCost(const int td){
+void Edge::setCost(const float td){
 	// if there's a shorter way to get here, update minCost
-	if(td+cost < minCost){
-		minCost = td+cost;
+	if(td+avgCost < minCost){
+		minCost = td+avgCost;
 
 		// send new cost to all nodes
 		for (map<string,Node*>::const_iterator it=theNodes.begin(); it!=theNodes.end(); ++it){
-			if(minCost+cost < (it->second)->getDistance()){
-				(it->second)->setDistance(minCost+cost);
+			if(minCost+avgCost < (it->second)->getDistance()){
+				(it->second)->setDistance(minCost+avgCost);
 				// Add node to graph Q
 				(it->second)->setInQ(true);
 				ofNotifyEvent(Edge::addNodeToQ, *(it->second));
@@ -92,7 +92,7 @@ void Edge::resetMinCost(){
 string Edge::getName() const{
 	return name;
 }
-int Edge::getCost() const{
+float Edge::getCost() const{
 	return minCost;
 }
 
@@ -102,6 +102,7 @@ void Edge::addNode(Node& n){
 void Edge::addNode(Node* n){
 	if(theNodes.find(n->getName()) == theNodes.end()){
 		theNodes[n->getName()] = n;
+		avgCost = cost/theNodes.size();
 	}
 }
 
