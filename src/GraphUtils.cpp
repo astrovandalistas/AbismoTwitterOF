@@ -72,7 +72,7 @@ void Edge::setCost(const int td){
 	// if there's a shorter way to get here, update minCost
 	if(td+cost < minCost){
 		minCost = td+cost;
-		
+
 		// send new cost to all nodes
 		for (map<string,Node*>::const_iterator it=theNodes.begin(); it!=theNodes.end(); ++it){
 			if(minCost+cost < (it->second)->getDistance()){
@@ -111,7 +111,15 @@ Graph::Graph(){
 	ofAddListener(Node::addNodeToGraph, this, &Graph::addNodeToGraph);
 	ofAddListener(Edge::addEdgeToGraph, this, &Graph::addEdgeToGraph);
 }
-Graph::~Graph(){}
+
+Graph::~Graph(){
+	for (map<string,Node*>::const_iterator it=theNodes.begin(); it!=theNodes.end(); ++it){
+		delete it->second;
+	}
+	for (map<string,Edge*>::const_iterator it=theEdges.begin(); it!=theEdges.end(); ++it){
+		delete it->second;
+	}
+}
 
 void Graph::addNodeToGraph(Node& n){
 	theNodes[n.getName()] = &n;
