@@ -3,6 +3,7 @@
 #include "ofMain.h"
 #include "ofxBaseTwitterApi.h"
 #include "ofxUI.h"
+#include "ofxOsc.h"
 #include "GraphUtils.h"
 
 class testApp : public ofBaseApp{
@@ -25,11 +26,13 @@ class testApp : public ofBaseApp{
 		void gotMessage(ofMessage msg);
 		
 		ofTrueTypeFont myFont;
-		//ofxBaseTwitterApi myTwitter;
+		ofxBaseTwitterApi myTwitter;
 	
 		ofxUIScrollableCanvas gui;
+		void guiEvent(ofxUIEventArgs &e);
 
 		string fitStringToWidth(const string s, const int w, ofTrueTypeFont ttf);
 
 		Graph myGraph;
+		ofxOscSender sender;
 };

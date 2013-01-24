@@ -3,6 +3,9 @@
 #define CONSUMER_KEY "b7BrQXjIRKT8MhEkWnhQ"
 #define CONSUMER_SECRET "bx9rw5bsAb4K5WPmiT2UIc2j8Kmo5JVrlLHw9qpToh4"
 
+#define OSC_HOST "172.20.10.3"
+#define OSC_PORT 12345
+
 //--------------------------------------------------------------
 testApp::testApp() : gui(0,0,ofGetWidth()/4,ofGetHeight()), ofBaseApp(){ }
 
@@ -10,13 +13,12 @@ testApp::testApp() : gui(0,0,ofGetWidth()/4,ofGetHeight()), ofBaseApp(){ }
 void testApp::setup(){
 	ofSetVerticalSync(true);
 	ofBackgroundHex(0xffff00);
-	//ofSetLogLevel(OF_LOG_VERBOSE);
 	myFont.loadFont("verdana.ttf",12);
-	//myTwitter.setup(CONSUMER_KEY,CONSUMER_SECRET);
+	myTwitter.setup(CONSUMER_KEY,CONSUMER_SECRET);
 	ofEventArgs voidEventArg;
-	//myTwitter.update(voidEventArg);
+	myTwitter.update(voidEventArg);
 
-	//vector<Tweet> theTweets = myTwitter.getTweets();
+	vector<Tweet> theTweets = myTwitter.getTweets();
 
 	gui.setFont("verdana.ttf");
     gui.setScrollableDirections(false, true);
@@ -26,12 +28,16 @@ void testApp::setup(){
 	gui.addSpacer(gui.getRect()->width,4);
 	gui.addWidgetDown(new ofxUILabel("Tweets", OFX_UI_FONT_MEDIUM));
 	
-	//for(int i=0;i<theTweets.size();i++){
-	//	string tweetText = fitStringToWidth(theTweets.at(i).text, gui.getRect()->width, *gui.getFontMedium());
-	//	gui.addLabelButton(tweetText, false, 0);
-	//}
+	for(int i=0;i<theTweets.size();i++){
+		string tweetText = fitStringToWidth(theTweets.at(i).text, gui.getRect()->width, *gui.getFontMedium());
+		gui.addLabelButton(tweetText, false, 0);
+	}
 	gui.autoSizeToFitWidgets();
+	ofAddListener(gui.newGUIEvent,this,&testApp::guiEvent);
 	
+	////////// osc
+	sender.setup(OSC_HOST,OSC_PORT);
+
 	//////////// graph
 	//Graph myGraph;
 	vector<Node*> someNodes;
@@ -65,7 +71,7 @@ void testApp::setup(){
 //--------------------------------------------------------------
 void testApp::update(){
 	ofSetHexColor(0xff00ff);
-	myGraph.calculateDists();
+	//myGraph.calculateDists();
 }
 
 //--------------------------------------------------------------
@@ -116,6 +122,28 @@ void testApp::gotMessage(ofMessage msg){
 //--------------------------------------------------------------
 void testApp::dragEvent(ofDragInfo dragInfo){ 
 
+}
+
+//--------------------------------------------------------------
+void testApp::guiEvent(ofxUIEventArgs &e){
+	string name = e.widget->getName();
+	int kind = e.widget->getKind();
+
+	if(kind == OFX_UI_WIDGET_LABELBUTTON) {
+        ofxUILabelButton *button = (ofxUILabelButton *) e.widget;
+		if(button->getValue()){
+			string tweetText = button->getLabel()->getLabel();
+			cout << "sending to osc: " << tweetText << endl;
+			ofxOscMessage m;
+			m.setAddress("/kinho/tweet");
+			m.addStringArg(tweetText);
+			sender.sendMessage(m);
+		}
+    }
+    else if(kind == OFX_UI_WIDGET_LABELTOGGLE) {
+        ofxUILabelToggle *toggle = (ofxUILabelToggle *) e.widget;
+        cout << name << "\t value: " << toggle->getValue() << endl;
+    }
 }
 
 // doesn't exclude empty words
