@@ -33,32 +33,39 @@ void testApp::setup(){
 	gui.autoSizeToFitWidgets();
 	
 	//////////// graph
-	Node *n0 = new Node("video0");
-	Node *n1 = new Node("video1");
-	Node *n2 = new Node("video2");
-	Edge *e = new Edge("tag0", 2);
-	n0->addEdge(*e);
-	e = new Edge("tag1", 2);
-	n0->addEdge(*e);
-	n1->addEdge(*e);
-	e = new Edge("tag2", 2);
-	n0->addEdge(*e);
-	n2->addEdge(*e);
-	e = new Edge("cat0", 1);
-	n0->addEdge(*e);
-	n1->addEdge(*e);
-	e = new Edge("cat1", 1);
-	n2->addEdge(*e);
-	e = new Edge("cat2", 1);
-	n2->addEdge(*e);
-	
-	myGraph.calculateDists(n0);
-	myGraph.printGraph();
+	//Graph myGraph;
+	vector<Node*> someNodes;
+	int numNodes = 500;
+	int numEdges = 8000;
+	for(int i=0; i<numNodes; ++i){
+		Node *n = new Node("v"+ofToString(i));
+		someNodes.push_back(n);
+	}
+
+	for(int i=0; i<numEdges; ++i){
+		int edgeCost = (int)(ofRandom(2)+1);
+		string edgeType = (edgeCost<2)?"cat":"tag";
+		Edge *e = new Edge(edgeType+ofToString(i), edgeCost);
+		int npe = (int)ofRandom(numEdges/numNodes);
+		for(int j=0; j<npe; ++j){
+			// pick random node
+			Node *n = someNodes.at((int)ofRandom(someNodes.size()));
+			n->addEdge(e);
+		}
+	}
+
+	Node *n0 = someNodes.at((int)ofRandom(someNodes.size()));
+	long long unsigned int t0 = AbsoluteToDuration(UpTime());
+	myGraph.calculateDists(*n0);
+	long long unsigned int et = AbsoluteToDuration(UpTime())-t0;
+	//myGraph.printGraph();
+	cout << "calculated from: " << n0->getName()+ " in: " << et << " millis"<<endl;
 }
 
 //--------------------------------------------------------------
 void testApp::update(){
 	ofSetHexColor(0xff00ff);
+	myGraph.calculateDists();
 }
 
 //--------------------------------------------------------------
