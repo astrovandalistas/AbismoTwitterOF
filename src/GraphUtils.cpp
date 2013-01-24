@@ -19,6 +19,14 @@ Node::Node(const string name_){
 
 Node::~Node(){}
 
+bool Node::operator < (const Node &on) const{
+	return distance < on.distance;
+}
+
+bool Node::sortComp(Node *n0, Node *n1){
+	return *n0 < *n1;
+}
+
 void Node::setDistance(float f){
 	distance = f;
 }
@@ -67,6 +75,14 @@ Edge::Edge(const string name_, const int cost_){
 	ofNotifyEvent(Edge::addEdgeToGraph, *this);
 }
 Edge::~Edge(){}
+
+bool Edge::operator < (const Edge &oe) const{
+	return minCost < oe.minCost;
+}
+
+bool Edge::sortComp(Edge *e0, Edge *e1){
+	return *e0 < *e1;
+}
 
 void Edge::setCost(const float td){
 	// if there's a shorter way to get here, update minCost
@@ -128,9 +144,11 @@ Graph::~Graph(){
 
 void Graph::addNodeToGraph(Node& n){
 	theNodes[n.getName()] = &n;
+	orderedNodes.push_back(&n);
 }
 void Graph::addEdgeToGraph(Edge& e){
 	theEdges[e.getName()] = &e;
+	orderedEdges.push_back(&e);
 }
 
 void Graph::addNodeToQ(Node& n){
@@ -158,6 +176,27 @@ void Graph::calculateDists(Node& fromNode){
 		theQ.pop();
 		n.process();
 	}
+}
+
+void Graph::orderGraph(){
+	// check sizes
+	if(orderedNodes.size() != theNodes.size()){
+		ofLogWarning("orderedNodes and theNodes are inconsistent");
+		orderedNodes.clear();
+		for (map<string,Node*>::const_iterator it=theNodes.begin(); it!=theNodes.end(); ++it){
+			orderedNodes.push_back(it->second);
+		}
+	}
+	if(orderedEdges.size() != theEdges.size()){
+		ofLogWarning("orderedEdges and theEdges are inconsistent");
+		orderedEdges.clear();
+		for (map<string,Edge*>::const_iterator it=theEdges.begin(); it!=theEdges.end(); ++it){
+			orderedEdges.push_back(it->second);
+		}
+	}
+	// sort
+	sort(orderedNodes.begin(), orderedNodes.end(), Node::sortComp);
+	sort(orderedEdges.begin(), orderedEdges.end(), Edge::sortComp);
 }
 
 // for debug

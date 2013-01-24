@@ -28,6 +28,8 @@ class Node {
 		void addEdge(Edge& e);
 		void addEdge(Edge* e);
 		static ofEvent<Node> addNodeToGraph;
+		bool operator < (const Node &on) const;
+		static bool sortComp(Node *n0, Node *n1);
 	protected:
 		float distance;
 		map<string, Edge*> theEdges;
@@ -47,6 +49,8 @@ public:
 	void addNode(Node* n);
 	static ofEvent<Node> addNodeToQ;
 	static ofEvent<Edge> addEdgeToGraph;
+	bool operator < (const Edge &oe) const;
+	static bool sortComp(Edge *e0, Edge *e1);
 protected:
 	float minCost, cost, avgCost;
 	map<string,Node*> theNodes;
@@ -61,12 +65,15 @@ public:
 	void addEdgeToGraph(Edge& e);
 	void addNodeToQ(Node& n);
 	void calculateDists(Node& fromNode);
+	void orderGraph();
 	// debug
 	void printGraph() const;
 	void calculateDists();
 protected:
 	map<string, Node*> theNodes;
 	map<string, Edge*> theEdges;
+	vector<Node*> orderedNodes;
+	vector<Edge*> orderedEdges;
 	queue<Node*> theQ;
 };
 
