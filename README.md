@@ -10,4 +10,3 @@ It currenlty needs the following libs that have to be downloaded separately:
 And these addons from a regular OF distro:
 - ofxOsc
 - ofxXmlSettings
-- 
