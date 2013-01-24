@@ -26,6 +26,7 @@
 
 #include "ofxOAuth.h"
 #include "jansson.h"
+#include "ofEvents.h"
 
 struct Tweet {
 	string text, user, date;
@@ -53,9 +54,11 @@ public:
 	Tweet getLastLiveTweet();
 	string getStringOfTweets();
 	string getStringOfLiveTweets();
+	static ofEvent<Tweet> liveTweetEvent;
 protected:
 	string userName, searchTerm;
 	long long int lastTweetID;
+	int lastLiveTweetSent;
 	vector<Tweet> staticTweets, liveTweets;
 	void threadedFunction();
 private:

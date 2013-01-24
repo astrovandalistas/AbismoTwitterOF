@@ -10,6 +10,8 @@
 
 #define DEFAULT_USER "DEFAULT_USER"
 
+ofEvent<Tweet> ofxBaseTwitterApi::liveTweetEvent = ofEvent<Tweet>();
+
 void ofxBaseTwitterApi::setup(const string& _consumerKey, const string& _consumerSecret) {
 	ofxOAuth::setup("https://api.twitter.com",_consumerKey,_consumerSecret);
 	
@@ -19,7 +21,8 @@ void ofxBaseTwitterApi::setup(const string& _consumerKey, const string& _consume
 	
 	// add an empty tweet to liveTweet vector
 	liveTweets.push_back(Tweet("","","",0));
-	
+	lastLiveTweetSent = 0;
+
 	ofThread::startThread();
 }
 
@@ -108,6 +111,10 @@ void ofxBaseTwitterApi::threadedFunction(){
 		//cout << getLiveTweetsJson() << endl << endl;
 		if(lock()){
 			ofxBaseTwitterApi::parseTweets(getLiveTweetsJson(), liveTweets);
+			// see if we have tweets to broadcast
+			if(liveTweets.size()-1 > lastLiveTweetSent){
+				ofNotifyEvent(liveTweetEvent, liveTweets.at(++lastLiveTweetSent));
+			}
 			unlock();
 			ofThread::sleep(8000);
 		}
