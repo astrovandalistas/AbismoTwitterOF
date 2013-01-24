@@ -30,6 +30,8 @@ class testApp : public ofBaseApp{
 	
 		ofxUIScrollableCanvas gui;
 		void guiEvent(ofxUIEventArgs &e);
+		void sendLiveTweet(Tweet& t);
+		bool bSendLiveTweets;
 
 		string fitStringToWidth(const string s, const int w, ofTrueTypeFont ttf);
 

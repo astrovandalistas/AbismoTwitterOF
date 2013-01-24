@@ -18,6 +18,9 @@ void testApp::setup(){
 	ofEventArgs voidEventArg;
 	myTwitter.update(voidEventArg);
 
+	bSendLiveTweets = false;
+	ofAddListener(ofxBaseTwitterApi::liveTweetEvent, this, &testApp::sendLiveTweet);
+
 	vector<Tweet> theTweets = myTwitter.getTweets();
 
 	gui.setFont("verdana.ttf");
@@ -125,6 +128,17 @@ void testApp::dragEvent(ofDragInfo dragInfo){
 }
 
 //--------------------------------------------------------------
+void testApp::sendLiveTweet(Tweet& t){
+	if(bSendLiveTweets){
+		cout << "sending to osc: " << t.text << endl;
+		ofxOscMessage m;
+		m.setAddress("/kinho/live");
+		m.addStringArg(t.text);
+		sender.sendMessage(m);
+	}
+}
+
+//--------------------------------------------------------------
 void testApp::guiEvent(ofxUIEventArgs &e){
 	string name = e.widget->getName();
 	int kind = e.widget->getKind();
@@ -142,7 +156,9 @@ void testApp::guiEvent(ofxUIEventArgs &e){
     }
     else if(kind == OFX_UI_WIDGET_LABELTOGGLE) {
         ofxUILabelToggle *toggle = (ofxUILabelToggle *) e.widget;
-        cout << name << "\t value: " << toggle->getValue() << endl;
+		if(toggle->getLabel()->getLabel().compare("Enabled") == 0){
+			bSendLiveTweets = toggle->getValue();
+		}
     }
 }
 
