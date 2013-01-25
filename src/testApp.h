@@ -27,9 +27,6 @@ class testApp : public ofBaseApp{
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
 
-		// font
-		int mFontSize;
-
 		// twitter
 		ofxBaseTwitterApi mTwitter;
 		void sendLiveTweet(Tweet& t);
@@ -46,6 +43,8 @@ class testApp : public ofBaseApp{
 
 		// osc
 		ofxOscSender sender;
+		int oscFontSize;
+		string oscFontName;
 
 		// helpers
 		string fitStringToWidth(const string s, const int w, ofTrueTypeFont ttf);

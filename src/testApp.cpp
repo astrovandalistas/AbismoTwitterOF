@@ -19,14 +19,15 @@ ofBaseApp(){ }
 void testApp::setup(){
 	ofSetVerticalSync(true);
 	ofBackgroundHex(0x00);
-	mTwitter.setup(CONSUMER_KEY,CONSUMER_SECRET);
+	//mTwitter.setup(CONSUMER_KEY,CONSUMER_SECRET);
 	ofEventArgs voidEventArg;
-	mTwitter.update(voidEventArg);
+	//mTwitter.update(voidEventArg);
 
 	bSendLiveTweets = false;
 	ofAddListener(ofxBaseTwitterApi::liveTweetEvent, this, &testApp::sendLiveTweet);
 
-	vector<Tweet> theTweets = mTwitter.getTweets();
+	vector<Tweet> theTweets;
+	//theTweets = mTwitter.getTweets();
 
 	////////// TWEET GUI
 	tweetGui.setFont("verdana.ttf");
@@ -62,9 +63,15 @@ void testApp::setup(){
     buttonGui.addWidgetRight(new ofxUILabelButton("Clear",false));
 	buttonGui.addWidgetRight(new ofxUILabelButton("Clear All",false));
 
-    buttonGui.addWidgetEastOf(new ofxUIDropDownList("__FONT__", fontItems), "SPACER0");
-	buttonGui.addWidgetEastOf(new ofxUISlider("SIZE",MIN_FONT_SIZE,MAX_FONT_SIZE,MAX_FONT_SIZE/2,
+	ofxUIDropDownList *ddlist = (ofxUIDropDownList *) buttonGui.addWidgetEastOf(new ofxUIDropDownList("__FONT__", fontItems), "SPACER0");
+	ofxUISlider *slide = (ofxUISlider *) buttonGui.addWidgetEastOf(new ofxUISlider("SIZE",MIN_FONT_SIZE,MAX_FONT_SIZE,MAX_FONT_SIZE/2,
 											  buttonGui.getRect()->width/3,buttonHeight),"__FONT__");
+
+	// update local variables with default values
+	if(ddlist->getToggles().size()){
+		oscFontName = ddlist->getToggles()[0]->getName();
+	}
+	oscFontSize = slide->getScaledValue();
 
 	buttonGui.setColorBack(ofColor(100,200));
 	ofAddListener(buttonGui.newGUIEvent,this,&testApp::buttonGuiEvent);
@@ -184,13 +191,12 @@ void testApp::buttonGuiEvent(ofxUIEventArgs &e){
 
     if(e.widget->getName().compare("SIZE") == 0){
 		ofxUISlider *slider = (ofxUISlider *) e.widget;
-		mFontSize = (int)slider->getScaledValue();
+		oscFontSize = (int)slider->getScaledValue();
 	}
 	else if(e.widget->getName().compare("__FONT__") == 0){
 		ofxUIDropDownList *ddlist = (ofxUIDropDownList *) e.widget;
 		if(ddlist->getSelected().size()){
-			// TODO: set font here
-			cout << ddlist->getSelected()[0]->getName() << endl;
+			oscFontName = ddlist->getSelected()[0]->getName();
 		}
 	}
 	// TODO : add button listeners
