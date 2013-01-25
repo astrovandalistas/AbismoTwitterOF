@@ -87,6 +87,10 @@ void testApp::draw(){
 	mTSB.draw();
 	ofSetColor(100,100);
 	ofRect(drawArea);
+	ofSetColor(255,20,20,100);
+	ofRect(tweetArea);
+	ofSetColor(20,20,255,100);
+	ofRect(liveArea);
 }
 
 //--------------------------------------------------------------
@@ -106,17 +110,39 @@ void testApp::mouseMoved(int x, int y ){
 
 //--------------------------------------------------------------
 void testApp::mouseDragged(int x, int y, int button){
-
+	if(drawArea.inside(x, y)){
+		if(button == 0){
+			tweetArea.width = x-tweetArea.x;
+			tweetArea.height = y-tweetArea.y;
+		}
+		else {
+			liveArea.width = x-liveArea.x;
+			liveArea.height = y-liveArea.y;
+		}
+	}
 }
 
 //--------------------------------------------------------------
 void testApp::mousePressed(int x, int y, int button){
-
+	if(drawArea.inside(x, y)){
+		if(button == 0){
+			tweetArea.x = x;
+			tweetArea.y = y;
+			tweetArea.width = 0;
+			tweetArea.height = 0;
+		}
+		else {
+			liveArea.x = x;
+			liveArea.y = y;
+			liveArea.width = 0;
+			liveArea.height = 0;
+		}
+	}
 }
 
 //--------------------------------------------------------------
 void testApp::mouseReleased(int x, int y, int button){
-
+	// TODO: set text draw area variables
 }
 
 //--------------------------------------------------------------
