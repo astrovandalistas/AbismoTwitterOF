@@ -24,7 +24,7 @@ class TextStack {
 	public:
 		TextStack();
 		~TextStack();
-		void addObject(TextObject obj_);
+		void pushObject(TextObject obj_);
 		void popObject();
 		void clearObjects();
 		const TextObject& operator[](const unsigned int i);

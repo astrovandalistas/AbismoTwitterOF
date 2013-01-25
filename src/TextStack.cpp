@@ -19,7 +19,7 @@ TextObject::~TextObject(){}
 TextStack::TextStack(){}
 TextStack::~TextStack(){}
 
-void TextStack::addObject(TextObject obj_){
+void TextStack::pushObject(TextObject obj_){
 	theStack.push_back(obj_);
 }
 void TextStack::popObject(){
