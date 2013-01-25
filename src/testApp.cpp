@@ -57,7 +57,7 @@ void testApp::setup(){
 	buttonGui.addSpacer(buttonGui.getRect()->width,4);
 	buttonGui.addSpacer(0.4*buttonGui.getRect()->width,0, "SPACER0");
 	float buttonHeight = buttonGui.getRect()->height/4.0;
-	buttonGui.addWidgetDown(new ofxUIToggle("Increment Word Pos",false,buttonHeight,buttonHeight));
+	buttonGui.addWidgetDown(new ofxUIToggle("SEND ONE WORD",false,buttonHeight,buttonHeight));
 	buttonGui.addWidgetDown(new ofxUILabelButton("Send", false));
 	//gui->addWidgetRight(new ofxUIButton("Fade In", false));
     buttonGui.addWidgetRight(new ofxUILabelButton("Clear",false));
@@ -207,15 +207,19 @@ void testApp::buttonGuiEvent(ofxUIEventArgs &e){
 			oscFont.loadFont(oscFontName, oscFontSize);
 		}
 	}
+	else if(e.widget->getName().compare("Clear") == 0){
+		ofxOscMessage m;
+		m.setAddress("/kinho/pop");
+		m.addIntArg(1);
+		sender.sendMessage(m);
+	}
+	else if(e.widget->getName().compare("Clear All") == 0){
+		ofxOscMessage m;
+		m.setAddress("/kinho/clear");
+		m.addIntArg(1);
+		sender.sendMessage(m);
+	}
 	// TODO : add button listeners
-
-	/*****
-	 cout << "sending to osc: " << tweetText << endl;
-	 ofxOscMessage m;
-	 m.setAddress("/kinho/tweet");
-	 m.addStringArg(tweetText);
-	 sender.sendMessage(m);
-	 ****/
 }
 
 //--------------------------------------------------------------
