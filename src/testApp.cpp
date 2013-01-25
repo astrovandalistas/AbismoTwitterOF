@@ -19,7 +19,6 @@ ofBaseApp(){ }
 void testApp::setup(){
 	ofSetVerticalSync(true);
 	ofBackgroundHex(0x00);
-	mFont.loadFont("verdana.ttf",12);
 	mTwitter.setup(CONSUMER_KEY,CONSUMER_SECRET);
 	ofEventArgs voidEventArg;
 	mTwitter.update(voidEventArg);

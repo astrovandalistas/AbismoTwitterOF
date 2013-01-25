@@ -28,7 +28,6 @@ class testApp : public ofBaseApp{
 		void gotMessage(ofMessage msg);
 
 		// font
-		ofTrueTypeFont mFont;
 		int mFontSize;
 
 		// twitter
