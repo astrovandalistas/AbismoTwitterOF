@@ -180,12 +180,22 @@ void testApp::sendLiveTweet(Tweet& t){
 
 //--------------------------------------------------------------
 void testApp::buttonGuiEvent(ofxUIEventArgs &e){
-	// TODO : fill this out
 	string name = e.widget->getName();
 	int kind = e.widget->getKind();
-	
-	if(kind == OFX_UI_WIDGET_LABELBUTTON) {
+
+    if(e.widget->getName().compare("SIZE") == 0){
+		ofxUISlider *slider = (ofxUISlider *) e.widget;
+		mFontSize = (int)slider->getScaledValue();
 	}
+	else if(e.widget->getName().compare("__FONT__") == 0){
+		ofxUIDropDownList *ddlist = (ofxUIDropDownList *) e.widget;
+		if(ddlist->getSelected().size()){
+			// TODO: set font here
+			cout << ddlist->getSelected()[0]->getName() << endl;
+		}
+	}
+	// TODO : add button listeners
+
 	/*****
 	 cout << "sending to osc: " << tweetText << endl;
 	 ofxOscMessage m;

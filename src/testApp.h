@@ -43,6 +43,7 @@ class testApp : public ofBaseApp{
 		TextSelectBar mTSB;
 		// this could've been in a class... could've been...
 		ofRectangle drawArea, tweetArea, liveArea;
+		int mFontSize;
 
 		// debug
 		void testGraphSetup();
