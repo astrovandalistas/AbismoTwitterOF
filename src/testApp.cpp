@@ -180,9 +180,8 @@ void testApp::sendLiveTweet(Tweet& t){
 		cout << "sending to osc: " << t.text << endl;
 		ofxOscMessage m;
 		m.setAddress("/kinho/push");
-		// TODO : add % float 
-		m.addIntArg(liveArea.x);
-		m.addIntArg(liveArea.y);
+		m.addFloatArg((liveArea.x-drawArea.x)/drawArea.width);
+		m.addFloatArg((liveArea.y-drawArea.y)/drawArea.height);
 		m.addStringArg(oscFontName);
 		m.addIntArg(oscFontSize);
 		string sizedText = fitStringToWidth(t.text, liveArea.width, oscFont);
@@ -225,9 +224,8 @@ void testApp::buttonGuiEvent(ofxUIEventArgs &e){
 	else if((e.widget->getName().compare("Send") == 0) && ((ofxUIButton*)e.widget)->getValue()){
 		ofxOscMessage m;
 		m.setAddress("/kinho/push");
-		// TODO : add % float 
-		m.addIntArg(tweetArea.x);
-		m.addIntArg(tweetArea.y);
+		m.addFloatArg((tweetArea.x-drawArea.x)/drawArea.width);
+		m.addFloatArg((tweetArea.y-drawArea.y)/drawArea.height);
 		m.addStringArg(oscFontName);
 		m.addIntArg(oscFontSize);
 		// TODO : add WORDxWORD conditional + logic
