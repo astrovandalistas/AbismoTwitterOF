@@ -70,13 +70,13 @@ void testApp::setup(){
 	sender.setup(OSC_HOST,OSC_PORT);
 
 	//////////// graph
-	testGraphSetup();
+	//testGraphSetup();
 }
 
 //--------------------------------------------------------------
 void testApp::update(){
 	ofSetHexColor(0xff00ff);
-	testGraphUpdate();
+	//testGraphUpdate();
 }
 
 //--------------------------------------------------------------
@@ -148,8 +148,8 @@ void testApp::buttonGuiEvent(ofxUIEventArgs &e){
 //--------------------------------------------------------------
 void testApp::testGraphSetup(){
 	vector<Node*> someNodes;
-	int numNodes = 10;
-	int numEdges = 40;
+	int numNodes = 100;
+	int numEdges = 800;
 	for(int i=0; i<numNodes; ++i){
 		Node *n = new Node("v"+ofToString(i));
 		someNodes.push_back(n);
@@ -171,7 +171,6 @@ void testApp::testGraphSetup(){
 	long long unsigned int t0 = AbsoluteToDuration(UpTime());
 	myGraph.calculateDists(*n0);
 	long long unsigned int et = AbsoluteToDuration(UpTime())-t0;
-	//myGraph.printGraph();
 	cout << "calculated from: " << n0->getName()+ " in: " << et << " millis"<<endl;
 	myGraph.orderGraph();
 	myGraph.printGraph();
