@@ -28,20 +28,20 @@ void testApp::setup(){
 
 	////////// TWEET GUI
 	tweetGui.setFont("verdana.ttf");
-    tweetGui.setScrollableDirections(false, true);
-
+	tweetGui.setScrollableDirections(false, true);
+	
 	tweetGui.addWidgetDown(new ofxUILabel("Live Tweets", OFX_UI_FONT_MEDIUM));
 	tweetGui.addLabelToggle("Enabled", false);
 	tweetGui.addSpacer(tweetGui.getRect()->width,4);
 	tweetGui.addWidgetDown(new ofxUILabel("Tweets", OFX_UI_FONT_MEDIUM));
-	
+
 	for(int i=0;i<theTweets.size();i++){
 		string tweetText = fitStringToWidth(theTweets.at(i).text, tweetGui.getRect()->width, *tweetGui.getFontMedium());
 		tweetGui.addLabelButton(tweetText, false, 0);
 	}
 	tweetGui.autoSizeToFitWidgets();
 	ofAddListener(tweetGui.newGUIEvent,this,&testApp::tweetGuiEvent);
-	
+
 	////////// BUTTON GUI
 	vector<string> fontItems;
 	fontItems.push_back("FONT_0");
@@ -65,59 +65,23 @@ void testApp::setup(){
 	////////// text bar
 	mTSB.setup(ofGetWidth()/4, 0, 3.0*ofGetWidth()/4, 40,
 			   "Calculate but display the number of characters within a text with this script. Useful, for example, in helping your visitors keep their hat.");
-	
+
 	////////// osc
 	sender.setup(OSC_HOST,OSC_PORT);
 
 	//////////// graph
-	//Graph myGraph;
-	/*
-	vector<Node*> someNodes;
-	int numNodes = 100;
-	int numEdges = 800;
-	for(int i=0; i<numNodes; ++i){
-		Node *n = new Node("v"+ofToString(i));
-		someNodes.push_back(n);
-	}
-
-	for(int i=0; i<numEdges; ++i){
-		int edgeCost = (int)(ofRandom(2)+1);
-		string edgeType = (edgeCost<2)?"cat":"tag";
-		Edge *e = new Edge(edgeType+ofToString(i), edgeCost);
-		int npe = (int)ofRandom(numEdges/numNodes);
-		for(int j=0; j<npe; ++j){
-			// pick random node
-			Node *n = someNodes.at((int)ofRandom(someNodes.size()));
-			n->addEdge(e);
-		}
-	}
-
-	Node *n0 = someNodes.at((int)ofRandom(someNodes.size()));
-	long long unsigned int t0 = AbsoluteToDuration(UpTime());
-	myGraph.calculateDists(*n0);
-	long long unsigned int et = AbsoluteToDuration(UpTime())-t0;
-	//myGraph.printGraph();
-	cout << "calculated from: " << n0->getName()+ " in: " << et << " millis"<<endl;
-	myGraph.orderGraph();
-	 */
+	testGraphSetup();
 }
 
 //--------------------------------------------------------------
 void testApp::update(){
 	ofSetHexColor(0xff00ff);
-/*
-	myGraph.calculateDists();
-	long long unsigned int t0 = AbsoluteToDuration(UpTime());
-	myGraph.orderGraph();
-	long long unsigned int et = AbsoluteToDuration(UpTime())-t0;
-	cout << "ordered graph in: " << et << " millis"<<endl;
- */
+	testGraphUpdate();
 }
 
 //--------------------------------------------------------------
 void testApp::draw(){
 	mTSB.draw();
-
 }
 
 //--------------------------------------------------------------
@@ -161,7 +125,7 @@ void testApp::gotMessage(ofMessage msg){
 }
 
 //--------------------------------------------------------------
-void testApp::dragEvent(ofDragInfo dragInfo){ 
+void testApp::dragEvent(ofDragInfo dragInfo){
 
 }
 
@@ -178,7 +142,47 @@ void testApp::sendLiveTweet(Tweet& t){
 
 //--------------------------------------------------------------
 void testApp::buttonGuiEvent(ofxUIEventArgs &e){
+	// TODO : fill this out
+}
 
+//--------------------------------------------------------------
+void testApp::testGraphSetup(){
+	vector<Node*> someNodes;
+	int numNodes = 10;
+	int numEdges = 40;
+	for(int i=0; i<numNodes; ++i){
+		Node *n = new Node("v"+ofToString(i));
+		someNodes.push_back(n);
+	}
+
+	for(int i=0; i<numEdges; ++i){
+		int edgeCost = (int)(ofRandom(2)+1);
+		string edgeType = (edgeCost<2)?"cat":"tag";
+		Edge *e = new Edge(edgeType+ofToString(i), edgeCost);
+		int npe = (int)ofRandom(numEdges/numNodes);
+		for(int j=0; j<npe; ++j){
+			// pick random node
+			Node *n = someNodes.at((int)ofRandom(someNodes.size()));
+			n->addEdge(e);
+		}
+	}
+
+	Node *n0 = someNodes.at((int)ofRandom(someNodes.size()));
+	long long unsigned int t0 = AbsoluteToDuration(UpTime());
+	myGraph.calculateDists(*n0);
+	long long unsigned int et = AbsoluteToDuration(UpTime())-t0;
+	//myGraph.printGraph();
+	cout << "calculated from: " << n0->getName()+ " in: " << et << " millis"<<endl;
+	myGraph.orderGraph();
+	myGraph.printGraph();
+}
+
+void testApp::testGraphUpdate(){
+	myGraph.calculateDists();
+	long long unsigned int t0 = AbsoluteToDuration(UpTime());
+	myGraph.orderGraph();
+	long long unsigned int et = AbsoluteToDuration(UpTime())-t0;
+	cout << "ordered graph in: " << et << " millis"<<endl;
 }
 
 //--------------------------------------------------------------
@@ -192,11 +196,11 @@ void testApp::tweetGuiEvent(ofxUIEventArgs &e){
 			string tweetText = button->getLabel()->getLabel();
 			mTSB.setString(tweetText);
 			/*****
-			cout << "sending to osc: " << tweetText << endl;
-			ofxOscMessage m;
-			m.setAddress("/kinho/tweet");
-			m.addStringArg(tweetText);
-			sender.sendMessage(m);
+			 cout << "sending to osc: " << tweetText << endl;
+			 ofxOscMessage m;
+			 m.setAddress("/kinho/tweet");
+			 m.addStringArg(tweetText);
+			 sender.sendMessage(m);
 			 ****/
 		}
     }

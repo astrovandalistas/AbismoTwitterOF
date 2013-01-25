@@ -38,7 +38,11 @@ class testApp : public ofBaseApp{
 
 		string fitStringToWidth(const string s, const int w, ofTrueTypeFont ttf);
 
-		//Graph myGraph;
+		Graph myGraph;
 		ofxOscSender sender;
 		TextSelectBar mTSB;
+	
+		// debug
+		void testGraphSetup();
+		void testGraphUpdate();
 };
