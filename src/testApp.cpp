@@ -15,7 +15,7 @@ ofBaseApp(){ }
 //--------------------------------------------------------------
 void testApp::setup(){
 	ofSetVerticalSync(true);
-	ofBackgroundHex(0xffff00);
+	ofBackgroundHex(0x00);
 	myFont.loadFont("verdana.ttf",12);
 	myTwitter.setup(CONSUMER_KEY,CONSUMER_SECRET);
 	ofEventArgs voidEventArg;
@@ -78,7 +78,6 @@ void testApp::setup(){
 
 //--------------------------------------------------------------
 void testApp::update(){
-	ofSetHexColor(0xff00ff);
 	//testGraphUpdate();
 }
 
