@@ -43,9 +43,25 @@ void testApp::setup(){
 	ofAddListener(tweetGui.newGUIEvent,this,&testApp::tweetGuiEvent);
 	
 	////////// BUTTON GUI
-	buttonGui.setFont("verdana.ttf");
+	vector<string> fontItems;
+	fontItems.push_back("FONT_0");
+	fontItems.push_back("FONT_1");
+	fontItems.push_back("FONT_2");
 
-	
+	buttonGui.setFont("verdana.ttf");
+	buttonGui.addWidgetDown(new ofxUILabel("Control Panel", OFX_UI_FONT_MEDIUM));
+	buttonGui.addSpacer(buttonGui.getRect()->width,4);
+	buttonGui.addSpacer(buttonGui.getRect()->width*2.0/5.0,0, "SPACER0");
+	float buttonHeight = buttonGui.getRect()->height/4;
+	buttonGui.addWidgetDown(new ofxUIToggle("Increment Word Pos",false,buttonHeight,buttonHeight));
+	buttonGui.addWidgetDown(new ofxUILabelButton("Send", false));
+	//gui->addWidgetRight(new ofxUIButton("Fade In", false));
+    buttonGui.addWidgetRight(new ofxUILabelButton("Clear",false));
+	buttonGui.addWidgetRight(new ofxUILabelButton("Clear All",false));
+
+    buttonGui.addWidgetEastOf(new ofxUIDropDownList("__FONT__", fontItems), "SPACER0");
+	buttonGui.addWidgetEastOf(new ofxUISlider("SIZE",16,64,32,buttonGui.getRect()->width/3,buttonHeight),"__FONT__");
+
 	////////// text bar
 	mTSB.setup(ofGetWidth()/4, 0, 3.0*ofGetWidth()/4, 40,
 			   "Calculate but display the number of characters within a text with this script. Useful, for example, in helping your visitors keep their hat.");
