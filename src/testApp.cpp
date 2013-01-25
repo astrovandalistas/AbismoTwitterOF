@@ -23,6 +23,7 @@ void testApp::setup(){
 
 	vector<Tweet> theTweets = myTwitter.getTweets();
 
+	////////// GUI
 	gui.setFont("verdana.ttf");
     gui.setScrollableDirections(false, true);
 
@@ -38,11 +39,16 @@ void testApp::setup(){
 	gui.autoSizeToFitWidgets();
 	ofAddListener(gui.newGUIEvent,this,&testApp::guiEvent);
 	
+	////////// text bar
+	mTSB.setup(ofGetWidth()/4, 0, 3.0*ofGetWidth()/4, 40,
+			   "Calculate but display the number of characters within a text with this script. Useful, for example, in helping your visitors keep their hat.");
+	
 	////////// osc
 	sender.setup(OSC_HOST,OSC_PORT);
 
 	//////////// graph
 	//Graph myGraph;
+	/*
 	vector<Node*> someNodes;
 	int numNodes = 100;
 	int numEdges = 800;
@@ -70,20 +76,24 @@ void testApp::setup(){
 	//myGraph.printGraph();
 	cout << "calculated from: " << n0->getName()+ " in: " << et << " millis"<<endl;
 	myGraph.orderGraph();
+	 */
 }
 
 //--------------------------------------------------------------
 void testApp::update(){
 	ofSetHexColor(0xff00ff);
+/*
 	myGraph.calculateDists();
 	long long unsigned int t0 = AbsoluteToDuration(UpTime());
 	myGraph.orderGraph();
 	long long unsigned int et = AbsoluteToDuration(UpTime())-t0;
 	cout << "ordered graph in: " << et << " millis"<<endl;
+ */
 }
 
 //--------------------------------------------------------------
 void testApp::draw(){
+	mTSB.draw();
 
 }
 
@@ -152,11 +162,14 @@ void testApp::guiEvent(ofxUIEventArgs &e){
         ofxUILabelButton *button = (ofxUILabelButton *) e.widget;
 		if(button->getValue()){
 			string tweetText = button->getLabel()->getLabel();
+			mTSB.setString(tweetText);
+			/*****
 			cout << "sending to osc: " << tweetText << endl;
 			ofxOscMessage m;
 			m.setAddress("/kinho/tweet");
 			m.addStringArg(tweetText);
 			sender.sendMessage(m);
+			 ****/
 		}
     }
     else if(kind == OFX_UI_WIDGET_LABELTOGGLE) {
