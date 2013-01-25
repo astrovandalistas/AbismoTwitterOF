@@ -20,10 +20,11 @@ public:
 	void setup(int x_, int y_, int w_, int h_, string s_="");
 	void setString(string s_);
 
+	static ofEvent<string> selectedTextEvent;
 	void mouseMoved(ofMouseEventArgs & args);
-    void mouseDragged(ofMouseEventArgs & args);
-    void mousePressed(ofMouseEventArgs & args);
-    void mouseReleased(ofMouseEventArgs & args);
+	void mouseDragged(ofMouseEventArgs & args);
+	void mousePressed(ofMouseEventArgs & args);
+	void mouseReleased(ofMouseEventArgs & args);
 	void draw();
 protected:
 	int x,y,w,h;

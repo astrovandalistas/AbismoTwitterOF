@@ -11,6 +11,8 @@
 
 #define TEXTBAR_FONTSIZE 28
 
+ofEvent<string> TextSelectBar::selectedTextEvent = ofEvent<string>();
+
 TextSelectBar::TextSelectBar(){
 	ofRegisterMouseEvents(this);
 	mFont.loadFont("verdana.ttf", TEXTBAR_FONTSIZE);
@@ -97,12 +99,11 @@ void TextSelectBar::mouseDragged(ofMouseEventArgs & args){
 }
 void TextSelectBar::mouseReleased(ofMouseEventArgs & args){
 	if(args.y > y && args.y < (y+h) && colorUntil > -1){
-		string r = "";
+		string selectedText = "";
 		for(int i=colorFrom; i<phrase.size()&&i<=colorUntil; ++i){
-			r += phrase[i];
+			selectedText += phrase[i];
 		}
-		// TODO: send text to main class via event?
-		cout << "send: " << r << endl;
+		ofNotifyEvent(TextSelectBar::selectedTextEvent, selectedText);
 	}
 }
 void TextSelectBar::mouseMoved(ofMouseEventArgs & args){}
