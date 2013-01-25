@@ -9,7 +9,7 @@
 #include "TextSelectBar.h"
 #include "ofGraphics.h"
 
-#define TEXTBAR_FONTSIZE 32
+#define TEXTBAR_FONTSIZE 28
 
 TextSelectBar::TextSelectBar(){
 	ofRegisterMouseEvents(this);
