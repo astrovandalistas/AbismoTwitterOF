@@ -29,8 +29,10 @@ class testApp : public ofBaseApp{
 		ofTrueTypeFont myFont;
 		ofxBaseTwitterApi myTwitter;
 	
-		ofxUIScrollableCanvas gui;
-		void guiEvent(ofxUIEventArgs &e);
+		ofxUIScrollableCanvas tweetGui;
+		ofxUICanvas buttonGui;
+		void tweetGuiEvent(ofxUIEventArgs &e);
+		void buttonGuiEvent(ofxUIEventArgs &e);
 		void sendLiveTweet(Tweet& t);
 		bool bSendLiveTweets;
 

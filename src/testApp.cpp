@@ -7,7 +7,10 @@
 #define OSC_PORT 12345
 
 //--------------------------------------------------------------
-testApp::testApp() : gui(0,0,ofGetWidth()/4,ofGetHeight()), ofBaseApp(){ }
+testApp::testApp() :
+tweetGui(0,0,ofGetWidth()/4,ofGetHeight()),
+buttonGui(ofGetWidth()/4,4.0*ofGetHeight()/5,3.0*ofGetWidth()/4,ofGetHeight()/5),
+ofBaseApp(){ }
 
 //--------------------------------------------------------------
 void testApp::setup(){
@@ -23,21 +26,25 @@ void testApp::setup(){
 
 	vector<Tweet> theTweets = myTwitter.getTweets();
 
-	////////// GUI
-	gui.setFont("verdana.ttf");
-    gui.setScrollableDirections(false, true);
+	////////// TWEET GUI
+	tweetGui.setFont("verdana.ttf");
+    tweetGui.setScrollableDirections(false, true);
 
-	gui.addWidgetDown(new ofxUILabel("Live Tweets", OFX_UI_FONT_MEDIUM));
-	gui.addLabelToggle("Enabled", false);
-	gui.addSpacer(gui.getRect()->width,4);
-	gui.addWidgetDown(new ofxUILabel("Tweets", OFX_UI_FONT_MEDIUM));
+	tweetGui.addWidgetDown(new ofxUILabel("Live Tweets", OFX_UI_FONT_MEDIUM));
+	tweetGui.addLabelToggle("Enabled", false);
+	tweetGui.addSpacer(tweetGui.getRect()->width,4);
+	tweetGui.addWidgetDown(new ofxUILabel("Tweets", OFX_UI_FONT_MEDIUM));
 	
 	for(int i=0;i<theTweets.size();i++){
-		string tweetText = fitStringToWidth(theTweets.at(i).text, gui.getRect()->width, *gui.getFontMedium());
-		gui.addLabelButton(tweetText, false, 0);
+		string tweetText = fitStringToWidth(theTweets.at(i).text, tweetGui.getRect()->width, *tweetGui.getFontMedium());
+		tweetGui.addLabelButton(tweetText, false, 0);
 	}
-	gui.autoSizeToFitWidgets();
-	ofAddListener(gui.newGUIEvent,this,&testApp::guiEvent);
+	tweetGui.autoSizeToFitWidgets();
+	ofAddListener(tweetGui.newGUIEvent,this,&testApp::tweetGuiEvent);
+	
+	////////// BUTTON GUI
+	buttonGui.setFont("verdana.ttf");
+
 	
 	////////// text bar
 	mTSB.setup(ofGetWidth()/4, 0, 3.0*ofGetWidth()/4, 40,
@@ -154,7 +161,12 @@ void testApp::sendLiveTweet(Tweet& t){
 }
 
 //--------------------------------------------------------------
-void testApp::guiEvent(ofxUIEventArgs &e){
+void testApp::buttonGuiEvent(ofxUIEventArgs &e){
+
+}
+
+//--------------------------------------------------------------
+void testApp::tweetGuiEvent(ofxUIEventArgs &e){
 	string name = e.widget->getName();
 	int kind = e.widget->getKind();
 
