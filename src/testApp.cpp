@@ -39,6 +39,7 @@ void testApp::setup(){
 		string tweetText = fitStringToWidth(theTweets.at(i).text, tweetGui.getRect()->width, *tweetGui.getFontMedium());
 		tweetGui.addLabelButton(tweetText, false, 0);
 	}
+	tweetGui.setColorBack(ofColor(100,200));
 	tweetGui.autoSizeToFitWidgets();
 	ofAddListener(tweetGui.newGUIEvent,this,&testApp::tweetGuiEvent);
 
@@ -61,6 +62,8 @@ void testApp::setup(){
 
     buttonGui.addWidgetEastOf(new ofxUIDropDownList("__FONT__", fontItems), "SPACER0");
 	buttonGui.addWidgetEastOf(new ofxUISlider("SIZE",16,64,32,buttonGui.getRect()->width/3,buttonHeight),"__FONT__");
+
+	buttonGui.setColorBack(ofColor(100,200));
 
 	////////// text bar
 	mTSB.setup(ofGetWidth()/4, 0, 0.75*ofGetWidth(), 40,
