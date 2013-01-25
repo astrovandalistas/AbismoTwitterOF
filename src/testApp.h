@@ -43,8 +43,9 @@ class testApp : public ofBaseApp{
 
 		// osc
 		ofxOscSender sender;
-		int oscFontSize;
+		ofTrueTypeFont oscFont;
 		string oscFontName;
+		int oscFontSize;
 
 		// helpers
 		string fitStringToWidth(const string s, const int w, ofTrueTypeFont ttf);

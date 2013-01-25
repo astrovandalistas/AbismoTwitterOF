@@ -85,6 +85,7 @@ void testApp::setup(){
 
 	////////// osc
 	sender.setup(OSC_HOST,OSC_PORT);
+	oscFont.loadFont(oscFontName, oscFontSize);
 
 	//////////// graph
 	//testGraphSetup();
@@ -155,7 +156,7 @@ void testApp::mousePressed(int x, int y, int button){
 
 //--------------------------------------------------------------
 void testApp::mouseReleased(int x, int y, int button){
-	// TODO: set text draw area variables
+
 }
 
 //--------------------------------------------------------------
@@ -175,11 +176,16 @@ void testApp::dragEvent(ofDragInfo dragInfo){
 
 //--------------------------------------------------------------
 void testApp::sendLiveTweet(Tweet& t){
-	if(bSendLiveTweets){
+	if(bSendLiveTweets && tweetArea.width>0){
 		cout << "sending to osc: " << t.text << endl;
 		ofxOscMessage m;
-		m.setAddress("/kinho/live");
-		m.addStringArg(t.text);
+		m.setAddress("/kinho/push");
+		m.addIntArg(tweetArea.x);
+		m.addIntArg(tweetArea.y);
+		m.addStringArg(oscFontName);
+		m.addIntArg(oscFontSize);
+		string sizedText = fitStringToWidth(t.text, tweetArea.width, oscFont);
+		m.addStringArg(sizedText);
 		sender.sendMessage(m);
 	}
 }
@@ -192,11 +198,13 @@ void testApp::buttonGuiEvent(ofxUIEventArgs &e){
     if(e.widget->getName().compare("SIZE") == 0){
 		ofxUISlider *slider = (ofxUISlider *) e.widget;
 		oscFontSize = (int)slider->getScaledValue();
+		oscFont.loadFont(oscFontName, oscFontSize);
 	}
 	else if(e.widget->getName().compare("__FONT__") == 0){
 		ofxUIDropDownList *ddlist = (ofxUIDropDownList *) e.widget;
 		if(ddlist->getSelected().size()){
 			oscFontName = ddlist->getSelected()[0]->getName();
+			oscFont.loadFont(oscFontName, oscFontSize);
 		}
 	}
 	// TODO : add button listeners
