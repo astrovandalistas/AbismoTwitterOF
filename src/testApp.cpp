@@ -23,7 +23,6 @@ void testApp::setup(){
 	ofEventArgs voidEventArg;
 	//mTwitter.update(voidEventArg);
 
-	bSendLiveTweets = false;
 	ofAddListener(ofxBaseTwitterApi::liveTweetEvent, this, &testApp::sendLiveTweet);
 
 	vector<Tweet> theTweets;
@@ -32,11 +31,9 @@ void testApp::setup(){
 	////////// TWEET GUI
 	tweetGui.setFont("verdana.ttf");
 	tweetGui.setScrollableDirections(false, true);
-	
-	tweetGui.addWidgetDown(new ofxUILabel("Live Tweets", OFX_UI_FONT_MEDIUM));
-	tweetGui.addLabelToggle("Enabled", false);
-	tweetGui.addSpacer(tweetGui.getRect()->width,4);
+
 	tweetGui.addWidgetDown(new ofxUILabel("Tweets", OFX_UI_FONT_MEDIUM));
+	tweetGui.addSpacer(tweetGui.getRect()->width,4);
 
 	for(int i=0;i<theTweets.size();i++){
 		string tweetText = fitStringToWidth(theTweets.at(i).text, tweetGui.getRect()->width, *tweetGui.getFontMedium());
@@ -176,7 +173,7 @@ void testApp::dragEvent(ofDragInfo dragInfo){
 
 //--------------------------------------------------------------
 void testApp::sendLiveTweet(Tweet& t){
-	if(bSendLiveTweets && liveArea.width>0){
+	if(liveArea.width>0){
 		cout << "sending to osc: " << t.text << endl;
 		ofxOscMessage m;
 		m.setAddress("/kinho/push");
@@ -198,6 +195,7 @@ void testApp::buttonGuiEvent(ofxUIEventArgs &e){
     if(e.widget->getName().compare("SIZE") == 0){
 		ofxUISlider *slider = (ofxUISlider *) e.widget;
 		oscFontSize = (int)slider->getScaledValue();
+		// TODO : fix double click
 		cout << "sisiisisis\n";
 		oscFont.loadFont(oscFontName, oscFontSize);
 	}
@@ -205,7 +203,6 @@ void testApp::buttonGuiEvent(ofxUIEventArgs &e){
 		ofxUIDropDownList *ddlist = (ofxUIDropDownList *) e.widget;
 		if(ddlist->getSelected().size()){
 			oscFontName = ddlist->getSelected()[0]->getName();
-			cout << "fofofofofo\n";
 			oscFont.loadFont(oscFontName, oscFontSize);
 		}
 	}
@@ -245,12 +242,6 @@ void testApp::tweetGuiEvent(ofxUIEventArgs &e){
 		if(button->getValue()){
 			string tweetText = button->getLabel()->getLabel();
 			mTSB.setString(tweetText);
-		}
-    }
-    else if(kind == OFX_UI_WIDGET_LABELTOGGLE) {
-        ofxUILabelToggle *toggle = (ofxUILabelToggle *) e.widget;
-		if(toggle->getLabel()->getLabel().compare("Enabled") == 0){
-			bSendLiveTweets = toggle->getValue();
 		}
     }
 }

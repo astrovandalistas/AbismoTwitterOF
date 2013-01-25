@@ -30,7 +30,6 @@ class testApp : public ofBaseApp{
 		// twitter
 		ofxBaseTwitterApi mTwitter;
 		void sendLiveTweet(Tweet& t);
-		bool bSendLiveTweets;
 
 		// gui
 		ofxUIScrollableCanvas tweetGui;
