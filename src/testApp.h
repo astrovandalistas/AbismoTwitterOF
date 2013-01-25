@@ -6,7 +6,7 @@
 #include "ofxOsc.h"
 #include "GraphUtils.h"
 #include "TextSelectBar.h"
-//#include "TextStack.h"
+#include "TextStack.h"
 
 class testApp : public ofBaseApp{
 
@@ -48,12 +48,11 @@ class testApp : public ofBaseApp{
 		// osc
 		ofxOscSender sender;
 
-
 		// helpers
 		string fitStringToWidth(const string s, const int w, ofTrueTypeFont ttf);
 
 		// TextStack (DEBUG)
-		//TextStack mTextStack;
+		TextStack mTextStack;
 
 		// Graph (DEBUG)
 		Graph mGraph;
