@@ -3,7 +3,7 @@
 #define CONSUMER_KEY "b7BrQXjIRKT8MhEkWnhQ"
 #define CONSUMER_SECRET "bx9rw5bsAb4K5WPmiT2UIc2j8Kmo5JVrlLHw9qpToh4"
 
-#define OSC_HOST "172.20.10.3"
+#define OSC_HOST "192.168.1.201"
 #define OSC_PORT 12345
 
 #define MAX_FONT_SIZE 64
@@ -48,9 +48,9 @@ void testApp::setup(){
 
 	////////// BUTTON GUI
 	vector<string> fontItems;
-	fontItems.push_back("FONT_0");
-	fontItems.push_back("FONT_1");
-	fontItems.push_back("FONT_2");
+	fontItems.push_back("verdana.ttf");
+	fontItems.push_back("georgia.ttf");
+	fontItems.push_back("arial.ttf");
 
 	buttonGui.setFont("verdana.ttf");
 	buttonGui.addWidgetDown(new ofxUILabel("Control Panel", OFX_UI_FONT_MEDIUM));
@@ -180,6 +180,7 @@ void testApp::sendLiveTweet(Tweet& t){
 		cout << "sending to osc: " << t.text << endl;
 		ofxOscMessage m;
 		m.setAddress("/kinho/push");
+		// TODO : add % float 
 		m.addIntArg(liveArea.x);
 		m.addIntArg(liveArea.y);
 		m.addStringArg(oscFontName);
@@ -198,30 +199,33 @@ void testApp::buttonGuiEvent(ofxUIEventArgs &e){
     if(e.widget->getName().compare("SIZE") == 0){
 		ofxUISlider *slider = (ofxUISlider *) e.widget;
 		oscFontSize = (int)slider->getScaledValue();
+		cout << "sisiisisis\n";
 		oscFont.loadFont(oscFontName, oscFontSize);
 	}
 	else if(e.widget->getName().compare("__FONT__") == 0){
 		ofxUIDropDownList *ddlist = (ofxUIDropDownList *) e.widget;
 		if(ddlist->getSelected().size()){
 			oscFontName = ddlist->getSelected()[0]->getName();
+			cout << "fofofofofo\n";
 			oscFont.loadFont(oscFontName, oscFontSize);
 		}
 	}
-	else if(e.widget->getName().compare("Clear") == 0){
+	else if((e.widget->getName().compare("Clear") == 0) && ((ofxUIButton*)e.widget)->getValue()){
 		ofxOscMessage m;
 		m.setAddress("/kinho/pop");
 		m.addIntArg(1);
 		sender.sendMessage(m);
 	}
-	else if(e.widget->getName().compare("Clear All") == 0){
+	else if((e.widget->getName().compare("Clear All") == 0) && ((ofxUIButton*)e.widget)->getValue()){
 		ofxOscMessage m;
 		m.setAddress("/kinho/clear");
 		m.addIntArg(1);
 		sender.sendMessage(m);
 	}
-	else if(e.widget->getName().compare("Send") == 0){
+	else if((e.widget->getName().compare("Send") == 0) && ((ofxUIButton*)e.widget)->getValue()){
 		ofxOscMessage m;
 		m.setAddress("/kinho/push");
+		// TODO : add % float 
 		m.addIntArg(tweetArea.x);
 		m.addIntArg(tweetArea.y);
 		m.addStringArg(oscFontName);
