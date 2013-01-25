@@ -9,7 +9,7 @@
 #include "TextSelectBar.h"
 #include "ofGraphics.h"
 
-#define TEXTBAR_FONTSIZE 12
+#define TEXTBAR_FONTSIZE 32
 
 TextSelectBar::TextSelectBar(){
 	ofRegisterMouseEvents(this);
@@ -37,6 +37,12 @@ void TextSelectBar::setString(string s_){
 		}
 	}
 
+	// find a font size
+	mFont.loadFont("verdana.ttf",TEXTBAR_FONTSIZE);
+	while(mFont.stringWidth(s) > w && mFont.getSize()>8){
+		mFont.loadFont("verdana.ttf",mFont.getSize()-1);
+	}
+	
 	// split into words and calculate word start position
 	istringstream ss(s+" ");
 	float xloc = x;
@@ -70,7 +76,7 @@ void TextSelectBar::draw(){
 		else{
 			ofSetHexColor(0xe800fe);
 		}
-		mFont.drawString(phrase[i], xloc,y+h/2);
+		mFont.drawString(phrase[i], xloc,y+h-5);
 		xloc += mFont.stringWidth(phrase[i]);
 		xloc += mFont.stringWidth("p");
 	}
