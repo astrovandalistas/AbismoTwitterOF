@@ -6,6 +6,9 @@
 #define OSC_HOST "172.20.10.3"
 #define OSC_PORT 12345
 
+#define MAX_FONT_SIZE 64
+#define MIN_FONT_SIZE 16
+
 //--------------------------------------------------------------
 testApp::testApp() :
 tweetGui(0,0,ofGetWidth()/4,ofGetHeight()),
@@ -61,7 +64,8 @@ void testApp::setup(){
 	buttonGui.addWidgetRight(new ofxUILabelButton("Clear All",false));
 
     buttonGui.addWidgetEastOf(new ofxUIDropDownList("__FONT__", fontItems), "SPACER0");
-	buttonGui.addWidgetEastOf(new ofxUISlider("SIZE",16,64,32,buttonGui.getRect()->width/3,buttonHeight),"__FONT__");
+	buttonGui.addWidgetEastOf(new ofxUISlider("SIZE",MIN_FONT_SIZE,MAX_FONT_SIZE,MAX_FONT_SIZE/2,
+											  buttonGui.getRect()->width/3,buttonHeight),"__FONT__");
 
 	buttonGui.setColorBack(ofColor(100,200));
 	ofAddListener(buttonGui.newGUIEvent,this,&testApp::buttonGuiEvent);
