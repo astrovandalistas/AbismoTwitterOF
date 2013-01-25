@@ -19,15 +19,15 @@ ofBaseApp(){ }
 void testApp::setup(){
 	ofSetVerticalSync(true);
 	ofBackgroundHex(0x00);
-	myFont.loadFont("verdana.ttf",12);
-	myTwitter.setup(CONSUMER_KEY,CONSUMER_SECRET);
+	mFont.loadFont("verdana.ttf",12);
+	mTwitter.setup(CONSUMER_KEY,CONSUMER_SECRET);
 	ofEventArgs voidEventArg;
-	myTwitter.update(voidEventArg);
+	mTwitter.update(voidEventArg);
 
 	bSendLiveTweets = false;
 	ofAddListener(ofxBaseTwitterApi::liveTweetEvent, this, &testApp::sendLiveTweet);
 
-	vector<Tweet> theTweets = myTwitter.getTweets();
+	vector<Tweet> theTweets = mTwitter.getTweets();
 
 	////////// TWEET GUI
 	tweetGui.setFont("verdana.ttf");
@@ -267,17 +267,17 @@ void testApp::testGraphSetup(){
 	
 	Node *n0 = someNodes.at((int)ofRandom(someNodes.size()));
 	long long unsigned int t0 = AbsoluteToDuration(UpTime());
-	myGraph.calculateDists(*n0);
+	mGraph.calculateDists(*n0);
 	long long unsigned int et = AbsoluteToDuration(UpTime())-t0;
 	cout << "calculated from: " << n0->getName()+ " in: " << et << " millis"<<endl;
-	myGraph.orderGraph();
-	myGraph.printGraph();
+	mGraph.orderGraph();
+	mGraph.printGraph();
 }
 
 void testApp::testGraphUpdate(){
-	myGraph.calculateDists();
+	mGraph.calculateDists();
 	long long unsigned int t0 = AbsoluteToDuration(UpTime());
-	myGraph.orderGraph();
+	mGraph.orderGraph();
 	long long unsigned int et = AbsoluteToDuration(UpTime())-t0;
 	cout << "ordered graph in: " << et << " millis"<<endl;
 }

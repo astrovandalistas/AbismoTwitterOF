@@ -28,11 +28,11 @@ class testApp : public ofBaseApp{
 		void gotMessage(ofMessage msg);
 
 		// font
-		ofTrueTypeFont myFont;
+		ofTrueTypeFont mFont;
 		int mFontSize;
 
 		// twitter
-		ofxBaseTwitterApi myTwitter;
+		ofxBaseTwitterApi mTwitter;
 		void sendLiveTweet(Tweet& t);
 		bool bSendLiveTweets;
 
@@ -56,7 +56,7 @@ class testApp : public ofBaseApp{
 		//TextStack mTextStack;
 
 		// Graph (DEBUG)
-		Graph myGraph;
+		Graph mGraph;
 		void testGraphSetup();
 		void testGraphUpdate();
 };
