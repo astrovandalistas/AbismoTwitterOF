@@ -24,6 +24,9 @@ void ofxBaseTwitterApi::setup(const string& _consumerKey, const string& _consume
 	lastLiveTweetSent = 0;
 
 	ofThread::startThread();
+
+	ofEventArgs voidEventArg;
+	this->update(voidEventArg);
 }
 
 vector<Tweet>& ofxBaseTwitterApi::getTweets() {

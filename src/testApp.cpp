@@ -19,14 +19,12 @@ ofBaseApp(){ }
 void testApp::setup(){
 	ofSetVerticalSync(true);
 	ofBackgroundHex(0x00);
-	//mTwitter.setup(CONSUMER_KEY,CONSUMER_SECRET);
-	ofEventArgs voidEventArg;
-	//mTwitter.update(voidEventArg);
+	mTwitter.setup(CONSUMER_KEY,CONSUMER_SECRET);
 
 	ofAddListener(ofxBaseTwitterApi::liveTweetEvent, this, &testApp::sendLiveTweet);
 
 	vector<Tweet> theTweets;
-	//theTweets = mTwitter.getTweets();
+	theTweets = mTwitter.getTweets();
 
 	////////// TWEET GUI
 	tweetGui.setFont("verdana.ttf");
