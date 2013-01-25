@@ -99,9 +99,9 @@ void testApp::draw(){
 	ofSetColor(100,100);
 	ofRect(drawArea);
 	ofSetColor(255,20,20,100);
-	ofRect(tweetArea);
+	ofRect(staticTweetArea);
 	ofSetColor(20,20,255,100);
-	ofRect(liveArea);
+	ofRect(liveTweetArea);
 }
 
 //--------------------------------------------------------------
@@ -123,12 +123,12 @@ void testApp::mouseMoved(int x, int y ){
 void testApp::mouseDragged(int x, int y, int button){
 	if(drawArea.inside(x, y)){
 		if(button == 0){
-			tweetArea.width = x-tweetArea.x;
-			tweetArea.height = y-tweetArea.y;
+			staticTweetArea.width = x-staticTweetArea.x;
+			staticTweetArea.height = y-staticTweetArea.y;
 		}
 		else {
-			liveArea.width = x-liveArea.x;
-			liveArea.height = y-liveArea.y;
+			liveTweetArea.width = x-liveTweetArea.x;
+			liveTweetArea.height = y-liveTweetArea.y;
 		}
 	}
 }
@@ -137,16 +137,16 @@ void testApp::mouseDragged(int x, int y, int button){
 void testApp::mousePressed(int x, int y, int button){
 	if(drawArea.inside(x, y)){
 		if(button == 0){
-			tweetArea.x = x;
-			tweetArea.y = y;
-			tweetArea.width = 0;
-			tweetArea.height = 0;
+			staticTweetArea.x = x;
+			staticTweetArea.y = y;
+			staticTweetArea.width = 0;
+			staticTweetArea.height = 0;
 		}
 		else {
-			liveArea.x = x;
-			liveArea.y = y;
-			liveArea.width = 0;
-			liveArea.height = 0;
+			liveTweetArea.x = x;
+			liveTweetArea.y = y;
+			liveTweetArea.width = 0;
+			liveTweetArea.height = 0;
 		}
 	}
 }
@@ -173,15 +173,15 @@ void testApp::dragEvent(ofDragInfo dragInfo){
 
 //--------------------------------------------------------------
 void testApp::sendLiveTweet(Tweet& t){
-	if(liveArea.width>0){
+	if(liveTweetArea.width>0){
 		cout << "sending to osc: " << t.text << endl;
 		ofxOscMessage m;
 		m.setAddress("/kinho/push");
-		m.addFloatArg((liveArea.x-drawArea.x)/drawArea.width);
-		m.addFloatArg((liveArea.y-drawArea.y)/drawArea.height);
+		m.addFloatArg((liveTweetArea.x-drawArea.x)/drawArea.width);
+		m.addFloatArg((liveTweetArea.y-drawArea.y)/drawArea.height);
 		m.addStringArg(oscFontName);
 		m.addIntArg(oscFontSize);
-		string sizedText = fitStringToWidth(t.text, liveArea.width, oscFont);
+		string sizedText = fitStringToWidth(t.text, liveTweetArea.width, oscFont);
 		m.addStringArg(sizedText);
 		sender.sendMessage(m);
 	}
@@ -221,12 +221,12 @@ void testApp::buttonGuiEvent(ofxUIEventArgs &e){
 	else if((e.widget->getName().compare("Send") == 0) && ((ofxUIButton*)e.widget)->getValue()){
 		ofxOscMessage m;
 		m.setAddress("/kinho/push");
-		m.addFloatArg((tweetArea.x-drawArea.x)/drawArea.width);
-		m.addFloatArg((tweetArea.y-drawArea.y)/drawArea.height);
+		m.addFloatArg((staticTweetArea.x-drawArea.x)/drawArea.width);
+		m.addFloatArg((staticTweetArea.y-drawArea.y)/drawArea.height);
 		m.addStringArg(oscFontName);
 		m.addIntArg(oscFontSize);
 		// TODO : add WORDxWORD conditional + logic
-		string sizedText = fitStringToWidth("TEXT HOLDER", tweetArea.width, oscFont);
+		string sizedText = fitStringToWidth("TEXT HOLDER", staticTweetArea.width, oscFont);
 		m.addStringArg(sizedText);
 		sender.sendMessage(m);
 	}
