@@ -58,9 +58,6 @@ void Node::addEdge(Edge* e){
 		e->addNode(this);
 	}
 }
-void Node::addEdge(Edge& e){
-	addEdge(&e);
-}
 
 //////////////////////////////////
 //////////////////////////////////
@@ -112,9 +109,6 @@ float Edge::getCost() const{
 	return minCost;
 }
 
-void Edge::addNode(Node& n){
-	addNode(&n);
-}
 void Edge::addNode(Node* n){
 	if(theNodes.find(n->getName()) == theNodes.end()){
 		theNodes[n->getName()] = n;

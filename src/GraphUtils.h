@@ -25,7 +25,6 @@ class Node {
 		const bool isInQ() const;
 		void setInQ(const bool q);
 		void process() const;
-		void addEdge(Edge& e);
 		void addEdge(Edge* e);
 		static ofEvent<Node> addNodeToGraph;
 		bool operator < (const Node &on) const;
@@ -45,7 +44,6 @@ public:
 	void resetMinCost();
 	string getName() const;
 	float getCost() const;
-	void addNode(Node& n);
 	void addNode(Node* n);
 	static ofEvent<Node> addNodeToQ;
 	static ofEvent<Edge> addEdgeToGraph;
