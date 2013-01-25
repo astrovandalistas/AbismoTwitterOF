@@ -19,6 +19,7 @@
 		AF7F666416B0E3F70004327D /* ofxOscMessage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AF7F665416B0E3F70004327D /* ofxOscMessage.cpp */; };
 		AF7F666516B0E3F70004327D /* ofxOscReceiver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AF7F665616B0E3F70004327D /* ofxOscReceiver.cpp */; };
 		AF7F666616B0E3F70004327D /* ofxOscSender.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AF7F665816B0E3F70004327D /* ofxOscSender.cpp */; };
+		AF7F667716B20DCA0004327D /* TextSelectBar.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AF7F667516B20DC90004327D /* TextSelectBar.cpp */; };
 		AFFD4A4A16ABABF2003D02A8 /* libcurl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AFFD49BD16ABABF2003D02A8 /* libcurl.a */; };
 		AFFD4A4B16ABABF2003D02A8 /* liboauth.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AFFD49C316ABABF2003D02A8 /* liboauth.a */; };
 		AFFD4A4C16ABABF2003D02A8 /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AFFD4A1416ABABF2003D02A8 /* libcrypto.a */; };
@@ -165,7 +166,9 @@
 		AF7F665716B0E3F70004327D /* ofxOscReceiver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxOscReceiver.h; sourceTree = "<group>"; };
 		AF7F665816B0E3F70004327D /* ofxOscSender.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxOscSender.cpp; sourceTree = "<group>"; };
 		AF7F665916B0E3F70004327D /* ofxOscSender.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxOscSender.h; sourceTree = "<group>"; };
-		AFA480451696089E00986842 /* AbismoTwitterOFDebug.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AbismoTwitterOFDebug.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		AF7F667516B20DC90004327D /* TextSelectBar.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TextSelectBar.cpp; sourceTree = "<group>"; };
+		AF7F667616B20DCA0004327D /* TextSelectBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextSelectBar.h; sourceTree = "<group>"; };
+		AFA480451696089E00986842 /* AbismoTwitterOF.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = AbismoTwitterOF.app; path = /Users/thiago/Dev/openFrameworks/apps/myApps/AbismoTwitterOF/bin/AbismoTwitterOF.app; sourceTree = "<absolute>"; };
 		AFFD494A16ABABCD003D02A8 /* ofxBaseTwitterApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxBaseTwitterApi.h; sourceTree = "<group>"; };
 		AFFD49B216ABABF2003D02A8 /* curl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = curl.h; sourceTree = "<group>"; };
 		AFFD49B316ABABF2003D02A8 /* curlbuild.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = curlbuild.h; sourceTree = "<group>"; };
@@ -870,7 +873,6 @@
 				E4EEC9E9138DF44700A80321 /* openFrameworks */,
 				BB4B014C10F69532006C3DED /* addons */,
 				E45BE5980E8CC70C009D7055 /* frameworks */,
-				AFA480451696089E00986842 /* AbismoTwitterOFDebug.app */,
 			);
 			sourceTree = "<group>";
 		};
@@ -884,6 +886,8 @@
 				E4B69E1F0A3A1BDC003C02F2 /* testApp.h */,
 				AF7F662A16B044A60004327D /* GraphUtils.cpp */,
 				AF7F662B16B044A60004327D /* GraphUtils.h */,
+				AF7F667516B20DC90004327D /* TextSelectBar.cpp */,
+				AF7F667616B20DCA0004327D /* TextSelectBar.h */,
 			);
 			path = src;
 			sourceTree = SOURCE_ROOT;
@@ -916,7 +920,7 @@
 			);
 			name = AbismoTwitterOF;
 			productName = myOFApp;
-			productReference = AFA480451696089E00986842 /* AbismoTwitterOFDebug.app */;
+			productReference = AFA480451696089E00986842 /* AbismoTwitterOF.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -1011,6 +1015,7 @@
 				AF7F666416B0E3F70004327D /* ofxOscMessage.cpp in Sources */,
 				AF7F666516B0E3F70004327D /* ofxOscReceiver.cpp in Sources */,
 				AF7F666616B0E3F70004327D /* ofxOscSender.cpp in Sources */,
+				AF7F667716B20DCA0004327D /* TextSelectBar.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
