@@ -41,6 +41,7 @@ class testApp : public ofBaseApp{
 		Graph myGraph;
 		ofxOscSender sender;
 		TextSelectBar mTSB;
+		// this could've been in a class... could've been...
 		ofRectangle drawArea, tweetArea, liveArea;
 
 		// debug

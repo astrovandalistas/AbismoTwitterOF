@@ -101,6 +101,7 @@ void TextSelectBar::mouseReleased(ofMouseEventArgs & args){
 		for(int i=colorFrom; i<phrase.size()&&i<=colorUntil; ++i){
 			r += phrase[i];
 		}
+		// TODO: send text to main class via event?
 		cout << "send: " << r << endl;
 	}
 }
