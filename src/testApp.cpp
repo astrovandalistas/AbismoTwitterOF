@@ -176,15 +176,15 @@ void testApp::dragEvent(ofDragInfo dragInfo){
 
 //--------------------------------------------------------------
 void testApp::sendLiveTweet(Tweet& t){
-	if(bSendLiveTweets && tweetArea.width>0){
+	if(bSendLiveTweets && liveArea.width>0){
 		cout << "sending to osc: " << t.text << endl;
 		ofxOscMessage m;
 		m.setAddress("/kinho/push");
-		m.addIntArg(tweetArea.x);
-		m.addIntArg(tweetArea.y);
+		m.addIntArg(liveArea.x);
+		m.addIntArg(liveArea.y);
 		m.addStringArg(oscFontName);
 		m.addIntArg(oscFontSize);
-		string sizedText = fitStringToWidth(t.text, tweetArea.width, oscFont);
+		string sizedText = fitStringToWidth(t.text, liveArea.width, oscFont);
 		m.addStringArg(sizedText);
 		sender.sendMessage(m);
 	}
@@ -219,7 +219,18 @@ void testApp::buttonGuiEvent(ofxUIEventArgs &e){
 		m.addIntArg(1);
 		sender.sendMessage(m);
 	}
-	// TODO : add button listeners
+	else if(e.widget->getName().compare("Send") == 0){
+		ofxOscMessage m;
+		m.setAddress("/kinho/push");
+		m.addIntArg(tweetArea.x);
+		m.addIntArg(tweetArea.y);
+		m.addStringArg(oscFontName);
+		m.addIntArg(oscFontSize);
+		// TODO : add WORDxWORD conditional + logic
+		string sizedText = fitStringToWidth("TEXT HOLDER", tweetArea.width, oscFont);
+		m.addStringArg(sizedText);
+		sender.sendMessage(m);
+	}
 }
 
 //--------------------------------------------------------------
