@@ -9,7 +9,7 @@
 //--------------------------------------------------------------
 testApp::testApp() :
 tweetGui(0,0,ofGetWidth()/4,ofGetHeight()),
-buttonGui(ofGetWidth()/4,4.0*ofGetHeight()/5,3.0*ofGetWidth()/4,ofGetHeight()/5),
+buttonGui(ofGetWidth()/4,0.8*ofGetHeight(),0.75*ofGetWidth(),0.2*ofGetHeight()),
 ofBaseApp(){ }
 
 //--------------------------------------------------------------
@@ -51,8 +51,8 @@ void testApp::setup(){
 	buttonGui.setFont("verdana.ttf");
 	buttonGui.addWidgetDown(new ofxUILabel("Control Panel", OFX_UI_FONT_MEDIUM));
 	buttonGui.addSpacer(buttonGui.getRect()->width,4);
-	buttonGui.addSpacer(buttonGui.getRect()->width*2.0/5.0,0, "SPACER0");
-	float buttonHeight = buttonGui.getRect()->height/4;
+	buttonGui.addSpacer(0.4*buttonGui.getRect()->width,0, "SPACER0");
+	float buttonHeight = buttonGui.getRect()->height/4.0;
 	buttonGui.addWidgetDown(new ofxUIToggle("Increment Word Pos",false,buttonHeight,buttonHeight));
 	buttonGui.addWidgetDown(new ofxUILabelButton("Send", false));
 	//gui->addWidgetRight(new ofxUIButton("Fade In", false));
@@ -63,8 +63,11 @@ void testApp::setup(){
 	buttonGui.addWidgetEastOf(new ofxUISlider("SIZE",16,64,32,buttonGui.getRect()->width/3,buttonHeight),"__FONT__");
 
 	////////// text bar
-	mTSB.setup(ofGetWidth()/4, 0, 3.0*ofGetWidth()/4, 40,
-			   "Calculate but display the number of characters within a text with this script. Useful, for example, in helping your visitors keep their hat.");
+	mTSB.setup(ofGetWidth()/4, 0, 0.75*ofGetWidth(), 40,
+			   "Calculate and display the number of characters within a text with this script. Useful, for example, in helping your visitors keep their hat.");
+
+	////////// draw area
+	drawArea = ofRectangle(ofGetWidth()/4+20, 50, 0.75*ofGetWidth(), 0.8*ofGetHeight()-60);
 
 	////////// osc
 	sender.setup(OSC_HOST,OSC_PORT);
@@ -82,6 +85,8 @@ void testApp::update(){
 //--------------------------------------------------------------
 void testApp::draw(){
 	mTSB.draw();
+	ofSetColor(100,100);
+	ofRect(drawArea);
 }
 
 //--------------------------------------------------------------

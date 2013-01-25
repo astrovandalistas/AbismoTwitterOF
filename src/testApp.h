@@ -41,7 +41,8 @@ class testApp : public ofBaseApp{
 		Graph myGraph;
 		ofxOscSender sender;
 		TextSelectBar mTSB;
-	
+		ofRectangle drawArea;
+
 		// debug
 		void testGraphSetup();
 		void testGraphUpdate();
