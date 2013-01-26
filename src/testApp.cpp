@@ -243,7 +243,7 @@ void testApp::tweetGuiEvent(ofxUIEventArgs &e){
         ofxUILabelButton *button = (ofxUILabelButton *) e.widget;
 		if(button->getValue()){
 			string tweetText = button->getLabel()->getLabel();
-			mTSB.setString(tweetText);
+			mTSB.setText(tweetText);
 		}
     }
 }

@@ -25,10 +25,10 @@ void TextSelectBar::setup(int x_, int y_, int w_, int h_, string s_){
 	y = y_;
 	w = w_;
 	h = h_;
-	setString(s_);
+	setText(s_);
 }
 
-void TextSelectBar::setString(string s_){
+void TextSelectBar::setText(string s_){
 	fullText = s_;
 
 	// clean up string
