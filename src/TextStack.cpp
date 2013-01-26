@@ -8,10 +8,11 @@
 
 #include "TextStack.h"
 
-TextObject::TextObject(ofVec2f pos_, int size_, string font_){
+TextObject::TextObject(ofVec2f pos_, int size_, string font_, string text_){
 	pos = pos_;
 	size = size_;
 	font = font_;
+	text = text_;
 }
 
 TextObject::~TextObject(){}

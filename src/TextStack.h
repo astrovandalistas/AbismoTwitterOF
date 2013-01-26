@@ -13,11 +13,11 @@
 
 class TextObject {
 	public:
-		TextObject(ofVec2f pos_, int size_, string font_);
+		TextObject(ofVec2f pos_, int size_, string font_, string text_);
 		~TextObject();
 		ofVec2f pos;
 		int size;
-		string font;
+		string font, text;
 };
 
 class TextStack {
