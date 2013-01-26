@@ -145,13 +145,17 @@ void testApp::draw(){
 	ofRect(drawArea);
 	
 	// DEBUG / TEST
-	for(int i=0; i<mTextStack.size(); i++){
+	ofSetColor(255,200);
+	for(unsigned int i=0; i<mTextStack.size(); i++){
 		TextObject mto = mTextStack[i];
 		//oscFont.loadFont(mto.font, mto.size, true, true);
-		ofSetColor(255,200);
 		oscFont.drawString(mto.text, mto.pos.x*drawArea.width+drawArea.x, mto.pos.y*drawArea.height+drawArea.y);
 	}
-	
+	// live tweet
+	TextObject mto = mTextStack.getLive();
+	oscFont.drawString(mto.text, mto.pos.x*drawArea.width+drawArea.x, mto.pos.y*drawArea.height+drawArea.y);
+
+	// draw text area rectangles
 	ofSetColor(200,32,50,128);
 	ofRect(staticTweetArea);
 	ofSetColor(130,164,140,128);
@@ -242,7 +246,8 @@ void testApp::sendLiveTweet(Tweet& t){
 		sender.sendMessage(m);
 		// DEBUG
 		ofVec2f tempPos = ofVec2f((liveTweetArea.x-drawArea.x)/drawArea.width, (liveTweetArea.y-drawArea.y)/drawArea.height);
-		mTextStack.pushObject(TextObject(tempPos, oscFontSize, oscFontName,sizedText));
+		//mTextStack.pushObject(TextObject(tempPos, oscFontSize, oscFontName,sizedText));
+		mTextStack.setLive(TextObject(tempPos, oscFontSize, oscFontName,sizedText));
 	}
 }
 
