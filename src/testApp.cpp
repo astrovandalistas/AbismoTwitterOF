@@ -238,6 +238,9 @@ void testApp::sendLiveTweet(Tweet& t){
 		string sizedText = fitStringToWidth(t.text, liveTweetArea.width, oscFont);
 		m.addStringArg(sizedText);
 		sender.sendMessage(m);
+		// DEBUG
+		ofVec2f tempPos = ofVec2f((liveTweetArea.x-drawArea.x)/drawArea.width, (liveTweetArea.y-drawArea.y)/drawArea.height);
+		mTextStack.pushObject(TextObject(tempPos, oscFontSize, oscFontName,sizedText));
 	}
 }
 
