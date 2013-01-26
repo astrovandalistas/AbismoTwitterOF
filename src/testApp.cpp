@@ -74,7 +74,7 @@ void testApp::setup(){
 	tweetGui.addSpacer(tweetGui.getRect()->width,4);
 
 	for(int i=0;i<theTweets.size();i++){
-		string tweetText = fitStringToWidth(theTweets.at(i).text, tweetGui.getRect()->width, *tweetGui.getFontMedium());
+		string tweetText = fitStringToWidth(theTweets.at(i).text, tweetGui.getRect()->width-10, *tweetGui.getFontMedium());
 		tweetGui.addLabelButton(tweetText, false, 0);
 	}
 
@@ -232,7 +232,7 @@ void testApp::dragEvent(ofDragInfo dragInfo){
 //--------------------------------------------------------------
 void testApp::sendLiveTweet(Tweet& t){
 	// add to gui
-	string tweetText = fitStringToWidth(t.text, tweetGui.getRect()->width, *tweetGui.getFontMedium());
+	string tweetText = fitStringToWidth(t.text, tweetGui.getRect()->width-10, *tweetGui.getFontMedium());
 	tweetGui.addLabelButton(tweetText, false, 0);
 	tweetGui.autoSizeToFitWidgets();
 
