@@ -20,8 +20,8 @@ public:
 	void setup(int x_, int y_, int w_, int h_, string s_="");
 	void setString(string s_);
 	void consumeOneWord();
+	const string getSelectedText() const;
 
-	static ofEvent<string> selectedTextEvent;
 	void mouseMoved(ofMouseEventArgs & args);
 	void mouseDragged(ofMouseEventArgs & args);
 	void mousePressed(ofMouseEventArgs & args);
@@ -29,11 +29,10 @@ public:
 	void draw();
 protected:
 	int x,y,w,h;
-	string s;
+	string fullText, selectedText;
 	ofTrueTypeFont mFont;
 	ofVec2f mClick;
 	vector<string> phrase;
 	map<float,int> wordLocations;
 	int colorUntil, colorFrom;
 };
-

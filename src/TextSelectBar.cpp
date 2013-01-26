@@ -11,11 +11,10 @@
 
 #define TEXTBAR_FONTSIZE 28
 
-ofEvent<string> TextSelectBar::selectedTextEvent = ofEvent<string>();
-
 TextSelectBar::TextSelectBar(){
 	ofRegisterMouseEvents(this);
 	mFont.loadFont("verdana.ttf", TEXTBAR_FONTSIZE);
+	selectedText = "";
 	colorUntil = -1;
 	colorFrom = -1;
 }
@@ -30,23 +29,23 @@ void TextSelectBar::setup(int x_, int y_, int w_, int h_, string s_){
 }
 
 void TextSelectBar::setString(string s_){
-	s = s_;
+	fullText = s_;
 
 	// clean up string
-	for(int i=0;i<s.size();i++){
-		if(s[i] == '\n'){
-			s.replace(i, 1, " ");
+	for(int i=0;i<fullText.size();i++){
+		if(fullText[i] == '\n'){
+			fullText.replace(i, 1, " ");
 		}
 	}
 
 	// find a font size
 	mFont.loadFont("verdana.ttf",TEXTBAR_FONTSIZE);
-	while(mFont.stringWidth(s) > w && mFont.getSize()>8){
+	while(mFont.stringWidth(fullText) > w && mFont.getSize()>8){
 		mFont.loadFont("verdana.ttf",mFont.getSize()-1);
 	}
 	
 	// split into words and calculate word start position
-	istringstream ss(s+" ");
+	istringstream ss(fullText+" ");
 	float xloc = x;
 	int i = 0;
 	phrase.clear();
@@ -66,13 +65,16 @@ void TextSelectBar::setString(string s_){
 	colorFrom = -1;
 }
 
+const string TextSelectBar::getSelectedText() const{
+	return selectedText;
+}
+
 void TextSelectBar::consumeOneWord(){
 	colorFrom++;
-	string selectedText = "";
+	selectedText = "";
 	for(int i=colorFrom; i<phrase.size()&&i<=colorUntil; ++i){
 		selectedText += phrase[i];
 	}
-	ofNotifyEvent(TextSelectBar::selectedTextEvent, selectedText);
 }
 
 void TextSelectBar::draw(){
@@ -108,11 +110,10 @@ void TextSelectBar::mouseDragged(ofMouseEventArgs & args){
 }
 void TextSelectBar::mouseReleased(ofMouseEventArgs & args){
 	if(args.y > y && args.y < (y+h) && colorUntil > -1){
-		string selectedText = "";
+		selectedText = "";
 		for(int i=colorFrom; i<phrase.size()&&i<=colorUntil; ++i){
 			selectedText += phrase[i];
 		}
-		ofNotifyEvent(TextSelectBar::selectedTextEvent, selectedText);
 	}
 }
 void TextSelectBar::mouseMoved(ofMouseEventArgs & args){}
