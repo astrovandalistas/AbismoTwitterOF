@@ -190,31 +190,31 @@ void testApp::sendLiveTweet(Tweet& t){
 void testApp::buttonGuiEvent(ofxUIEventArgs &e){
 	string name = e.widget->getName();
 
-    if((e.widget->getName().compare("SIZE") == 0) && ofGetMousePressed()){
+	if((name.compare("SIZE") == 0) && ofGetMousePressed()){
 		ofxUISlider *slider = (ofxUISlider *) e.widget;
 		oscFontSize = (int)slider->getScaledValue();
 		oscFont.loadFont(oscFontName, oscFontSize);
 	}
-	else if(e.widget->getName().compare("__FONT__") == 0){
+	else if(name.compare("__FONT__") == 0){
 		ofxUIDropDownList *ddlist = (ofxUIDropDownList *) e.widget;
 		if(ddlist->getSelected().size()){
 			oscFontName = ddlist->getSelected()[0]->getName();
 			oscFont.loadFont(oscFontName, oscFontSize);
 		}
 	}
-	else if((e.widget->getName().compare("Clear") == 0) && ((ofxUIButton*)e.widget)->getValue()){
+	else if((name.compare("Clear") == 0) && ((ofxUIButton*)e.widget)->getValue()){
 		ofxOscMessage m;
 		m.setAddress("/kinho/pop");
 		m.addIntArg(1);
 		sender.sendMessage(m);
 	}
-	else if((e.widget->getName().compare("Clear All") == 0) && ((ofxUIButton*)e.widget)->getValue()){
+	else if((name.compare("Clear All") == 0) && ((ofxUIButton*)e.widget)->getValue()){
 		ofxOscMessage m;
 		m.setAddress("/kinho/clear");
 		m.addIntArg(1);
 		sender.sendMessage(m);
 	}
-	else if((e.widget->getName().compare("Send") == 0) && ((ofxUIButton*)e.widget)->getValue()){
+	else if((name.compare("Send") == 0) && ((ofxUIButton*)e.widget)->getValue()){
 		ofxOscMessage m;
 		m.setAddress("/kinho/push");
 		m.addFloatArg((staticTweetArea.x-drawArea.x)/drawArea.width);
@@ -229,7 +229,7 @@ void testApp::buttonGuiEvent(ofxUIEventArgs &e){
 		m.addStringArg(sizedText);
 		sender.sendMessage(m);
 	}
-	else if(e.widget->getName().compare("SEND ONE WORD") == 0) {
+	else if(name.compare("SEND ONE WORD") == 0) {
 		bWordByWord = ((ofxUIToggle*)e.widget)->getValue();
 	}
 }
