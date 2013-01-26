@@ -47,6 +47,7 @@ class testApp : public ofBaseApp{
 		ofTrueTypeFont oscFont;
 		string oscFontName;
 		int oscFontSize;
+		map<int, ofTrueTypeFont> fontMap;
 
 		// helpers
 		string fitStringToWidth(const string s, const int w, ofTrueTypeFont ttf);

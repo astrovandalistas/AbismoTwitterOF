@@ -23,6 +23,14 @@ void testApp::setup(){
 	ofSetVerticalSync(true);
 	ofBackgroundHex(0x00);
 
+	////////// FONT MAP
+	for(int i=0; i<11; ++i){
+		int fs = i*5+16;
+		ofTrueTypeFont ottf;
+		ottf.loadFont("verdana.ttf", fs);
+		fontMap[fs] = ottf;
+	}
+
 	/////// TWITTER API
 	vector<Tweet> theTweets;
 	ofxXmlSettings xmlTweets;
@@ -85,8 +93,8 @@ void testApp::setup(){
 	////////// BUTTON GUI
 	vector<string> fontItems;
 	fontItems.push_back("verdana.ttf");
-	fontItems.push_back("georgia.ttf");
-	fontItems.push_back("arial.ttf");
+	//fontItems.push_back("georgia.ttf");
+	//fontItems.push_back("arial.ttf");
 
 	buttonGui.setFont("verdana.ttf");
 	buttonGui.addWidgetDown(new ofxUILabel("Control Panel", OFX_UI_FONT_MEDIUM));
@@ -107,7 +115,9 @@ void testApp::setup(){
 	if(ddlist->getToggles().size()){
 		oscFontName = ddlist->getToggles()[0]->getName();
 	}
-	oscFontSize = slide->getScaledValue();
+	std::map<int,ofTrueTypeFont>::iterator it = fontMap.lower_bound((int)slide->getScaledValue());
+	oscFont = (it->second);
+	oscFontSize = oscFont.getSize();
 	bWordByWord = false;
 
 	buttonGui.setColorBack(ofColor(100,200));
@@ -123,7 +133,7 @@ void testApp::setup(){
 
 	////////// osc
 	//sender.setup(OSC_HOST,OSC_PORT);
-	oscFont.loadFont(oscFontName, oscFontSize, true, true);
+	//oscFont.loadFont(oscFontName, oscFontSize, true, true);
 
 	//////////// graph
 	//testGraphSetup();
@@ -147,12 +157,13 @@ void testApp::draw(){
 	ofSetColor(255,200);
 	for(unsigned int i=0; i<mTextStack.size(); i++){
 		TextObject mto = mTextStack[i];
-		oscFont.loadFont(mto.font, mto.size, true, true);
-		oscFont.drawString(mto.text, mto.pos.x*drawArea.width+drawArea.x, mto.pos.y*drawArea.height+drawArea.y);
+		std::map<int,ofTrueTypeFont>::iterator it = fontMap.lower_bound(mto.size);
+		(it->second).drawString(mto.text, mto.pos.x*drawArea.width+drawArea.x, mto.pos.y*drawArea.height+drawArea.y);
 	}
 	// live tweet
 	TextObject mto = mTextStack.getLive();
-	oscFont.drawString(mto.text, mto.pos.x*drawArea.width+drawArea.x, mto.pos.y*drawArea.height+drawArea.y);
+	std::map<int,ofTrueTypeFont>::iterator it = fontMap.lower_bound(mto.size);
+	(it->second).drawString(mto.text, mto.pos.x*drawArea.width+drawArea.x, mto.pos.y*drawArea.height+drawArea.y);
 
 	// draw text area rectangles
 	ofSetColor(200,32,50,128);
@@ -261,23 +272,22 @@ void testApp::buttonGuiEvent(ofxUIEventArgs &e){
 
 	if((name.compare("SIZE") == 0) && ofGetMousePressed()){
 		ofxUISlider *slider = (ofxUISlider *) e.widget;
-		oscFontSize = (int)slider->getScaledValue();
-		oscFont.loadFont(oscFontName, oscFontSize, true, true);
+		std::map<int,ofTrueTypeFont>::iterator it = fontMap.lower_bound((int)slider->getScaledValue());
+		oscFont = (it->second);
+		oscFontSize = oscFont.getSize();
 	}
 	else if(name.compare("__FONT__") == 0){
-		ofxUIDropDownList *ddlist = (ofxUIDropDownList *) e.widget;
-		if(ddlist->getSelected().size()){
-			oscFontName = ddlist->getSelected()[0]->getName();
-			oscFont.loadFont(oscFontName, oscFontSize, true, true);
-		}
+		//ofxUIDropDownList *ddlist = (ofxUIDropDownList *) e.widget;
+		//if(ddlist->getSelected().size()){
+		//	oscFontName = ddlist->getSelected()[0]->getName();
+		//}
 	}
 	else if((name.compare("Clear") == 0) && ((ofxUIButton*)e.widget)->getValue()){
 		//ofxOscMessage m;
 		//m.setAddress("/kinho/pop");
 		//m.addIntArg(1);
 		//sender.sendMessage(m);
-		//staticSendPosition = ofVec2f(lastStaticSendPosition);
-
+		staticSendPosition = ofVec2f(lastStaticSendPosition);
 		// DEBUG
 		mTextStack.popObject();
 	}
