@@ -94,6 +94,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		AF63759F16B3964600DA37CB /* AbismoTwitterOF.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = AbismoTwitterOF.app; path = /Users/thiago/Dev/openFrameworks/apps/myApps/AbismoTwitterOF/bin/AbismoTwitterOF.app; sourceTree = "<absolute>"; };
 		AF7F655716AF8C380004327D /* ofxUI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxUI.h; sourceTree = "<group>"; };
 		AF7F655816AF8C380004327D /* ofxUI2DPad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxUI2DPad.h; sourceTree = "<group>"; };
 		AF7F655916AF8C380004327D /* ofxUIBaseDraws.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxUIBaseDraws.h; sourceTree = "<group>"; };
@@ -171,7 +172,6 @@
 		AF7F667616B20DCA0004327D /* TextSelectBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextSelectBar.h; sourceTree = "<group>"; };
 		AF7F66A516B2F94B0004327D /* TextStack.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TextStack.cpp; sourceTree = "<group>"; };
 		AF7F66A616B2F94B0004327D /* TextStack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextStack.h; sourceTree = "<group>"; };
-		AFA480451696089E00986842 /* AbismoTwitterOF.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = AbismoTwitterOF.app; path = /Users/thiago/Dev/openFrameworks/apps/myApps/AbismoTwitterOF/bin/AbismoTwitterOF.app; sourceTree = "<absolute>"; };
 		AFFD494A16ABABCD003D02A8 /* ofxBaseTwitterApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxBaseTwitterApi.h; sourceTree = "<group>"; };
 		AFFD49B216ABABF2003D02A8 /* curl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = curl.h; sourceTree = "<group>"; };
 		AFFD49B316ABABF2003D02A8 /* curlbuild.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = curlbuild.h; sourceTree = "<group>"; };
@@ -925,7 +925,7 @@
 			);
 			name = AbismoTwitterOF;
 			productName = myOFApp;
-			productReference = AFA480451696089E00986842 /* AbismoTwitterOF.app */;
+			productReference = AF63759F16B3964600DA37CB /* AbismoTwitterOF.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
