@@ -114,8 +114,7 @@ void testApp::setup(){
 	ofAddListener(buttonGui.newGUIEvent,this,&testApp::buttonGuiEvent);
 
 	////////// text bar
-	mTSB.setup(ofGetWidth()/4+20, 0, 0.75*ofGetWidth(), 40,
-			   "Calculate and display the number of characters within a text with this script. Useful, for example, in helping your visitors keep their hat.");
+	mTSB.setup(ofGetWidth()/4+20, 0, 0.75*ofGetWidth(), 40, "#elabismo no nos detiene");
 
 	////////// draw area
 	drawArea = ofRectangle(ofGetWidth()/4+20, 50, 0.75*ofGetWidth(), 0.8*ofGetHeight()-60);
