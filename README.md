@@ -10,3 +10,6 @@ It currenlty needs the following libs that have to be downloaded separately:
 And these addons from a regular OF distro:
 - ofxOsc
 - ofxXmlSettings
+
+And this branch from @arturoc:
+- ofTrueTypeFont support for iso8859-1 (https://github.com/openframeworks/openFrameworks/pull/1539)
