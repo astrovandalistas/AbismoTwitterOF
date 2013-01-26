@@ -82,7 +82,7 @@ void testApp::setup(){
 
 	////////// osc
 	sender.setup(OSC_HOST,OSC_PORT);
-	oscFont.loadFont(oscFontName, oscFontSize);
+	oscFont.loadFont(oscFontName, oscFontSize, true, true);
 
 	//////////// graph
 	//testGraphSetup();
@@ -105,7 +105,7 @@ void testApp::draw(){
 	// DEBUG / TEST
 	for(int i=0; i<mTextStack.size(); i++){
 		TextObject mto = mTextStack[i];
-		//oscFont.loadFont(mto.font, mto.size);
+		//oscFont.loadFont(mto.font, mto.size, true, true);
 		ofSetColor(255,200);
 		oscFont.drawString(mto.text, mto.pos.x*drawArea.width+drawArea.x, mto.pos.y*drawArea.height+drawArea.y);
 	}
@@ -207,13 +207,13 @@ void testApp::buttonGuiEvent(ofxUIEventArgs &e){
 	if((name.compare("SIZE") == 0) && ofGetMousePressed()){
 		ofxUISlider *slider = (ofxUISlider *) e.widget;
 		oscFontSize = (int)slider->getScaledValue();
-		oscFont.loadFont(oscFontName, oscFontSize);
+		oscFont.loadFont(oscFontName, oscFontSize, true, true);
 	}
 	else if(name.compare("__FONT__") == 0){
 		ofxUIDropDownList *ddlist = (ofxUIDropDownList *) e.widget;
 		if(ddlist->getSelected().size()){
 			oscFontName = ddlist->getSelected()[0]->getName();
-			oscFont.loadFont(oscFontName, oscFontSize);
+			oscFont.loadFont(oscFontName, oscFontSize, true, true);
 		}
 	}
 	else if((name.compare("Clear") == 0) && ((ofxUIButton*)e.widget)->getValue()){

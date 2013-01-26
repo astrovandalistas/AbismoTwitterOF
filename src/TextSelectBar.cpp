@@ -13,7 +13,7 @@
 
 TextSelectBar::TextSelectBar(){
 	ofRegisterMouseEvents(this);
-	mFont.loadFont("verdana.ttf", TEXTBAR_FONTSIZE);
+	mFont.loadFont("verdana.ttf", TEXTBAR_FONTSIZE, true, true);
 	selectedText = "";
 	colorUntil = -1;
 	colorFrom = phrase.size();
@@ -39,9 +39,9 @@ void TextSelectBar::setText(string s_){
 	}
 
 	// find a font size
-	mFont.loadFont("verdana.ttf",TEXTBAR_FONTSIZE);
+	mFont.loadFont("verdana.ttf",TEXTBAR_FONTSIZE, true, true);
 	while(mFont.stringWidth(fullText) > w && mFont.getSize()>8){
-		mFont.loadFont("verdana.ttf",mFont.getSize()-1);
+		mFont.loadFont("verdana.ttf",mFont.getSize()-1, true, true);
 	}
 	
 	// split into words and calculate word start position
