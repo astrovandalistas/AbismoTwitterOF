@@ -22,12 +22,11 @@ ofBaseApp(){ }
 void testApp::setup(){
 	ofSetVerticalSync(true);
 	ofBackgroundHex(0x00);
-	mTwitter.setup(CONSUMER_KEY,CONSUMER_SECRET);
 
-	ofAddListener(ofxBaseTwitterApi::liveTweetEvent, this, &testApp::sendLiveTweet);
-
+	/////// TWITTER API
 	vector<Tweet> theTweets;
 	ofxXmlSettings xmlTweets;
+	mTwitter.setup(CONSUMER_KEY,CONSUMER_SECRET);
 
 	if(READ_FROM_XML){
 		if(xmlTweets.loadFile(XML_FILE_NAME)){
@@ -65,6 +64,8 @@ void testApp::setup(){
 		xmlTweets.saveFile(XML_FILE_NAME);
 	}
 
+	ofAddListener(ofxBaseTwitterApi::liveTweetEvent, this, &testApp::sendLiveTweet);
+
 	////////// TWEET GUI
 	tweetGui.setFont("verdana.ttf");
 	tweetGui.setScrollableDirections(false, true);
@@ -94,7 +95,6 @@ void testApp::setup(){
 	float buttonHeight = buttonGui.getRect()->height/4.0;
 	buttonGui.addWidgetDown(new ofxUIToggle("SEND ONE WORD",false,buttonHeight,buttonHeight));
 	buttonGui.addWidgetDown(new ofxUILabelButton("Send", false));
-	//gui->addWidgetRight(new ofxUIButton("Fade In", false));
 	buttonGui.addWidgetRight(new ofxUILabelButton("Clear",false));
 	buttonGui.addWidgetRight(new ofxUILabelButton("Clear Live",false));
 	buttonGui.addWidgetRight(new ofxUILabelButton("Clear All",false));
@@ -120,7 +120,6 @@ void testApp::setup(){
 	drawArea = ofRectangle(ofGetWidth()/4+20, 50, 0.75*ofGetWidth(), 0.8*ofGetHeight()-60);
 	staticSendPosition = ofVec2f(drawArea.x,drawArea.y);
 	lastStaticSendPosition = ofVec2f(drawArea.x,drawArea.y);
-	//liveSendPosition = ofVec2f(drawArea.x,drawArea.y);
 
 	////////// osc
 	sender.setup(OSC_HOST,OSC_PORT);
@@ -206,7 +205,6 @@ void testApp::mousePressed(int x, int y, int button){
 			liveTweetArea.y = y;
 			liveTweetArea.width = 0;
 			liveTweetArea.height = 0;
-			//liveSendPosition = ofVec2f(liveTweetArea.x,liveTweetArea.y);
 		}
 	}
 }
@@ -236,7 +234,6 @@ void testApp::sendLiveTweet(Tweet& t){
 	// add to gui
 	string tweetText = fitStringToWidth(t.text, tweetGui.getRect()->width, *tweetGui.getFontMedium());
 	tweetGui.addLabelButton(tweetText, false, 0);
-	tweetGui.setColorBack(ofColor(100,200));
 	tweetGui.autoSizeToFitWidgets();
 
 	// add to osc/stack
@@ -298,7 +295,6 @@ void testApp::buttonGuiEvent(ofxUIEventArgs &e){
 		sender.sendMessage(m);
 		staticSendPosition = ofVec2f(staticTweetArea.x,staticTweetArea.y);
 		lastStaticSendPosition = ofVec2f(staticTweetArea.x,staticTweetArea.y);
-		//liveSendPosition = ofVec2f(liveTweetArea.x,liveTweetArea.y);
 		// DEBUG
 		mTextStack.clearObjects();
 	}
