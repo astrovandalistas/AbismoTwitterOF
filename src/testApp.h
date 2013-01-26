@@ -43,7 +43,7 @@ class testApp : public ofBaseApp{
 		void buttonGuiEvent(ofxUIEventArgs &e);
 
 		// osc
-		ofxOscSender sender;
+		//ofxOscSender sender;
 		ofTrueTypeFont oscFont;
 		string oscFontName;
 		int oscFontSize;

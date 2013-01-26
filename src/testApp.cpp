@@ -122,7 +122,7 @@ void testApp::setup(){
 	lastStaticSendPosition = ofVec2f(drawArea.x,drawArea.y);
 
 	////////// osc
-	sender.setup(OSC_HOST,OSC_PORT);
+	//sender.setup(OSC_HOST,OSC_PORT);
 	oscFont.loadFont(oscFontName, oscFontSize, true, true);
 
 	//////////// graph
@@ -238,19 +238,19 @@ void testApp::sendLiveTweet(Tweet& t){
 
 	// add to osc/stack
 	if(liveTweetArea.width>0){
-		cout << "sending to osc: " << t.text << endl;
-		ofxOscMessage m;
-		m.setAddress("/kinho/setLive");
-		m.addFloatArg((liveTweetArea.x-drawArea.x)/drawArea.width);
-		m.addFloatArg((liveTweetArea.y-drawArea.y)/drawArea.height);
-		m.addStringArg(oscFontName);
-		m.addIntArg(oscFontSize);
-		string sizedText = fitStringToWidth(t.text, liveTweetArea.width, oscFont);
-		m.addStringArg(sizedText);
-		sender.sendMessage(m);
+		//ofxOscMessage m;
+		//m.setAddress("/kinho/setLive");
+		//m.addFloatArg((liveTweetArea.x-drawArea.x)/drawArea.width);
+		//m.addFloatArg((liveTweetArea.y-drawArea.y)/drawArea.height);
+		//m.addStringArg(oscFontName);
+		//m.addIntArg(oscFontSize);
+		//string sizedText = fitStringToWidth(t.text, liveTweetArea.width, oscFont);
+		//m.addStringArg(sizedText);
+		//sender.sendMessage(m);
+
 		// DEBUG
+		string sizedText = fitStringToWidth(t.text, liveTweetArea.width, oscFont);
 		ofVec2f tempPos = ofVec2f((liveTweetArea.x-drawArea.x)/drawArea.width, (liveTweetArea.y-drawArea.y)/drawArea.height);
-		//mTextStack.pushObject(TextObject(tempPos, oscFontSize, oscFontName,sizedText));
 		mTextStack.setLive(TextObject(tempPos, oscFontSize, oscFontName,sizedText));
 	}
 }
@@ -272,27 +272,30 @@ void testApp::buttonGuiEvent(ofxUIEventArgs &e){
 		}
 	}
 	else if((name.compare("Clear") == 0) && ((ofxUIButton*)e.widget)->getValue()){
-		ofxOscMessage m;
-		m.setAddress("/kinho/pop");
-		m.addIntArg(1);
-		sender.sendMessage(m);
-		staticSendPosition = ofVec2f(lastStaticSendPosition);
+		//ofxOscMessage m;
+		//m.setAddress("/kinho/pop");
+		//m.addIntArg(1);
+		//sender.sendMessage(m);
+		//staticSendPosition = ofVec2f(lastStaticSendPosition);
+
 		// DEBUG
 		mTextStack.popObject();
 	}
 	else if((name.compare("Clear Live") == 0) && ((ofxUIButton*)e.widget)->getValue()){
-		ofxOscMessage m;
-		m.setAddress("/kinho/clearLive");
-		m.addIntArg(1);
-		sender.sendMessage(m);
+		//ofxOscMessage m;
+		//m.setAddress("/kinho/clearLive");
+		//m.addIntArg(1);
+		//sender.sendMessage(m);
+
 		// DEBUG
 		mTextStack.clearLive();
 	}
 	else if((name.compare("Clear All") == 0) && ((ofxUIButton*)e.widget)->getValue()){
-		ofxOscMessage m;
-		m.setAddress("/kinho/clear");
-		m.addIntArg(1);
-		sender.sendMessage(m);
+		//ofxOscMessage m;
+		//m.setAddress("/kinho/clear");
+		//m.addIntArg(1);
+		//sender.sendMessage(m);
+
 		staticSendPosition = ofVec2f(staticTweetArea.x,staticTweetArea.y);
 		lastStaticSendPosition = ofVec2f(staticTweetArea.x,staticTweetArea.y);
 		// DEBUG
@@ -322,14 +325,15 @@ void testApp::buttonGuiEvent(ofxUIEventArgs &e){
 
 		// don't send empty messages
 		if(sendText.compare("") != 0){
-			ofxOscMessage m;
-			m.setAddress("/kinho/push");
-			m.addFloatArg(scaledPos.x);
-			m.addFloatArg(scaledPos.y);
-			m.addStringArg(oscFontName);
-			m.addIntArg(oscFontSize);
-			m.addStringArg(sendText);
-			sender.sendMessage(m);
+			//ofxOscMessage m;
+			//m.setAddress("/kinho/push");
+			//m.addFloatArg(scaledPos.x);
+			//m.addFloatArg(scaledPos.y);
+			//m.addStringArg(oscFontName);
+			//m.addIntArg(oscFontSize);
+			//m.addStringArg(sendText);
+			//sender.sendMessage(m);
+
 			// DEBUG
 			mTextStack.pushObject(TextObject(scaledPos, oscFontSize, oscFontName,sendText));
 		}
