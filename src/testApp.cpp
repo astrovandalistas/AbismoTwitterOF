@@ -147,7 +147,7 @@ void testApp::draw(){
 	ofSetColor(255,200);
 	for(unsigned int i=0; i<mTextStack.size(); i++){
 		TextObject mto = mTextStack[i];
-		//oscFont.loadFont(mto.font, mto.size, true, true);
+		oscFont.loadFont(mto.font, mto.size, true, true);
 		oscFont.drawString(mto.text, mto.pos.x*drawArea.width+drawArea.x, mto.pos.y*drawArea.height+drawArea.y);
 	}
 	// live tweet
