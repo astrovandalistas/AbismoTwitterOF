@@ -71,7 +71,7 @@ const string TextSelectBar::getSelectedText() const{
 
 const string TextSelectBar::consumeOneWord(){
 	string ret = "";
-	if((colorFrom < phrase.size()) && (colorFrom > -1)){
+	if((colorFrom <= colorUntil) && (colorFrom > -1)){
 	 ret = phrase[colorFrom];
 	}
 	colorFrom++;
