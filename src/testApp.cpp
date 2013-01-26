@@ -1,7 +1,7 @@
 #include "testApp.h"
 
-#define CONSUMER_KEY "b7BrQXjIRKT8MhEkWnhQ"
-#define CONSUMER_SECRET "bx9rw5bsAb4K5WPmiT2UIc2j8Kmo5JVrlLHw9qpToh4"
+#define CONSUMER_KEY "aSP37b2OHYSjtHSuxG7g"
+#define CONSUMER_SECRET "FYFxhSFNMqa4tpSG1mvL9EPWN7kW013YpHYsarwk"
 
 #define OSC_HOST "192.168.1.201"
 #define OSC_PORT 12345
@@ -9,7 +9,7 @@
 #define MAX_FONT_SIZE 64
 #define MIN_FONT_SIZE 16
 
-#define READ_FROM_XML 1
+#define READ_FROM_XML 0
 #define XML_FILE_NAME "testTweetXml.xml"
 
 //--------------------------------------------------------------

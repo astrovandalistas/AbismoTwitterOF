@@ -8,7 +8,7 @@
 
 #include "ofxBaseTwitterApi.h"
 
-#define DEFAULT_USER "DEFAULT_USER"
+#define DEFAULT_USER "astrovandalista"
 
 ofEvent<Tweet> ofxBaseTwitterApi::liveTweetEvent = ofEvent<Tweet>();
 
