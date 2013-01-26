@@ -19,7 +19,7 @@ public:
 	~TextSelectBar();
 	void setup(int x_, int y_, int w_, int h_, string s_="");
 	void setText(string s_);
-	void consumeOneWord();
+	const string consumeOneWord();
 	const string getSelectedText() const;
 
 	void mouseMoved(ofMouseEventArgs & args);

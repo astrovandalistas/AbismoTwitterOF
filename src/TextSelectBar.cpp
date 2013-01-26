@@ -16,7 +16,7 @@ TextSelectBar::TextSelectBar(){
 	mFont.loadFont("verdana.ttf", TEXTBAR_FONTSIZE);
 	selectedText = "";
 	colorUntil = -1;
-	colorFrom = -1;
+	colorFrom = phrase.size();
 }
 TextSelectBar::~TextSelectBar(){}
 
@@ -62,19 +62,24 @@ void TextSelectBar::setText(string s_){
 		i++;
 	}
 	colorUntil = -1;
-	colorFrom = -1;
+	colorFrom = phrase.size();
 }
 
 const string TextSelectBar::getSelectedText() const{
 	return selectedText;
 }
 
-void TextSelectBar::consumeOneWord(){
+const string TextSelectBar::consumeOneWord(){
+	string ret = "";
+	if((colorFrom < phrase.size()) && (colorFrom > -1)){
+	 ret = phrase[colorFrom];
+	}
 	colorFrom++;
 	selectedText = "";
 	for(int i=colorFrom; i<phrase.size()&&i<=colorUntil; ++i){
 		selectedText += phrase[i];
 	}
+	return ret;
 }
 
 void TextSelectBar::draw(){
