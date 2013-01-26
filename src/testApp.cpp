@@ -190,11 +190,9 @@ void testApp::buttonGuiEvent(ofxUIEventArgs &e){
 	string name = e.widget->getName();
 	int kind = e.widget->getKind();
 
-    if(e.widget->getName().compare("SIZE") == 0){
+    if((e.widget->getName().compare("SIZE") == 0) && (ofGetMousePressed())){
 		ofxUISlider *slider = (ofxUISlider *) e.widget;
 		oscFontSize = (int)slider->getScaledValue();
-		// TODO : fix double click
-		cout << "sisiisisis\n";
 		oscFont.loadFont(oscFontName, oscFontSize);
 	}
 	else if(e.widget->getName().compare("__FONT__") == 0){
