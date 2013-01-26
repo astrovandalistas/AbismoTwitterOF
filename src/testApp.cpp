@@ -96,9 +96,9 @@ void testApp::draw(){
 	mTSB.draw();
 	ofSetColor(100,100);
 	ofRect(drawArea);
-	ofSetColor(255,20,20,100);
+	ofSetColor(200,32,50,128);
 	ofRect(staticTweetArea);
-	ofSetColor(20,20,255,100);
+	ofSetColor(130,164,140,128);
 	ofRect(liveTweetArea);
 }
 
