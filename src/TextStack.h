@@ -27,6 +27,7 @@ class TextStack {
 		void pushObject(TextObject obj_);
 		void popObject();
 		void clearObjects();
+		const int size() const;
 		const TextObject& operator[](const unsigned int i);
 		const TextObject& peek();
 	protected:

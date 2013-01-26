@@ -32,6 +32,10 @@ void TextStack::clearObjects(){
 	theStack.clear();
 }
 
+const int TextStack::size() const{
+	return theStack.size();
+}
+
 const TextObject& TextStack::operator[](const unsigned int i){
 	if(i<theStack.size()){
 		return theStack.at(i);
