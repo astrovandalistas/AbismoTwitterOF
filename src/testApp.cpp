@@ -78,7 +78,7 @@ void testApp::setup(){
 
 	////////// draw area
 	drawArea = ofRectangle(ofGetWidth()/4+20, 50, 0.75*ofGetWidth(), 0.8*ofGetHeight()-60);
-	wordByWordOffset = 0;
+	sendPosition = ofVec2f(drawArea.x,drawArea.y);
 
 	////////// osc
 	sender.setup(OSC_HOST,OSC_PORT);
@@ -208,26 +208,42 @@ void testApp::buttonGuiEvent(ofxUIEventArgs &e){
 		m.setAddress("/kinho/pop");
 		m.addIntArg(1);
 		sender.sendMessage(m);
+		sendPosition = ofVec2f(staticTweetArea.x,staticTweetArea.y);
 	}
 	else if((name.compare("Clear All") == 0) && ((ofxUIButton*)e.widget)->getValue()){
 		ofxOscMessage m;
 		m.setAddress("/kinho/clear");
 		m.addIntArg(1);
 		sender.sendMessage(m);
+		sendPosition = ofVec2f(staticTweetArea.x,staticTweetArea.y);
 	}
-	else if((name.compare("Send") == 0) && ((ofxUIButton*)e.widget)->getValue()){
+	else if((name.compare("Send") == 0) && (staticTweetArea.width>0) && (((ofxUIButton*)e.widget)->getValue())){
+		string sendText = "";
+		ofVec2f scaledPos( ((sendPosition.x-drawArea.x)/drawArea.width), ((sendPosition.y-drawArea.y)/drawArea.height) );
+		// TODO : TEST THIS
+		if(bWordByWord){
+			sendText = mTSB.consumeOneWord();
+			// calculate offset
+			if((sendPosition.x+oscFont.stringWidth(sendText)) > (staticTweetArea.x+staticTweetArea.width)){
+				sendPosition.x = staticTweetArea.x;
+				sendPosition.y += oscFont.stringHeight(sendText);
+			}
+			scaledPos.x = (sendPosition.x-drawArea.x)/drawArea.width;
+			scaledPos.y = (sendPosition.y-drawArea.y)/drawArea.height;
+			sendPosition.x += oscFont.stringWidth(sendText);
+		}
+		// send whole text at once
+		else{
+			sendText = fitStringToWidth(mTSB.getSelectedText(), staticTweetArea.width, oscFont);
+		}
+
 		ofxOscMessage m;
 		m.setAddress("/kinho/push");
-		m.addFloatArg((staticTweetArea.x-drawArea.x)/drawArea.width);
-		m.addFloatArg((staticTweetArea.y-drawArea.y)/drawArea.height);
+		m.addFloatArg(scaledPos.x);
+		m.addFloatArg(scaledPos.y);
 		m.addStringArg(oscFontName);
 		m.addIntArg(oscFontSize);
-		// TODO : add WORDxWORD conditional + logic
-		if(bWordByWord){
-			mTSB.consumeOneWord();
-		}
-		string sizedText = fitStringToWidth(mTSB.getSelectedText(), staticTweetArea.width, oscFont);
-		m.addStringArg(sizedText);
+		m.addStringArg(sendText);
 		sender.sendMessage(m);
 	}
 	else if(name.compare("SEND ONE WORD") == 0) {
