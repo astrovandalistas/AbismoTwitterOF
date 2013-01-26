@@ -171,7 +171,7 @@
 		AF7F667616B20DCA0004327D /* TextSelectBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextSelectBar.h; sourceTree = "<group>"; };
 		AF7F66A516B2F94B0004327D /* TextStack.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TextStack.cpp; sourceTree = "<group>"; };
 		AF7F66A616B2F94B0004327D /* TextStack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextStack.h; sourceTree = "<group>"; };
-		AFB7399D16B4838F00D61F26 /* AbismoTwitterOFDebug.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AbismoTwitterOFDebug.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		AFB7399D16B4838F00D61F26 /* AbismoTwitterOF.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = AbismoTwitterOF.app; path = /Users/thiago/Dev/openFrameworks/apps/myApps/AbismoTwitterOF/bin/AbismoTwitterOF.app; sourceTree = "<absolute>"; };
 		AFFD494A16ABABCD003D02A8 /* ofxBaseTwitterApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxBaseTwitterApi.h; sourceTree = "<group>"; };
 		AFFD49B216ABABF2003D02A8 /* curl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = curl.h; sourceTree = "<group>"; };
 		AFFD49B316ABABF2003D02A8 /* curlbuild.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = curlbuild.h; sourceTree = "<group>"; };
@@ -876,7 +876,6 @@
 				E4EEC9E9138DF44700A80321 /* openFrameworks */,
 				BB4B014C10F69532006C3DED /* addons */,
 				E45BE5980E8CC70C009D7055 /* frameworks */,
-				AFB7399D16B4838F00D61F26 /* AbismoTwitterOFDebug.app */,
 			);
 			sourceTree = "<group>";
 		};
@@ -926,7 +925,7 @@
 			);
 			name = AbismoTwitterOF;
 			productName = myOFApp;
-			productReference = AFB7399D16B4838F00D61F26 /* AbismoTwitterOFDebug.app */;
+			productReference = AFB7399D16B4838F00D61F26 /* AbismoTwitterOF.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
