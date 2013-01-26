@@ -66,6 +66,15 @@ void TextSelectBar::setString(string s_){
 	colorFrom = -1;
 }
 
+void TextSelectBar::consumeOneWord(){
+	colorFrom++;
+	string selectedText = "";
+	for(int i=colorFrom; i<phrase.size()&&i<=colorUntil; ++i){
+		selectedText += phrase[i];
+	}
+	ofNotifyEvent(TextSelectBar::selectedTextEvent, selectedText);
+}
+
 void TextSelectBar::draw(){
 	ofSetColor(100, 100);
 	ofRect(x,y,w,h);
