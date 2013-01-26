@@ -30,6 +30,9 @@ class TextStack {
 		const int size() const;
 		const TextObject& operator[](const unsigned int i);
 		const TextObject& peek();
+		// for live tweets
+		void setLive(TextObject obj_);
+		const TextObject& getLive() const;
 	protected:
 		vector<TextObject> theStack;
 };
