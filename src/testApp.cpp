@@ -9,6 +9,9 @@
 #define MAX_FONT_SIZE 64
 #define MIN_FONT_SIZE 16
 
+#define READ_FROM_XML 1
+#define XML_FILE_NAME "testTweetXml.xml"
+
 //--------------------------------------------------------------
 testApp::testApp() :
 tweetGui(0,0,ofGetWidth()/4,ofGetHeight()),
@@ -24,7 +27,43 @@ void testApp::setup(){
 	ofAddListener(ofxBaseTwitterApi::liveTweetEvent, this, &testApp::sendLiveTweet);
 
 	vector<Tweet> theTweets;
-	theTweets = mTwitter.getTweets();
+	ofxXmlSettings xmlTweets;
+
+	if(READ_FROM_XML){
+		if(xmlTweets.loadFile(XML_FILE_NAME)){
+			int numberOfSavedPoints = xmlTweets.getNumTags("tweet");
+
+			// read from xml file
+			for(int i = 0; i < numberOfSavedPoints; i++){
+				xmlTweets.pushTag("tweet", i);
+				string user, date, text, id_;
+				long long int id;
+				user = xmlTweets.getValue("user","");
+				date = xmlTweets.getValue("date","");
+				text = xmlTweets.getValue("text","");
+				id_ = xmlTweets.getValue("id","");
+				istringstream cur(id_);
+				cur >> id;
+				theTweets.push_back(Tweet(text, user, date, id));
+				xmlTweets.popTag();
+			}
+		}
+	}
+	else{
+		theTweets = mTwitter.getTweets();
+
+		// write out to xml file
+		for(int i=0; i<theTweets.size(); ++i){
+			xmlTweets.addTag("tweet");
+			xmlTweets.pushTag("tweet",i);
+			xmlTweets.addValue("text", theTweets.at(i).text);
+			xmlTweets.addValue("user", theTweets.at(i).user);
+			xmlTweets.addValue("date", theTweets.at(i).date);
+			xmlTweets.addValue("id", ofToString(theTweets.at(i).id));
+			xmlTweets.popTag();
+		}
+		xmlTweets.saveFile(XML_FILE_NAME);
+	}
 
 	////////// TWEET GUI
 	tweetGui.setFont("verdana.ttf");
@@ -37,6 +76,7 @@ void testApp::setup(){
 		string tweetText = fitStringToWidth(theTweets.at(i).text, tweetGui.getRect()->width, *tweetGui.getFontMedium());
 		tweetGui.addLabelButton(tweetText, false, 0);
 	}
+
 	tweetGui.setColorBack(ofColor(100,200));
 	tweetGui.autoSizeToFitWidgets();
 	ofAddListener(tweetGui.newGUIEvent,this,&testApp::tweetGuiEvent);
