@@ -20,7 +20,8 @@ TextObject::~TextObject(){}
 
 TextStack::TextStack(){
 	// the live tweet
-	theStack.push_back(TextObject(ofVec2f(0,0), 18, DEFAULT_FONT, ""));
+	TextObject tto = TextObject(ofVec2f(0,0), 18, DEFAULT_FONT, "");
+	theStack.push_back(tto);
 }
 TextStack::~TextStack(){}
 
@@ -35,15 +36,16 @@ void TextStack::popObject(){
 void TextStack::clearObjects(){
 	theStack.clear();
 	// the live tweet
-	theStack.push_back(TextObject(ofVec2f(0,0), 18, DEFAULT_FONT, ""));
+	TextObject tto = TextObject(ofVec2f(0,0), 18, DEFAULT_FONT, "");
+	theStack.push_back(tto);
 }
 
 const int TextStack::size() const{
-	return theStack.size()-1;
+	return (theStack.size() - 1);
 }
 
 const TextObject& TextStack::operator[](const unsigned int i){
-	if((i > -1) && (i < theStack.size()-1)){
+	if(i < theStack.size()-1){
 		return theStack.at(i+1);
 	}
 }
@@ -52,6 +54,7 @@ const TextObject& TextStack::peek(){
 	if(theStack.size() > 1){
 		return theStack.back();
 	}
+	return theStack.at(0);
 }
 
 void TextStack::setLive(TextObject obj_){
