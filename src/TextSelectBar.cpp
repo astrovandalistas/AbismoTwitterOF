@@ -114,10 +114,12 @@ void TextSelectBar::mouseDragged(ofMouseEventArgs & args){
 	}
 }
 void TextSelectBar::mouseReleased(ofMouseEventArgs & args){
-	if(args.y > y && args.y < (y+h) && colorUntil > -1){
+	if(args.y > y && args.y < (y+h)){
 		selectedText = "";
-		for(int i=colorFrom; i<phrase.size()&&i<=colorUntil; ++i){
-			selectedText += phrase[i];
+		if(colorUntil > -1){
+			for(int i=colorFrom; i<phrase.size()&&i<=colorUntil; ++i){
+				selectedText += phrase[i];
+			}
 		}
 	}
 }
