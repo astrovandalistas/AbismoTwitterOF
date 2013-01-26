@@ -118,8 +118,9 @@ void testApp::setup(){
 
 	////////// draw area
 	drawArea = ofRectangle(ofGetWidth()/4+20, 50, 0.75*ofGetWidth(), 0.8*ofGetHeight()-60);
-	sendPosition = ofVec2f(drawArea.x,drawArea.y);
-	lastSendPosition = ofVec2f(drawArea.x,drawArea.y);
+	staticSendPosition = ofVec2f(drawArea.x,drawArea.y);
+	lastStaticSendPosition = ofVec2f(drawArea.x,drawArea.y);
+	//liveSendPosition = ofVec2f(drawArea.x,drawArea.y);
 
 	////////// osc
 	sender.setup(OSC_HOST,OSC_PORT);
@@ -194,13 +195,14 @@ void testApp::mousePressed(int x, int y, int button){
 			staticTweetArea.y = y;
 			staticTweetArea.width = 0;
 			staticTweetArea.height = 0;
-			sendPosition = ofVec2f(staticTweetArea.x,staticTweetArea.y);
+			staticSendPosition = ofVec2f(staticTweetArea.x,staticTweetArea.y);
 		}
 		else {
 			liveTweetArea.x = x;
 			liveTweetArea.y = y;
 			liveTweetArea.width = 0;
 			liveTweetArea.height = 0;
+			//liveSendPosition = ofVec2f(liveTweetArea.x,liveTweetArea.y);
 		}
 	}
 }
@@ -265,7 +267,7 @@ void testApp::buttonGuiEvent(ofxUIEventArgs &e){
 		m.setAddress("/kinho/pop");
 		m.addIntArg(1);
 		sender.sendMessage(m);
-		sendPosition = ofVec2f(lastSendPosition);
+		staticSendPosition = ofVec2f(lastStaticSendPosition);
 		// DEBUG
 		mTextStack.popObject();
 	}
@@ -274,31 +276,32 @@ void testApp::buttonGuiEvent(ofxUIEventArgs &e){
 		m.setAddress("/kinho/clear");
 		m.addIntArg(1);
 		sender.sendMessage(m);
-		sendPosition = ofVec2f(staticTweetArea.x,staticTweetArea.y);
-		lastSendPosition = ofVec2f(staticTweetArea.x,staticTweetArea.y);
+		staticSendPosition = ofVec2f(staticTweetArea.x,staticTweetArea.y);
+		lastStaticSendPosition = ofVec2f(staticTweetArea.x,staticTweetArea.y);
+		//liveSendPosition = ofVec2f(liveTweetArea.x,liveTweetArea.y);
 		// DEBUG
 		mTextStack.clearObjects();
 	}
 	else if((name.compare("Send") == 0) && (staticTweetArea.width>0) && (((ofxUIButton*)e.widget)->getValue())){
 		string sendText = "";
-		ofVec2f scaledPos( ((sendPosition.x-drawArea.x)/drawArea.width), ((sendPosition.y-drawArea.y)/drawArea.height) );
-		lastSendPosition = ofVec2f(sendPosition);
+		ofVec2f scaledPos( ((staticSendPosition.x-drawArea.x)/drawArea.width), ((staticSendPosition.y-drawArea.y)/drawArea.height) );
+		lastStaticSendPosition = ofVec2f(staticSendPosition);
 
 		if(bWordByWord){
 			sendText = mTSB.consumeOneWord();
 			// calculate offset
-			if((sendPosition.x+oscFont.stringWidth(sendText)) > (staticTweetArea.x+staticTweetArea.width)){
-				sendPosition.x = staticTweetArea.x;
-				sendPosition.y += oscFont.stringHeight(sendText);
+			if((staticSendPosition.x+oscFont.stringWidth(sendText)) > (staticTweetArea.x+staticTweetArea.width)){
+				staticSendPosition.x = staticTweetArea.x;
+				staticSendPosition.y += oscFont.stringHeight(sendText);
 			}
-			scaledPos.x = (sendPosition.x-drawArea.x)/drawArea.width;
-			scaledPos.y = (sendPosition.y-drawArea.y)/drawArea.height;
-			sendPosition.x += oscFont.stringWidth(sendText) + oscFont.stringWidth("p");
+			scaledPos.x = (staticSendPosition.x-drawArea.x)/drawArea.width;
+			scaledPos.y = (staticSendPosition.y-drawArea.y)/drawArea.height;
+			staticSendPosition.x += oscFont.stringWidth(sendText) + oscFont.stringWidth("p");
 		}
 		// send whole text at once
 		else{
 			sendText = fitStringToWidth(mTSB.getSelectedText(), staticTweetArea.width, oscFont);
-			sendPosition.y += oscFont.stringHeight(sendText);
+			staticSendPosition.y += oscFont.stringHeight(sendText);
 		}
 
 		// don't send empty messages
