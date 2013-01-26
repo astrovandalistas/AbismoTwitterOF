@@ -33,6 +33,7 @@ class TextStack {
 		// for live tweets
 		void setLive(TextObject obj_);
 		const TextObject& getLive() const;
+		void clearLive();
 	protected:
 		vector<TextObject> theStack;
 };

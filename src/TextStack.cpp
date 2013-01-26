@@ -63,3 +63,8 @@ void TextStack::setLive(TextObject obj_){
 const TextObject& TextStack::getLive() const{
 	return theStack.at(0);
 }
+void TextStack::clearLive(){
+	// the live tweet
+	TextObject tto = TextObject(ofVec2f(0,0), 18, DEFAULT_FONT, "");
+	theStack.at(0) = tto;
+}

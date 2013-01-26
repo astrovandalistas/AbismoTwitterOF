@@ -95,7 +95,8 @@ void testApp::setup(){
 	buttonGui.addWidgetDown(new ofxUIToggle("SEND ONE WORD",false,buttonHeight,buttonHeight));
 	buttonGui.addWidgetDown(new ofxUILabelButton("Send", false));
 	//gui->addWidgetRight(new ofxUIButton("Fade In", false));
-    buttonGui.addWidgetRight(new ofxUILabelButton("Clear",false));
+	buttonGui.addWidgetRight(new ofxUILabelButton("Clear",false));
+	buttonGui.addWidgetRight(new ofxUILabelButton("Clear Live",false));
 	buttonGui.addWidgetRight(new ofxUILabelButton("Clear All",false));
 
 	ofxUIDropDownList *ddlist = (ofxUIDropDownList *) buttonGui.addWidgetEastOf(new ofxUIDropDownList("__FONT__", fontItems), "SPACER0");
@@ -236,7 +237,7 @@ void testApp::sendLiveTweet(Tweet& t){
 	if(liveTweetArea.width>0){
 		cout << "sending to osc: " << t.text << endl;
 		ofxOscMessage m;
-		m.setAddress("/kinho/push");
+		m.setAddress("/kinho/setLive");
 		m.addFloatArg((liveTweetArea.x-drawArea.x)/drawArea.width);
 		m.addFloatArg((liveTweetArea.y-drawArea.y)/drawArea.height);
 		m.addStringArg(oscFontName);
@@ -275,6 +276,14 @@ void testApp::buttonGuiEvent(ofxUIEventArgs &e){
 		staticSendPosition = ofVec2f(lastStaticSendPosition);
 		// DEBUG
 		mTextStack.popObject();
+	}
+	else if((name.compare("Clear Live") == 0) && ((ofxUIButton*)e.widget)->getValue()){
+		ofxOscMessage m;
+		m.setAddress("/kinho/clearLive");
+		m.addIntArg(1);
+		sender.sendMessage(m);
+		// DEBUG
+		mTextStack.clearLive();
 	}
 	else if((name.compare("Clear All") == 0) && ((ofxUIButton*)e.widget)->getValue()){
 		ofxOscMessage m;
