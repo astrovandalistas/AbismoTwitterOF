@@ -78,6 +78,7 @@ void testApp::setup(){
 
 	////////// draw area
 	drawArea = ofRectangle(ofGetWidth()/4+20, 50, 0.75*ofGetWidth(), 0.8*ofGetHeight()-60);
+	wordByWordOffset = 0;
 
 	////////// osc
 	sender.setup(OSC_HOST,OSC_PORT);
@@ -225,7 +226,7 @@ void testApp::buttonGuiEvent(ofxUIEventArgs &e){
 		if(bWordByWord){
 			mTSB.consumeOneWord();
 		}
-		string sizedText = fitStringToWidth("TEXT HOLDER", staticTweetArea.width, oscFont);
+		string sizedText = fitStringToWidth(mTSB.getSelectedText(), staticTweetArea.width, oscFont);
 		m.addStringArg(sizedText);
 		sender.sendMessage(m);
 	}

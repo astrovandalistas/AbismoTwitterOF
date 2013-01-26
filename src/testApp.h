@@ -36,6 +36,7 @@ class testApp : public ofBaseApp{
 		ofxUICanvas buttonGui;
 		TextSelectBar mTSB;
 		bool bWordByWord;
+		float wordByWordOffset;
 		// this could've been in a class... could've been...
 		ofRectangle drawArea, staticTweetArea, liveTweetArea;
 		void tweetGuiEvent(ofxUIEventArgs &e);
