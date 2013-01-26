@@ -9,13 +9,13 @@
 #define MAX_FONT_SIZE 64
 #define MIN_FONT_SIZE 16
 
-#define READ_FROM_XML 0
+#define READ_FROM_XML 1
 #define XML_FILE_NAME "testTweetXml.xml"
 
 //--------------------------------------------------------------
 testApp::testApp() :
 tweetGui(0,0,ofGetWidth()/4,ofGetHeight()),
-buttonGui(ofGetWidth()/4,0.8*ofGetHeight(),0.75*ofGetWidth(),0.2*ofGetHeight()),
+buttonGui(ofGetWidth()/4+20,0.8*ofGetHeight(),0.75*ofGetWidth(),0.2*ofGetHeight()),
 ofBaseApp(){ }
 
 //--------------------------------------------------------------
@@ -114,7 +114,7 @@ void testApp::setup(){
 	ofAddListener(buttonGui.newGUIEvent,this,&testApp::buttonGuiEvent);
 
 	////////// text bar
-	mTSB.setup(ofGetWidth()/4, 0, 0.75*ofGetWidth(), 40,
+	mTSB.setup(ofGetWidth()/4+20, 0, 0.75*ofGetWidth(), 40,
 			   "Calculate and display the number of characters within a text with this script. Useful, for example, in helping your visitors keep their hat.");
 
 	////////// draw area
