@@ -91,6 +91,9 @@ void testApp::setup(){
 //--------------------------------------------------------------
 void testApp::update(){
 	//testGraphUpdate();
+	if(ofGetFrameNum()%100 == 0){
+		cout << ofGetFrameRate() << endl;
+	}
 }
 
 //--------------------------------------------------------------
@@ -98,6 +101,15 @@ void testApp::draw(){
 	mTSB.draw();
 	ofSetColor(100,100);
 	ofRect(drawArea);
+	
+	// DEBUG / TEST
+	for(int i=0; i<mTextStack.size(); i++){
+		TextObject mto = mTextStack[i];
+		//oscFont.loadFont(mto.font, mto.size);
+		ofSetColor(255,200);
+		oscFont.drawString(mto.text, mto.pos.x*drawArea.width+drawArea.x, mto.pos.y*drawArea.height+drawArea.y);
+	}
+	
 	ofSetColor(200,32,50,128);
 	ofRect(staticTweetArea);
 	ofSetColor(130,164,140,128);
@@ -141,6 +153,7 @@ void testApp::mousePressed(int x, int y, int button){
 			staticTweetArea.y = y;
 			staticTweetArea.width = 0;
 			staticTweetArea.height = 0;
+			sendPosition = ofVec2f(staticTweetArea.x,staticTweetArea.y);
 		}
 		else {
 			liveTweetArea.x = x;
@@ -209,6 +222,8 @@ void testApp::buttonGuiEvent(ofxUIEventArgs &e){
 		m.addIntArg(1);
 		sender.sendMessage(m);
 		sendPosition = ofVec2f(staticTweetArea.x,staticTweetArea.y);
+		// DEBUG
+		mTextStack.popObject();
 	}
 	else if((name.compare("Clear All") == 0) && ((ofxUIButton*)e.widget)->getValue()){
 		ofxOscMessage m;
@@ -216,11 +231,13 @@ void testApp::buttonGuiEvent(ofxUIEventArgs &e){
 		m.addIntArg(1);
 		sender.sendMessage(m);
 		sendPosition = ofVec2f(staticTweetArea.x,staticTweetArea.y);
+		// DEBUG
+		mTextStack.clearObjects();
 	}
 	else if((name.compare("Send") == 0) && (staticTweetArea.width>0) && (((ofxUIButton*)e.widget)->getValue())){
 		string sendText = "";
 		ofVec2f scaledPos( ((sendPosition.x-drawArea.x)/drawArea.width), ((sendPosition.y-drawArea.y)/drawArea.height) );
-		// TODO : TEST THIS
+
 		if(bWordByWord){
 			sendText = mTSB.consumeOneWord();
 			// calculate offset
@@ -230,21 +247,26 @@ void testApp::buttonGuiEvent(ofxUIEventArgs &e){
 			}
 			scaledPos.x = (sendPosition.x-drawArea.x)/drawArea.width;
 			scaledPos.y = (sendPosition.y-drawArea.y)/drawArea.height;
-			sendPosition.x += oscFont.stringWidth(sendText);
+			sendPosition.x += oscFont.stringWidth(sendText) + oscFont.stringWidth("p");
 		}
 		// send whole text at once
 		else{
 			sendText = fitStringToWidth(mTSB.getSelectedText(), staticTweetArea.width, oscFont);
 		}
 
-		ofxOscMessage m;
-		m.setAddress("/kinho/push");
-		m.addFloatArg(scaledPos.x);
-		m.addFloatArg(scaledPos.y);
-		m.addStringArg(oscFontName);
-		m.addIntArg(oscFontSize);
-		m.addStringArg(sendText);
-		sender.sendMessage(m);
+		// don't send empty messages
+		if(sendText.compare("") != 0){
+			ofxOscMessage m;
+			m.setAddress("/kinho/push");
+			m.addFloatArg(scaledPos.x);
+			m.addFloatArg(scaledPos.y);
+			m.addStringArg(oscFontName);
+			m.addIntArg(oscFontSize);
+			m.addStringArg(sendText);
+			sender.sendMessage(m);
+			// DEBUG
+			mTextStack.pushObject(TextObject(scaledPos, oscFontSize, oscFontName,sendText));
+		}
 	}
 	else if(name.compare("SEND ONE WORD") == 0) {
 		bWordByWord = ((ofxUIToggle*)e.widget)->getValue();
