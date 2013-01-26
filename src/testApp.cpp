@@ -233,6 +233,13 @@ void testApp::dragEvent(ofDragInfo dragInfo){
 
 //--------------------------------------------------------------
 void testApp::sendLiveTweet(Tweet& t){
+	// add to gui
+	string tweetText = fitStringToWidth(t.text, tweetGui.getRect()->width, *tweetGui.getFontMedium());
+	tweetGui.addLabelButton(tweetText, false, 0);
+	tweetGui.setColorBack(ofColor(100,200));
+	tweetGui.autoSizeToFitWidgets();
+
+	// add to osc/stack
 	if(liveTweetArea.width>0){
 		cout << "sending to osc: " << t.text << endl;
 		ofxOscMessage m;
