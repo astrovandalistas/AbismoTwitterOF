@@ -79,6 +79,7 @@ void testApp::setup(){
 	////////// draw area
 	drawArea = ofRectangle(ofGetWidth()/4+20, 50, 0.75*ofGetWidth(), 0.8*ofGetHeight()-60);
 	sendPosition = ofVec2f(drawArea.x,drawArea.y);
+	lastSendPosition = ofVec2f(drawArea.x,drawArea.y);
 
 	////////// osc
 	sender.setup(OSC_HOST,OSC_PORT);
@@ -221,7 +222,7 @@ void testApp::buttonGuiEvent(ofxUIEventArgs &e){
 		m.setAddress("/kinho/pop");
 		m.addIntArg(1);
 		sender.sendMessage(m);
-		sendPosition = ofVec2f(staticTweetArea.x,staticTweetArea.y);
+		sendPosition = ofVec2f(lastSendPosition);
 		// DEBUG
 		mTextStack.popObject();
 	}
@@ -231,12 +232,14 @@ void testApp::buttonGuiEvent(ofxUIEventArgs &e){
 		m.addIntArg(1);
 		sender.sendMessage(m);
 		sendPosition = ofVec2f(staticTweetArea.x,staticTweetArea.y);
+		lastSendPosition = ofVec2f(staticTweetArea.x,staticTweetArea.y);
 		// DEBUG
 		mTextStack.clearObjects();
 	}
 	else if((name.compare("Send") == 0) && (staticTweetArea.width>0) && (((ofxUIButton*)e.widget)->getValue())){
 		string sendText = "";
 		ofVec2f scaledPos( ((sendPosition.x-drawArea.x)/drawArea.width), ((sendPosition.y-drawArea.y)/drawArea.height) );
+		lastSendPosition = ofVec2f(sendPosition);
 
 		if(bWordByWord){
 			sendText = mTSB.consumeOneWord();
@@ -252,6 +255,7 @@ void testApp::buttonGuiEvent(ofxUIEventArgs &e){
 		// send whole text at once
 		else{
 			sendText = fitStringToWidth(mTSB.getSelectedText(), staticTweetArea.width, oscFont);
+			sendPosition.y += oscFont.stringHeight(sendText);
 		}
 
 		// don't send empty messages
