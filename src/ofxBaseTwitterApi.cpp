@@ -17,7 +17,7 @@ void ofxBaseTwitterApi::setup(const string& _consumerKey, const string& _consume
 	
 	userName = "";
 	lastTweetID = 75502655925002239;
-	searchTerm = "#Abismo #abismo";
+	searchTerm = "#Elabismo #elabismo #ELABISMO #ElAbismo";
 	
 	// add an empty tweet to liveTweet vector
 	liveTweets.push_back(Tweet("","","",0));
