@@ -67,6 +67,7 @@ void testApp::setup(){
 		oscFontName = ddlist->getToggles()[0]->getName();
 	}
 	oscFontSize = slide->getScaledValue();
+	bWordByWord = false;
 
 	buttonGui.setColorBack(ofColor(100,200));
 	ofAddListener(buttonGui.newGUIEvent,this,&testApp::buttonGuiEvent);
@@ -188,9 +189,8 @@ void testApp::sendLiveTweet(Tweet& t){
 //--------------------------------------------------------------
 void testApp::buttonGuiEvent(ofxUIEventArgs &e){
 	string name = e.widget->getName();
-	int kind = e.widget->getKind();
 
-    if((e.widget->getName().compare("SIZE") == 0) && (ofGetMousePressed())){
+    if((e.widget->getName().compare("SIZE") == 0) && ofGetMousePressed()){
 		ofxUISlider *slider = (ofxUISlider *) e.widget;
 		oscFontSize = (int)slider->getScaledValue();
 		oscFont.loadFont(oscFontName, oscFontSize);
@@ -222,15 +222,20 @@ void testApp::buttonGuiEvent(ofxUIEventArgs &e){
 		m.addStringArg(oscFontName);
 		m.addIntArg(oscFontSize);
 		// TODO : add WORDxWORD conditional + logic
+		if(bWordByWord){
+			mTSB.consumeOneWord();
+		}
 		string sizedText = fitStringToWidth("TEXT HOLDER", staticTweetArea.width, oscFont);
 		m.addStringArg(sizedText);
 		sender.sendMessage(m);
+	}
+	else if(e.widget->getName().compare("SEND ONE WORD") == 0) {
+		bWordByWord = ((ofxUIToggle*)e.widget)->getValue();
 	}
 }
 
 //--------------------------------------------------------------
 void testApp::tweetGuiEvent(ofxUIEventArgs &e){
-	string name = e.widget->getName();
 	int kind = e.widget->getKind();
 
 	if(kind == OFX_UI_WIDGET_LABELBUTTON) {
