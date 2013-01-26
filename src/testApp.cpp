@@ -27,7 +27,7 @@ void testApp::setup(){
 	for(int i=0; i<11; ++i){
 		int fs = i*5+16;
 		ofTrueTypeFont ottf;
-		ottf.loadFont("verdana.ttf", fs);
+		ottf.loadFont("verdana.ttf", fs, true, true);
 		fontMap[fs] = ottf;
 	}
 
