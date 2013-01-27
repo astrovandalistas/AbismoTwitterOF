@@ -35,7 +35,7 @@ class testApp : public ofBaseApp{
 		ofxUIScrollableCanvas tweetGui;
 		ofxUICanvas buttonGui;
 		TextSelectBar mTSB;
-		bool bWordByWord;
+		bool bWordByWord, bRandomPlacement;
 		ofVec2f	staticSendPosition, lastStaticSendPosition;
 		// this could've been in a class... could've been...
 		ofRectangle drawArea, staticTweetArea, liveTweetArea;

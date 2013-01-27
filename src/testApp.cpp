@@ -102,6 +102,7 @@ void testApp::setup(){
 	buttonGui.addSpacer(0.4*buttonGui.getRect()->width,0, "SPACER0");
 	float buttonHeight = buttonGui.getRect()->height/4.0;
 	buttonGui.addWidgetDown(new ofxUIToggle("SEND ONE WORD",false,buttonHeight,buttonHeight));
+	buttonGui.addWidgetRight(new ofxUIToggle("RANDOM",false,buttonHeight,buttonHeight));
 	buttonGui.addWidgetDown(new ofxUILabelButton("Send", false));
 	buttonGui.addWidgetRight(new ofxUILabelButton("Clear",false));
 	buttonGui.addWidgetRight(new ofxUILabelButton("Clear Live",false));
@@ -119,6 +120,7 @@ void testApp::setup(){
 	oscFont = (it->second);
 	oscFontSize = oscFont.getSize();
 	bWordByWord = false;
+	bRandomPlacement = false;
 
 	buttonGui.setColorBack(ofColor(100,200));
 	ofAddListener(buttonGui.newGUIEvent,this,&testApp::buttonGuiEvent);
@@ -316,6 +318,7 @@ void testApp::buttonGuiEvent(ofxUIEventArgs &e){
 		ofVec2f scaledPos( ((staticSendPosition.x-drawArea.x)/drawArea.width), ((staticSendPosition.y-drawArea.y)/drawArea.height) );
 		lastStaticSendPosition = ofVec2f(staticSendPosition);
 
+		// check if placing one word at a time
 		if(bWordByWord){
 			sendText = mTSB.consumeOneWord();
 			// calculate offset
@@ -331,6 +334,12 @@ void testApp::buttonGuiEvent(ofxUIEventArgs &e){
 		else{
 			sendText = fitStringToWidth(mTSB.getSelectedText(), staticTweetArea.width, oscFont);
 			staticSendPosition.y += oscFont.stringHeight(sendText);
+		}
+
+		// random placement
+		if(bRandomPlacement){
+			staticSendPosition.x = drawArea.x+ofRandom(drawArea.width);
+			staticSendPosition.y = drawArea.y+ofRandom(drawArea.height);
 		}
 
 		// don't send empty messages
@@ -350,6 +359,9 @@ void testApp::buttonGuiEvent(ofxUIEventArgs &e){
 	}
 	else if(name.compare("SEND ONE WORD") == 0) {
 		bWordByWord = ((ofxUIToggle*)e.widget)->getValue();
+	}
+	else if(name.compare("RANDOM") == 0) {
+		bRandomPlacement = ((ofxUIToggle*)e.widget)->getValue();
 	}
 }
 
