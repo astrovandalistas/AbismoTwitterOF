@@ -15,7 +15,7 @@
 //--------------------------------------------------------------
 testApp::testApp() :
 tweetGui(0,0,ofGetWidth()/4,ofGetHeight()),
-buttonGui(ofGetWidth()/4+20,0.8*ofGetHeight(),0.75*ofGetWidth(),0.2*ofGetHeight()),
+buttonGui(ofGetWidth()/4+20,0.85*ofGetHeight(),0.75*ofGetWidth(),0.15*ofGetHeight()),
 ofBaseApp(){ }
 
 //--------------------------------------------------------------
@@ -127,7 +127,7 @@ void testApp::setup(){
 	mTSB.setup(ofGetWidth()/4+20, 0, 0.75*ofGetWidth(), 40, "#elabismo no nos detiene");
 
 	////////// draw area
-	drawArea = ofRectangle(ofGetWidth()/4+20, 50, 0.75*ofGetWidth(), 0.8*ofGetHeight()-60);
+	drawArea = ofRectangle(ofGetWidth()/4+20, 50, 0.75*ofGetWidth(), 0.85*ofGetHeight()-60);
 	staticSendPosition = ofVec2f(drawArea.x,drawArea.y);
 	lastStaticSendPosition = ofVec2f(drawArea.x,drawArea.y);
 
