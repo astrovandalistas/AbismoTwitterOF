@@ -3,6 +3,7 @@
 bin/*
 !bin/data
 bin/data/credentials.xml
+bin/data/elabismo*
 
 AbismoTwitterOF.xcodeproj/project.xcworkspace/xcuserdata
 AbismoTwitterOF.xcodeproj/xcuserdata
