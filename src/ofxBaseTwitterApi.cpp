@@ -95,7 +95,7 @@ const string ofxBaseTwitterApi::getStaticTweetsJson() {
 	if(isAuthorized()){
 		stringstream ss;
 		ss<<lastTweetID;
-		return get("/1.1/statuses/user_timeline.json?include_entities=false&trim_user=true&exclude_replies=true&include_rts=true&since_id="+ss.str());
+		return get("/1.1/statuses/user_timeline.json?include_entities=false&trim_user=true&exclude_replies=true&count=50&include_rts=true&since_id="+ss.str());
 	}
 	return "";
 }
