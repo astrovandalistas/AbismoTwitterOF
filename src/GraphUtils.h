@@ -25,6 +25,7 @@ public:
 	void setSize(const float size_);
 	const string getName() const;
 	const ofRectangle getBoundingBox() const;
+	inline const bool isMouseInside(ofMouseEventArgs & args) const;
 	void update();
 protected:
 	ofVec2f pos, vel, acc;
@@ -45,7 +46,7 @@ class Node: public PhysNode {
 		static ofEvent<Node> addNodeToGraph;
 		bool operator < (const Node &on) const;
 		static bool sortComp(Node *n0, Node *n1);
-		// click events for sorting
+		// click events for re-sorting
 		ofEvent<Node> NodeClickEvent;
 		void mouseMoved(ofMouseEventArgs & args);
 		void mouseDragged(ofMouseEventArgs & args);
@@ -69,6 +70,12 @@ public:
 	static ofEvent<Edge> addEdgeToGraph;
 	bool operator < (const Edge &oe) const;
 	static bool sortComp(Edge *e0, Edge *e1);
+	// click events for triggering sub-menu
+	ofEvent<Edge> EdgeClickEvent;
+	void mouseMoved(ofMouseEventArgs & args);
+	void mouseDragged(ofMouseEventArgs & args);
+	void mousePressed(ofMouseEventArgs & args);
+	void mouseReleased(ofMouseEventArgs & args);
 protected:
 	float minCost, cost, avgCost;
 	map<string,Node*> theNodes;

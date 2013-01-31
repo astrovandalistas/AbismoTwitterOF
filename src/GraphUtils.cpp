@@ -40,6 +40,10 @@ void PhysNode::update(){
 	pos += vel;
 }
 
+inline const bool PhysNode::isMouseInside(ofMouseEventArgs & args) const{
+	return ((args.x > (pos.x-size/2)) && (args.x < (pos.x+size/2)) && (args.y > (pos.y-size/2)) && (args.y < (pos.y+size/2)));
+}
+
 //////////////////////////////////
 //////////////////////////////////
 //////////////////////////////////
@@ -97,7 +101,7 @@ void Node::addEdge(Edge* e){
 void Node::mouseMoved(ofMouseEventArgs & args){}
 void Node::mouseDragged(ofMouseEventArgs & args){}
 void Node::mousePressed(ofMouseEventArgs & args){
-	if((args.x > (pos.x-size/2)) && (args.x < (pos.x+size/2)) && (args.y > (pos.y-size/2)) && (args.y < (pos.y+size/2))){
+	if(this->isMouseInside(args)){
 		ofNotifyEvent(NodeClickEvent, *this);
 	}
 }
@@ -158,6 +162,17 @@ void Edge::addNode(Node* n){
 	}
 }
 
+// click events for triggering sub-menu
+void Edge::mouseMoved(ofMouseEventArgs & args){}
+void Edge::mouseDragged(ofMouseEventArgs & args){}
+void Edge::mousePressed(ofMouseEventArgs & args){
+	if(this->isMouseInside(args)){
+		ofNotifyEvent(EdgeClickEvent, *this);
+	}
+}
+void Edge::mouseReleased(ofMouseEventArgs & args){}
+
+
 //////////////////////////////////////
 //////////////////////////////////////
 //////////////////////////////////////
@@ -192,6 +207,8 @@ void Graph::addNodeToGraph(Node& n){
 void Graph::addEdgeToGraph(Edge& e){
 	theEdges[e.getName()] = &e;
 	orderedEdges.push_back(&e);
+	// TODO: what to do when edge is clicked? open a sub menu?
+	// ofAddListener(e.EdgeClickEvent, this, &Graph::openSubMenu);
 }
 
 void Graph::addNodeToQ(Node& n){
