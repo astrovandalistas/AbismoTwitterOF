@@ -9,6 +9,30 @@
 #include "GraphUtils.h"
 #include "ofLog.h"
 
+PhysNode::PhysNode(){
+	size = 0;
+	pos = ofVec2f(0,0);
+	vel = ofVec2f(0,0);
+	acc = ofVec2f(0,0);
+}
+PhysNode::~PhysNode(){}
+
+void PhysNode::setAcceleration(const ofVec2f acc_){
+	acc = acc_;
+}
+void PhysNode::setSize(const float size_){
+	size = size_;
+}
+
+const ofRectangle PhysNode::getBoundingBox() const{
+	ofRectangle r = ofRectangle(pos.x-size/2, pos.y-size/2, size, size);
+}
+
+void PhysNode::update(){
+	vel += acc;
+	pos += vel;
+}
+
 ofEvent<Node> Node::addNodeToGraph = ofEvent<Node>();
 
 Node::Node(const string name_){

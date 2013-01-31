@@ -887,12 +887,12 @@
 				E4B69E1D0A3A1BDC003C02F2 /* main.cpp */,
 				E4B69E1E0A3A1BDC003C02F2 /* testApp.cpp */,
 				E4B69E1F0A3A1BDC003C02F2 /* testApp.h */,
-				AF7F662A16B044A60004327D /* GraphUtils.cpp */,
-				AF7F662B16B044A60004327D /* GraphUtils.h */,
 				AF7F667516B20DC90004327D /* TextSelectBar.cpp */,
 				AF7F667616B20DCA0004327D /* TextSelectBar.h */,
 				AF7F66A516B2F94B0004327D /* TextStack.cpp */,
 				AF7F66A616B2F94B0004327D /* TextStack.h */,
+				AF7F662A16B044A60004327D /* GraphUtils.cpp */,
+				AF7F662B16B044A60004327D /* GraphUtils.h */,
 			);
 			path = src;
 			sourceTree = SOURCE_ROOT;

@@ -9,13 +9,27 @@
 #pragma once
 
 #include "ofConstants.h"
+#include "ofRectangle.h"
 #include "ofEvents.h"
 #include<map>
 #include<queue>
 
 class Edge;
 
-class Node {
+class PhysNode {
+public:
+	PhysNode();
+	~PhysNode();
+	void setAcceleration(const ofVec2f acc_);
+	void setSize(const float size_);
+	const ofRectangle getBoundingBox() const;
+	void update();
+protected:
+	ofVec2f pos, vel, acc;
+	float size;
+};
+
+class Node: public PhysNode {
 	public:
 		Node(const string name_);
 		~Node();
@@ -36,7 +50,7 @@ class Node {
 		bool bInQ;
 };
 
-class Edge {
+class Edge: public PhysNode {
 public:
 	Edge(const string name_, const int cost_);
 	~Edge();
