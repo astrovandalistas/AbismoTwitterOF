@@ -21,6 +21,7 @@
 		AF7F666616B0E3F70004327D /* ofxOscSender.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AF7F665816B0E3F70004327D /* ofxOscSender.cpp */; };
 		AF7F667716B20DCA0004327D /* TextSelectBar.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AF7F667516B20DC90004327D /* TextSelectBar.cpp */; };
 		AF7F66A716B2F94C0004327D /* TextStack.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AF7F66A516B2F94B0004327D /* TextStack.cpp */; };
+		AFB739A516BABB0000D61F26 /* WordCloud.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AFB739A316BABB0000D61F26 /* WordCloud.cpp */; };
 		AFFD4A4A16ABABF2003D02A8 /* libcurl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AFFD49BD16ABABF2003D02A8 /* libcurl.a */; };
 		AFFD4A4B16ABABF2003D02A8 /* liboauth.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AFFD49C316ABABF2003D02A8 /* liboauth.a */; };
 		AFFD4A4C16ABABF2003D02A8 /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AFFD4A1416ABABF2003D02A8 /* libcrypto.a */; };
@@ -172,6 +173,8 @@
 		AF7F66A516B2F94B0004327D /* TextStack.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TextStack.cpp; sourceTree = "<group>"; };
 		AF7F66A616B2F94B0004327D /* TextStack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextStack.h; sourceTree = "<group>"; };
 		AFB7399D16B4838F00D61F26 /* AbismoTwitterOF.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = AbismoTwitterOF.app; path = /Users/thiago/Dev/openFrameworks/apps/myApps/AbismoTwitterOF/bin/AbismoTwitterOF.app; sourceTree = "<absolute>"; };
+		AFB739A316BABB0000D61F26 /* WordCloud.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WordCloud.cpp; sourceTree = "<group>"; };
+		AFB739A416BABB0000D61F26 /* WordCloud.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WordCloud.h; sourceTree = "<group>"; };
 		AFFD494A16ABABCD003D02A8 /* ofxBaseTwitterApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxBaseTwitterApi.h; sourceTree = "<group>"; };
 		AFFD49B216ABABF2003D02A8 /* curl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = curl.h; sourceTree = "<group>"; };
 		AFFD49B316ABABF2003D02A8 /* curlbuild.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = curlbuild.h; sourceTree = "<group>"; };
@@ -893,6 +896,8 @@
 				AF7F66A616B2F94B0004327D /* TextStack.h */,
 				AF7F662A16B044A60004327D /* GraphUtils.cpp */,
 				AF7F662B16B044A60004327D /* GraphUtils.h */,
+				AFB739A316BABB0000D61F26 /* WordCloud.cpp */,
+				AFB739A416BABB0000D61F26 /* WordCloud.h */,
 			);
 			path = src;
 			sourceTree = SOURCE_ROOT;
@@ -1022,6 +1027,7 @@
 				AF7F666616B0E3F70004327D /* ofxOscSender.cpp in Sources */,
 				AF7F667716B20DCA0004327D /* TextSelectBar.cpp in Sources */,
 				AF7F66A716B2F94C0004327D /* TextStack.cpp in Sources */,
+				AFB739A516BABB0000D61F26 /* WordCloud.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
