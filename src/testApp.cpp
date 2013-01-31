@@ -10,7 +10,7 @@
 #define MIN_FONT_SIZE 16
 
 #define READ_FROM_XML 1
-#define XML_FILE_NAME "testTweetXml.xml"
+#define XML_FILE_NAME "TweetsXml.xml"
 
 //--------------------------------------------------------------
 testApp::testApp() :
@@ -34,7 +34,7 @@ void testApp::setup(){
 	/////// TWITTER API
 	vector<Tweet> theTweets;
 	ofxXmlSettings xmlTweets;
-	mTwitter.setup(CONSUMER_KEY,CONSUMER_SECRET);
+	//mTwitter.setup(CONSUMER_KEY,CONSUMER_SECRET);
 
 	if(READ_FROM_XML){
 		if(xmlTweets.loadFile(XML_FILE_NAME)){
