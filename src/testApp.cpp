@@ -101,7 +101,7 @@ void testApp::setup(){
 	buttonGui.addSpacer(buttonGui.getRect()->width,4);
 	buttonGui.addSpacer(0.4*buttonGui.getRect()->width,0, "SPACER0");
 	float buttonHeight = buttonGui.getRect()->height/4.0;
-	buttonGui.addWidgetDown(new ofxUIToggle("SEND ONE WORD",false,buttonHeight,buttonHeight));
+	buttonGui.addWidgetDown(new ofxUIToggle("ONE WORD",false,buttonHeight,buttonHeight));
 	buttonGui.addWidgetRight(new ofxUIToggle("RANDOM",false,buttonHeight,buttonHeight));
 	buttonGui.addWidgetDown(new ofxUILabelButton("Send", false));
 	buttonGui.addWidgetRight(new ofxUILabelButton("Clear",false));
@@ -336,10 +336,16 @@ void testApp::buttonGuiEvent(ofxUIEventArgs &e){
 			staticSendPosition.y += oscFont.stringHeight(sendText);
 		}
 
-		// random placement
 		if(bRandomPlacement){
-			staticSendPosition.x = drawArea.x+ofRandom(drawArea.width);
-			staticSendPosition.y = drawArea.y+ofRandom(drawArea.height);
+			// random placement
+			float rx = staticTweetArea.x+ofRandom(-oscFont.stringWidth(sendText)*1.5, oscFont.stringWidth(sendText)*1.5);
+			float ry = staticSendPosition.y-oscFont.stringHeight(sendText)*int(ofRandom(2))*2;
+			staticSendPosition.x = ofClamp(rx, drawArea.x, drawArea.getRight()-oscFont.stringWidth(sendText));
+			staticSendPosition.y = ofClamp(ry, drawArea.y, drawArea.getBottom());
+			// random size: oscFontSize is not consistent with oscFont while on random mode
+			float rs = ofClamp(oscFontSize*(ofNoise(ofGetFrameNum()/10.0)*0.8+0.6), MIN_FONT_SIZE, MAX_FONT_SIZE);
+			std::map<int,ofTrueTypeFont>::iterator it = fontMap.lower_bound(rs);
+			oscFont = (it->second);
 		}
 
 		// don't send empty messages
@@ -354,14 +360,18 @@ void testApp::buttonGuiEvent(ofxUIEventArgs &e){
 			//sender.sendMessage(m);
 
 			// DEBUG
-			mTextStack.pushObject(TextObject(scaledPos, oscFontSize, oscFontName,sendText));
+			mTextStack.pushObject(TextObject(scaledPos, oscFont.getSize(), oscFontName,sendText));
 		}
 	}
-	else if(name.compare("SEND ONE WORD") == 0) {
+	else if(name.compare("ONE WORD") == 0) {
 		bWordByWord = ((ofxUIToggle*)e.widget)->getValue();
 	}
 	else if(name.compare("RANDOM") == 0) {
 		bRandomPlacement = ((ofxUIToggle*)e.widget)->getValue();
+		// reset font size to the set font size
+		std::map<int,ofTrueTypeFont>::iterator it = fontMap.lower_bound(oscFontSize);
+		oscFont = (it->second);
+		oscFontSize = oscFont.getSize();
 	}
 }
 
