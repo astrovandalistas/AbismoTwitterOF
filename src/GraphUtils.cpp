@@ -11,6 +11,7 @@
 
 PhysNode::PhysNode(){
 	size = 0;
+	name = "";
 	pos = ofVec2f(0,0);
 	vel = ofVec2f(0,0);
 	acc = ofVec2f(0,0);
@@ -23,6 +24,9 @@ void PhysNode::setAcceleration(const ofVec2f acc_){
 void PhysNode::setSize(const float size_){
 	size = size_;
 }
+const string PhysNode::getName() const{
+	return name;
+}
 
 const ofRectangle PhysNode::getBoundingBox() const{
 	ofRectangle r = ofRectangle(pos.x-size/2, pos.y-size/2, size, size);
@@ -33,9 +37,13 @@ void PhysNode::update(){
 	pos += vel;
 }
 
+//////////////////////////////////
+//////////////////////////////////
+//////////////////////////////////
 ofEvent<Node> Node::addNodeToGraph = ofEvent<Node>();
 
 Node::Node(const string name_){
+	// TODO: super(); ???
 	name = name_;
 	distance = 1e9;
 	ofNotifyEvent(Node::addNodeToGraph, *this);
@@ -56,9 +64,6 @@ void Node::setDistance(float f){
 }
 const float Node::getDistance() const{
 	return distance;
-}
-const string Node::getName() const{
-	return name;
 }
 const bool Node::isInQ() const{
 	return bInQ;
@@ -90,6 +95,7 @@ ofEvent<Node> Edge::addNodeToQ = ofEvent<Node>();
 ofEvent<Edge> Edge::addEdgeToGraph = ofEvent<Edge>();
 
 Edge::Edge(const string name_, const int cost_){
+	// TODO: super(); ???
 	name = name_;
 	cost = cost_;
 	minCost = 1e9;
@@ -126,9 +132,6 @@ void Edge::resetMinCost(){
 	minCost = 1e9;
 }
 
-string Edge::getName() const{
-	return name;
-}
 float Edge::getCost() const{
 	return minCost;
 }

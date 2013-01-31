@@ -22,11 +22,14 @@ public:
 	~PhysNode();
 	void setAcceleration(const ofVec2f acc_);
 	void setSize(const float size_);
+	const string getName() const;
 	const ofRectangle getBoundingBox() const;
 	void update();
+	ofEvent<PhysNode> NodeClickEvent;
 protected:
 	ofVec2f pos, vel, acc;
 	float size;
+	string name;
 };
 
 class Node: public PhysNode {
@@ -35,7 +38,6 @@ class Node: public PhysNode {
 		~Node();
 		void setDistance(float f);
 		const float getDistance() const;
-		const string getName() const;
 		const bool isInQ() const;
 		void setInQ(const bool q);
 		void process() const;
@@ -46,7 +48,6 @@ class Node: public PhysNode {
 	protected:
 		float distance;
 		map<string, Edge*> theEdges;
-		string name;
 		bool bInQ;
 };
 
@@ -56,7 +57,6 @@ public:
 	~Edge();
 	void setCost(const float td);
 	void resetMinCost();
-	string getName() const;
 	float getCost() const;
 	void addNode(Node* n);
 	static ofEvent<Node> addNodeToQ;
@@ -66,7 +66,6 @@ public:
 protected:
 	float minCost, cost, avgCost;
 	map<string,Node*> theNodes;
-	string name;
 };
 
 class Graph {
