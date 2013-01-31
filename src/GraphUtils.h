@@ -26,7 +26,6 @@ public:
 	const string getName() const;
 	const ofRectangle getBoundingBox() const;
 	void update();
-	ofEvent<PhysNode> NodeClickEvent;
 protected:
 	ofVec2f pos, vel, acc;
 	float size;
@@ -46,6 +45,12 @@ class Node: public PhysNode {
 		static ofEvent<Node> addNodeToGraph;
 		bool operator < (const Node &on) const;
 		static bool sortComp(Node *n0, Node *n1);
+		// click events for sorting
+		ofEvent<Node> NodeClickEvent;
+		void mouseMoved(ofMouseEventArgs & args);
+		void mouseDragged(ofMouseEventArgs & args);
+		void mousePressed(ofMouseEventArgs & args);
+		void mouseReleased(ofMouseEventArgs & args);
 	protected:
 		float distance;
 		map<string, Edge*> theEdges;

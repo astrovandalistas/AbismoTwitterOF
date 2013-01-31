@@ -50,9 +50,12 @@ Node::Node(const string name_){
 	name = name_;
 	distance = 1e9;
 	ofNotifyEvent(Node::addNodeToGraph, *this);
+	ofRegisterMouseEvents(this);
 }
 
-Node::~Node(){}
+Node::~Node(){
+	ofUnregisterMouseEvents(this);
+}
 
 bool Node::operator < (const Node &on) const{
 	return distance < on.distance;
@@ -90,6 +93,15 @@ void Node::addEdge(Edge* e){
 		e->addNode(this);
 	}
 }
+
+void Node::mouseMoved(ofMouseEventArgs & args){}
+void Node::mouseDragged(ofMouseEventArgs & args){}
+void Node::mousePressed(ofMouseEventArgs & args){
+	if((args.x > (pos.x-size/2)) && (args.x < (pos.x+size/2)) && (args.y > (pos.y-size/2)) && (args.y < (pos.y+size/2))){
+		ofNotifyEvent(NodeClickEvent, *this);
+	}
+}
+void Node::mouseReleased(ofMouseEventArgs & args){}
 
 //////////////////////////////////
 //////////////////////////////////
@@ -175,6 +187,7 @@ Graph::~Graph(){
 void Graph::addNodeToGraph(Node& n){
 	theNodes[n.getName()] = &n;
 	orderedNodes.push_back(&n);
+	ofAddListener(n.NodeClickEvent, this, &Graph::calculateDists);
 }
 void Graph::addEdgeToGraph(Edge& e){
 	theEdges[e.getName()] = &e;
