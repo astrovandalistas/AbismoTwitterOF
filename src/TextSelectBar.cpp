@@ -18,7 +18,9 @@ TextSelectBar::TextSelectBar(){
 	colorUntil = -1;
 	colorFrom = phrase.size();
 }
-TextSelectBar::~TextSelectBar(){}
+TextSelectBar::~TextSelectBar(){
+	ofUnregisterMouseEvents(this);
+}
 
 void TextSelectBar::setup(int x_, int y_, int w_, int h_, string s_){
 	x = x_;
