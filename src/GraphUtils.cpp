@@ -171,7 +171,7 @@ Graph::Graph(){
 	collisionGroupSize = GROUP_SIZE;
 	// init sets
 	for(int i=0; i<(ofGetHeight()*ofGetWidth())/(collisionGroupSize*collisionGroupSize); ++i){
-		collisionGroups.push_back(set<Node*>());
+		collisionGroups.push_back(set<Edge*>());
 	}
 }
 
@@ -240,6 +240,50 @@ void Graph::orderGraph(){
 	// sort
 	sort(orderedNodes.begin(), orderedNodes.end(), Node::sortComp);
 	sort(orderedEdges.begin(), orderedEdges.end(), Edge::sortComp);
+}
+
+// physical functions
+void Graph::update(){
+	// update edges and add them to collision groups
+	for (map<string,Edge*>::const_iterator it=theEdges.begin(); it!=theEdges.end(); ++it){
+		Edge* e = it->second;
+		if(e){
+			e->update();
+			ofRectangle er = e->getBoundingBox();
+			// add top left
+			collisionGroups.at(coordToSet(er.x, er.y)).insert(e);
+			// add bottom left
+			collisionGroups.at(coordToSet(er.x, er.y+er.height)).insert(e);
+			// add top right
+			collisionGroups.at(coordToSet(er.x+er.width, er.y)).insert(e);
+			// add bottom right
+			collisionGroups.at(coordToSet(er.x+er.width, er.y+er.height)).insert(e);
+		}
+	}
+	// check collision
+	for(int i=0; i<collisionGroups.size(); ++i){
+		set<Edge*> group = collisionGroups.at(i);
+		// for all nodes in each group, check if they collide with each other
+		for(set<Edge*>::const_iterator it=group.begin(); it!=group.end(); ++it){
+			Edge* e0 = *it;
+			// TODO: find a better way to do this
+			set<Edge*>::const_iterator jt=it;
+			for(++jt; jt!=group.end(); ++jt){
+				Edge* e1 = *jt;
+				// TODO: implement this in Edge or PhysNode
+				// e0->checkCollision(e1);
+			}
+		}
+		// clear set after collision checks
+		group.clear();
+	}
+	// TODO: maybe update Nodes
+}
+
+void Graph::draw(){}
+
+inline const int Graph::coordToSet(float x, float y) const {
+	return float( (x/collisionGroupSize) + (y/collisionGroupSize)*(ofGetWidth()/collisionGroupSize) );
 }
 
 // for debug

@@ -83,6 +83,9 @@ public:
 	void addNodeToQ(Node& n);
 	void calculateDists(Node& fromNode);
 	void orderGraph();
+	// physical
+	void update();
+	void draw();
 	// debug
 	void printGraph() const;
 	void calculateDists();
@@ -94,5 +97,6 @@ protected:
 	queue<Node*> theQ;
 private:
 	int collisionGroupSize;
-	vector<set<Node*> > collisionGroups;
+	vector<set<Edge*> > collisionGroups;
+	inline const int coordToSet(float x, float y) const;
 };
