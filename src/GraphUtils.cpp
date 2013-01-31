@@ -7,7 +7,10 @@
 //
 
 #include "GraphUtils.h"
+#include "ofAppRunner.h"
 #include "ofLog.h"
+
+#define GROUP_SIZE 100
 
 PhysNode::PhysNode(){
 	size = 0;
@@ -152,6 +155,12 @@ Graph::Graph(){
 	ofAddListener(Edge::addNodeToQ, this, &Graph::addNodeToQ);
 	ofAddListener(Node::addNodeToGraph, this, &Graph::addNodeToGraph);
 	ofAddListener(Edge::addEdgeToGraph, this, &Graph::addEdgeToGraph);
+	//
+	collisionGroupSize = GROUP_SIZE;
+	// init sets
+	for(int i=0; i<(ofGetHeight()*ofGetWidth())/(collisionGroupSize*collisionGroupSize); ++i){
+		collisionGroups.push_back(set<Node*>());
+	}
 }
 
 Graph::~Graph(){

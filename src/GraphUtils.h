@@ -13,6 +13,7 @@
 #include "ofEvents.h"
 #include<map>
 #include<queue>
+#include<set>
 
 class Edge;
 
@@ -86,6 +87,7 @@ protected:
 	vector<Node*> orderedNodes;
 	vector<Edge*> orderedEdges;
 	queue<Node*> theQ;
+private:
+	int collisionGroupSize;
+	vector<set<Node*> > collisionGroups;
 };
-
-
