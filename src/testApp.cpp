@@ -136,14 +136,10 @@ void testApp::setup(){
 	////////// osc
 	//sender.setup(OSC_HOST,OSC_PORT);
 	//oscFont.loadFont(oscFontName, oscFontSize, true, true);
-
-	//////////// graph
-	//testGraphSetup();
 }
 
 //--------------------------------------------------------------
 void testApp::update(){
-	//testGraphUpdate();
 	if(ofGetFrameNum()%100 == 0){
 		cout << ofGetFrameRate() << endl;
 	}
@@ -404,43 +400,4 @@ string testApp::fitStringToWidth(const string s, const int w, ofTrueTypeFont ttf
 		retStr += word;
 	}
 	return retStr;
-}
-
-//--------------------------------------------------------------
-void testApp::testGraphSetup(){
-	vector<Node*> someNodes;
-	int numNodes = 100;
-	int numEdges = 800;
-	for(int i=0; i<numNodes; ++i){
-		Node *n = new Node("v"+ofToString(i));
-		someNodes.push_back(n);
-	}
-	
-	for(int i=0; i<numEdges; ++i){
-		int edgeCost = (int)(ofRandom(2)+1);
-		string edgeType = (edgeCost<2)?"cat":"tag";
-		Edge *e = new Edge(edgeType+ofToString(i), edgeCost);
-		int npe = (int)ofRandom(numEdges/numNodes);
-		for(int j=0; j<npe; ++j){
-			// pick random node
-			Node *n = someNodes.at((int)ofRandom(someNodes.size()));
-			n->addEdge(e);
-		}
-	}
-	
-	Node *n0 = someNodes.at((int)ofRandom(someNodes.size()));
-	long long unsigned int t0 = AbsoluteToDuration(UpTime());
-	mGraph.calculateDists(*n0);
-	long long unsigned int et = AbsoluteToDuration(UpTime())-t0;
-	cout << "calculated from: " << n0->getName()+ " in: " << et << " millis"<<endl;
-	mGraph.orderGraph();
-	mGraph.printGraph();
-}
-
-void testApp::testGraphUpdate(){
-	mGraph.calculateDists();
-	long long unsigned int t0 = AbsoluteToDuration(UpTime());
-	mGraph.orderGraph();
-	long long unsigned int et = AbsoluteToDuration(UpTime())-t0;
-	cout << "ordered graph in: " << et << " millis"<<endl;
 }

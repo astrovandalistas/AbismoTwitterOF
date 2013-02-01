@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		AF7F662C16B044A60004327D /* GraphUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AF7F662A16B044A60004327D /* GraphUtils.cpp */; };
 		AF7F665A16B0E3F70004327D /* IpEndpointName.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AF7F663616B0E3F70004327D /* IpEndpointName.cpp */; };
 		AF7F665B16B0E3F70004327D /* NetworkingUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AF7F663B16B0E3F70004327D /* NetworkingUtils.cpp */; };
 		AF7F665C16B0E3F70004327D /* UdpSocket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AF7F663C16B0E3F70004327D /* UdpSocket.cpp */; };
@@ -135,8 +134,6 @@
 		AF7F657D16AF8C380004327D /* ofxUIWaveform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxUIWaveform.h; sourceTree = "<group>"; };
 		AF7F657E16AF8C380004327D /* ofxUIWidget.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxUIWidget.h; sourceTree = "<group>"; };
 		AF7F657F16AF8C380004327D /* ofxUIWidgetWithLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxUIWidgetWithLabel.h; sourceTree = "<group>"; };
-		AF7F662A16B044A60004327D /* GraphUtils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GraphUtils.cpp; sourceTree = "<group>"; };
-		AF7F662B16B044A60004327D /* GraphUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GraphUtils.h; sourceTree = "<group>"; };
 		AF7F663616B0E3F70004327D /* IpEndpointName.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = IpEndpointName.cpp; sourceTree = "<group>"; };
 		AF7F663716B0E3F70004327D /* IpEndpointName.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IpEndpointName.h; sourceTree = "<group>"; };
 		AF7F663816B0E3F70004327D /* NetworkingUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkingUtils.h; sourceTree = "<group>"; };
@@ -891,8 +888,6 @@
 				AF7F667616B20DCA0004327D /* TextSelectBar.h */,
 				AF7F66A516B2F94B0004327D /* TextStack.cpp */,
 				AF7F66A616B2F94B0004327D /* TextStack.h */,
-				AF7F662A16B044A60004327D /* GraphUtils.cpp */,
-				AF7F662B16B044A60004327D /* GraphUtils.h */,
 			);
 			path = src;
 			sourceTree = SOURCE_ROOT;
@@ -1008,7 +1003,6 @@
 				AFFD4AD616ABACFD003D02A8 /* value.c in Sources */,
 				AFFD4AD716ABACFD003D02A8 /* modp_b64.c in Sources */,
 				AFFD4AE616AC8D95003D02A8 /* ofxBaseTwitterApi.cpp in Sources */,
-				AF7F662C16B044A60004327D /* GraphUtils.cpp in Sources */,
 				AF7F665A16B0E3F70004327D /* IpEndpointName.cpp in Sources */,
 				AF7F665B16B0E3F70004327D /* NetworkingUtils.cpp in Sources */,
 				AF7F665C16B0E3F70004327D /* UdpSocket.cpp in Sources */,

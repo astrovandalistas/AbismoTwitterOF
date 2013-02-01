@@ -54,9 +54,4 @@ class testApp : public ofBaseApp{
 
 		// TextStack (DEBUG)
 		TextStack mTextStack;
-
-		// Graph (DEBUG)
-		Graph mGraph;
-		void testGraphSetup();
-		void testGraphUpdate();
 };
