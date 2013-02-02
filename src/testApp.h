@@ -4,7 +4,6 @@
 #include "ofxBaseTwitterApi.h"
 #include "ofxUI.h"
 #include "ofxOsc.h"
-#include "GraphUtils.h"
 #include "TextSelectBar.h"
 #include "TextStack.h"
 
